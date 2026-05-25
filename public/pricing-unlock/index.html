@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>See Your Pricing — -arumaldo.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --deep-cave:    #1A1F1C;
+    --filtered-sun: #C9980A;
+    --water-veil:   #A8BFB0;
+    --living-green: #3B5E3F;
+    --matte-silver: #E8E8E6;
+    --paper:        #F0EBDF;
+    --cream:        #ECE7DA;
+    --ink:          #1E1D19;
+    --bronze:       #9A6A3C;
+    --text-muted:   #7A7265;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--deep-cave);
+    color: var(--paper);
+    padding: 72px 24px 80px;
+    text-align: center;
+  }
+  .hero-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--filtered-sun);
+    margin-bottom: 32px;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: var(--paper);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--water-veil);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ─── CARD ─── */
+  .card-wrap {
+    max-width: 540px;
+    margin: -40px auto 80px;
+    padding: 0 20px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 48px 44px;
+    box-shadow: 0 4px 40px rgba(26,31,28,0.10);
+  }
+  @media (max-width: 600px) {
+    .card { padding: 32px 24px; }
+  }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--filtered-sun);
+    margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+
+  /* ─── FIELDS ─── */
+  .field-group {
+    margin-bottom: 20px;
+  }
+  .field-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .field-group label .req { color: var(--filtered-sun); }
+  .field-group input,
+  .field-group select,
+  .field-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--matte-silver);
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: #FAFAF9;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .field-group input:focus,
+  .field-group select:focus,
+  .field-group textarea:focus {
+    border-color: var(--living-green);
+    background: #fff;
+  }
+  .field-group input.error,
+  .field-group select.error {
+    border-color: #D94F4F;
+    animation: shakeField 0.35s ease;
+  }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--matte-silver);
+    margin: 28px 0;
+  }
+
+  /* ─── SUBMIT ─── */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-top: 8px;
+  }
+  .btn-submit:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ─── PRIVACY NOTE ─── */
+  .privacy-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 18px;
+    text-align: center;
+  }
+  .privacy-note a { color: var(--living-green); text-decoration: none; }
+
+  /* ─── ERROR MSG ─── */
+  .error-msg {
+    font-size: 12px;
+    color: #D94F4F;
+    margin-top: 5px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  /* ─── SUCCESS ─── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon { font-size: 48px; margin-bottom: 20px; }
+  .success-title {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .success-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .success-sub strong { color: var(--ink); }
+
+  /* ─── WHY ─── */
+  .why-section {
+    background: var(--cream);
+    border-top: 1px solid rgba(26,31,28,0.07);
+    padding: 56px 24px;
+    text-align: center;
+  }
+  .why-inner { max-width: 560px; margin: 0 auto; }
+  .why-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--living-green); margin-bottom: 16px;
+  }
+  .why-title {
+    font-family: 'Fraunces', serif;
+    font-size: 24px; font-weight: 400;
+    color: var(--ink); margin-bottom: 16px;
+  }
+  .why-text { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+  @keyframes shakeField {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-logo">-arumaldo.</div>
+  <h1 class="hero-title">See your<br>pricing.</h1>
+  <p class="hero-sub">Tell us a bit about your business and we'll show you exactly what your website investment looks like.</p>
+</div>
+
+<!-- ─── FORM CARD ─── -->
+<div class="card-wrap">
+  <div class="card" id="form-card">
+
+    <div class="card-label">Step 1 of 1</div>
+    <h2 class="card-title">Quick intro, then your numbers.</h2>
+    <p class="card-desc">We keep pricing private to match it to each business. Fill this in — takes under 2 minutes — and your pricing unlocks immediately.</p>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label>First Name <span class="req">*</span></label>
+        <input type="text" id="f-first" placeholder="Ana" autocomplete="given-name" />
+      </div>
+      <div class="field-group">
+        <label>Last Name <span class="req">*</span></label>
+        <input type="text" id="f-last" placeholder="García" autocomplete="family-name" />
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Business Email <span class="req">*</span></label>
+      <input type="email" id="f-email" placeholder="ana@yourbusiness.com" autocomplete="email" />
+      <div class="error-msg" id="email-error">Please enter a valid email address.</div>
+    </div>
+
+    <div class="field-group">
+      <label>Phone / WhatsApp</label>
+      <input type="tel" id="f-phone" placeholder="+507 6000-0000" autocomplete="tel" />
+    </div>
+
+    <div class="field-group">
+      <label>Company / Business Name</label>
+      <input type="text" id="f-company" placeholder="Panama Boat Rentals" autocomplete="organization" />
+    </div>
+
+    <div class="field-group">
+      <label>Industry <span class="req">*</span></label>
+      <select id="f-industry">
+        <option value="" disabled selected>Select your industry</option>
+        <option value="Tourism & Hospitality">Tourism &amp; Hospitality</option>
+        <option value="Professional Services">Professional Services (Law, Finance, Consulting)</option>
+        <option value="Healthcare">Healthcare &amp; Wellness</option>
+        <option value="Real Estate">Real Estate</option>
+        <option value="Retail & E-commerce">Retail &amp; E-commerce</option>
+        <option value="Food & Beverage">Food &amp; Beverage</option>
+        <option value="Construction & Real Estate Development">Construction &amp; Real Estate Development</option>
+        <option value="Technology">Technology &amp; Software</option>
+        <option value="Education">Education &amp; Training</option>
+        <option value="Non-profit">Non-profit &amp; NGO</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label>Country <span class="req">*</span></label>
+      <select id="f-country">
+        <option value="" disabled selected>Select your country</option>
+        <option value="Panama">Panama 🇵🇦</option>
+        <option value="United States">United States 🇺🇸</option>
+        <option value="Colombia">Colombia 🇨🇴</option>
+        <option value="Mexico">Mexico 🇲🇽</option>
+        <option value="Costa Rica">Costa Rica 🇨🇷</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="field-group">
+      <label>Current website URL <span style="font-weight:400;color:var(--text-muted)">(if you have one)</span></label>
+      <input type="url" id="f-url" placeholder="https://yourbusiness.com" />
+    </div>
+
+    <div class="field-group">
+      <label>What do you need most right now? <span class="req">*</span></label>
+      <select id="f-need">
+        <option value="" disabled selected>Select an option</option>
+        <option value="Build a new website from scratch">Build a new website from scratch</option>
+        <option value="Replace an old or outdated website">Replace an old or outdated website</option>
+        <option value="Add a professional online presence">Add a professional online presence</option>
+        <option value="Launch a specific product or campaign">Launch a specific product or campaign</option>
+        <option value="Not sure yet">Not sure yet — exploring options</option>
+      </select>
+    </div>
+
+    <button class="btn-submit" id="btn-submit" onclick="submitUnlock()">
+      Show Me My Pricing →
+    </button>
+
+    <p class="privacy-note">
+      No spam. No sales calls unless you ask. Your information is used only to match you to the right package.
+      <br>Questions? <a href="mailto:abdiel@arumaldo.com">abdiel@arumaldo.com</a>
+    </p>
+
+    <!-- ─── SUCCESS ─── -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">Your pricing is unlocked.</h2>
+      <p class="success-sub">
+        Check your email — we've sent your personalized pricing and proposal link.
+        <br><br>
+        <strong>Next step:</strong> Review your proposal and book a quick call if you have questions.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── WHY SECTION ─── -->
+<div class="why-section">
+  <div class="why-inner">
+    <div class="why-label">Why we do this</div>
+    <h3 class="why-title">Pricing that fits your business, not a template.</h3>
+    <p class="why-text">
+      Arumaldo builds premium websites for established businesses — not commodity templates.
+      We keep pricing private so we can match each project to the right investment level,
+      and give every business the attention they deserve from the very first step.
+    </p>
+  </div>
+</div>
+
+<script>
+  // ─── URL PARAMS ───
+  const urlParams   = new URLSearchParams(window.location.search);
+  const PROPOSAL_ID = urlParams.get('pid') || '';
+  const LEAD_ID     = urlParams.get('lid') || '';
+
+  // ─── ENDPOINT ───
+  const UNLOCK_ENDPOINT = '/api/pricing-unlock'; // Filled in Phase 6
+
+  // ─── VALIDATE ───
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+  }
+
+  function validateField(id, check) {
+    const el = document.getElementById(id);
+    if (!el) return true;
+    const valid = check(el.value);
+    el.classList.toggle('error', !valid);
+    return valid;
+  }
+
+  // ─── SUBMIT ───
+  async function submitUnlock() {
+    const firstName = document.getElementById('f-first').value.trim();
+    const lastName  = document.getElementById('f-last').value.trim();
+    const email     = document.getElementById('f-email').value.trim();
+    const industry  = document.getElementById('f-industry').value;
+    const country   = document.getElementById('f-country').value;
+    const need      = document.getElementById('f-need').value;
+
+    let valid = true;
+    if (!firstName) { document.getElementById('f-first').classList.add('error'); valid = false; }
+    if (!lastName)  { document.getElementById('f-last').classList.add('error');  valid = false; }
+    if (!isValidEmail(email)) {
+      document.getElementById('f-email').classList.add('error');
+      document.getElementById('email-error').classList.add('show');
+      valid = false;
+    } else {
+      document.getElementById('email-error').classList.remove('show');
+    }
+    if (!industry) { document.getElementById('f-industry').classList.add('error'); valid = false; }
+    if (!country)  { document.getElementById('f-country').classList.add('error');  valid = false; }
+    if (!need)     { document.getElementById('f-need').classList.add('error');     valid = false; }
+
+    if (!valid) return;
+
+    const payload = {
+      type:       'pricing_unlock',
+      proposal_id: PROPOSAL_ID,
+      lead_id:     LEAD_ID,
+      first_name:  firstName,
+      last_name:   lastName,
+      email:       email,
+      phone:       document.getElementById('f-phone').value.trim(),
+      company:     document.getElementById('f-company').value.trim(),
+      industry:    industry,
+      country:     country,
+      current_url: document.getElementById('f-url').value.trim(),
+      need:        need,
+    };
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Unlocking…';
+
+    if (UNLOCK_ENDPOINT) {
+      try {
+        await fetch(UNLOCK_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } catch (err) {
+        console.error('Unlock submission error:', err);
+      }
+    } else {
+      console.log('PRICING UNLOCK PAYLOAD:', JSON.stringify(payload, null, 2));
+    }
+
+    // Show success
+    document.getElementById('form-card').querySelectorAll('.field-group, .field-row, hr, .btn-submit, .card-label, .card-title, .card-desc, .privacy-note')
+      .forEach(el => el.style.display = 'none');
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── CLEAR ERROR ON INPUT ───
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+  });
+</script>
+</body>
+</html>

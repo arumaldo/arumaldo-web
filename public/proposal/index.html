@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Website Proposal — Arumaldo</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- PageSense — replace tracking code per project -->
+  <script type="text/javascript">
+    window._pagesense = window._pagesense || [];
+    // PAGESENSE_EMBED_PLACEHOLDER — paste project snippet here
+  </script>
+
+  <style>
+    /* ── Brand tokens ──────────────────────────────────────────── */
+    :root {
+      --deep-cave:     #1A1F1C;
+      --living-green:  #3B5E3F;
+      --light-green:   #4D7A52;
+      --filtered-sun:  #C9980A;
+      --sun-light:     #E8B420;
+      --paper:         #F0EBDF;
+      --paper-dark:    #E2DDD0;
+      --ink:           #1A1F1C;
+      --ink-mid:       #3D4440;
+      --ink-muted:     #6B7370;
+      --white:         #FFFFFF;
+      --radius:        10px;
+      --radius-lg:     16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Expired overlay ───────────────────────────────────────── */
+    #expired-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,31,28,.88);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    #expired-overlay.active { display: flex; }
+    .expired-box {
+      background: var(--paper);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    .expired-box h2 { font-family: 'Fraunces', serif; font-size: 28px; color: var(--deep-cave); margin-bottom: 12px; }
+    .expired-box p  { color: var(--ink-mid); margin-bottom: 28px; }
+    .expired-box a  {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--living-green);
+      color: var(--white);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* ── Header bar ────────────────────────────────────────────── */
+    .site-header {
+      background: var(--deep-cave);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-header .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: var(--paper);
+      text-decoration: none;
+      letter-spacing: -.3px;
+    }
+    .site-header .pid {
+      font-size: 12px;
+      color: var(--ink-muted);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: .4px;
+    }
+
+    /* ── Main container ────────────────────────────────────────── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      padding: 64px 0 40px;
+      border-bottom: 1px solid var(--paper-dark);
+      margin-bottom: 48px;
+    }
+    .hero .eyebrow {
+      display: inline-block;
+      background: var(--living-green);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.15;
+      color: var(--deep-cave);
+      margin-bottom: 16px;
+    }
+    .hero h1 em { font-style: italic; color: var(--living-green); }
+    .hero .sub { font-size: 17px; color: var(--ink-mid); max-width: 540px; }
+
+    /* ── Section headers ───────────────────────────────────────── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      color: var(--deep-cave);
+      margin-bottom: 12px;
+    }
+    section { margin-bottom: 56px; }
+
+    /* ── Pricing — locked state ────────────────────────────────── */
+    .pricing-locked {
+      background: var(--deep-cave);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-locked::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: var(--living-green);
+      opacity: .12;
+    }
+    .pricing-locked h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: var(--paper);
+      margin-bottom: 8px;
+    }
+    .pricing-locked p { color: #9fada8; margin-bottom: 28px; font-size: 15px; }
+    .lock-icon { font-size: 40px; margin-bottom: 16px; }
+    .btn-unlock {
+      display: inline-block;
+      padding: 15px 36px;
+      background: var(--filtered-sun);
+      color: var(--deep-cave);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -.2px;
+      transition: background .2s;
+    }
+    .btn-unlock:hover { background: var(--sun-light); }
+
+    /* ── Pricing — unlocked state ──────────────────────────────── */
+    .pricing-unlocked { display: none; }
+    .pricing-card {
+      background: var(--white);
+      border: 2px solid var(--paper-dark);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .pricing-card.primary { border-color: var(--living-green); }
+    .pricing-card-head {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--paper-dark);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .pricing-card.primary .pricing-card-head { background: var(--living-green); }
+    .pricing-card.primary .pkg-name  { color: var(--white); }
+    .pricing-card.primary .pkg-desc  { color: rgba(255,255,255,.75); }
+    .pricing-card.primary .pkg-price { color: var(--white); }
+    .pricing-card.primary .pkg-cadence { color: rgba(255,255,255,.6); }
+    .pkg-name   { font-family: 'Fraunces', serif; font-size: 20px; color: var(--deep-cave); }
+    .pkg-desc   { font-size: 13px; color: var(--ink-muted); margin-top: 4px; }
+    .pkg-price  { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--deep-cave); white-space: nowrap; }
+    .pkg-cadence { font-size: 13px; color: var(--ink-muted); text-align: right; }
+    .pricing-card-body { padding: 24px 32px; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); }
+    .feature-list li::before { content: '✓'; color: var(--living-green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* Add-on rows */
+    .addon-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-top: 1px solid var(--paper-dark);
+      font-size: 14px;
+    }
+    .addon-row:first-child { border-top: none; }
+    .addon-name  { color: var(--ink-mid); }
+    .addon-price { font-weight: 600; color: var(--deep-cave); white-space: nowrap; }
+    .addon-cadence { font-size: 12px; color: var(--ink-muted); display: block; }
+
+    /* Hosting note */
+    .hosting-notice {
+      background: #f0f5f1;
+      border-left: 3px solid var(--living-green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--ink-mid);
+      margin-top: 16px;
+    }
+    .hosting-notice strong { color: var(--living-green); }
+
+    /* ── CTA section ───────────────────────────────────────────── */
+    .cta-box {
+      background: var(--deep-cave);
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .cta-box h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      color: var(--paper);
+      margin-bottom: 10px;
+    }
+    .cta-box p { color: #9fada8; margin-bottom: 32px; font-size: 15px; }
+    .btn-pay {
+      display: inline-block;
+      padding: 16px 44px;
+      background: var(--filtered-sun);
+      color: var(--deep-cave);
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.2px;
+      transition: background .2s;
+    }
+    .btn-pay:hover { background: var(--sun-light); }
+    .cta-sub {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #9fada8;
+    }
+
+    /* ── What's included ───────────────────────────────────────── */
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .included-item {
+      background: var(--white);
+      border: 1px solid var(--paper-dark);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .included-item .icon { font-size: 22px; margin-bottom: 8px; }
+    .included-item strong { display: block; font-size: 14px; color: var(--deep-cave); margin-bottom: 4px; }
+    .included-item span { font-size: 13px; color: var(--ink-muted); }
+
+    /* ── Process steps ─────────────────────────────────────────── */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      padding-bottom: 28px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--living-green);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      position: relative; z-index: 1;
+    }
+    .step::before {
+      content: '';
+      position: absolute;
+      left: 17px; top: 36px; bottom: 0;
+      width: 2px;
+      background: var(--paper-dark);
+    }
+    .step:last-child::before { display: none; }
+    .step-content { padding-top: 6px; }
+    .step-content strong { display: block; font-size: 15px; color: var(--deep-cave); margin-bottom: 4px; }
+    .step-content span { font-size: 14px; color: var(--ink-mid); }
+
+    /* ── Commerce section ──────────────────────────────────────── */
+    .commerce-notice {
+      background: var(--white);
+      border: 2px solid var(--filtered-sun);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+    }
+    .commerce-notice h4 { font-family: 'Fraunces', serif; font-size: 18px; color: var(--deep-cave); margin-bottom: 8px; }
+    .commerce-notice p  { font-size: 14px; color: var(--ink-mid); }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--deep-cave);
+      padding: 28px 40px;
+      text-align: center;
+    }
+    .site-footer p { font-size: 13px; color: #6b7370; }
+    .site-footer a { color: #9fada8; text-decoration: none; }
+
+    /* ── Expiry badge ──────────────────────────────────────────── */
+    .expiry-note {
+      background: #fff8e1;
+      border: 1px solid #f0d060;
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #7a5c00;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .site-header { padding: 14px 20px; }
+      .container { padding: 0 16px 60px; }
+      .hero { padding: 40px 0 28px; }
+      .pricing-locked, .cta-box { padding: 32px 24px; }
+      .pricing-card-head { flex-direction: column; gap: 8px; }
+      .pricing-card-head, .pricing-card-body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Expired overlay ───────────────────────────── -->
+<div id="expired-overlay">
+  <div class="expired-box">
+    <div style="font-size:48px;margin-bottom:16px">⏳</div>
+    <h2 id="exp-title">This Proposal Has Expired</h2>
+    <p id="exp-body">Pricing and availability may have changed. Contact us to request an updated proposal.</p>
+    <a href="https://arumaldo.com/#contact" id="exp-cta">Request a New Proposal</a>
+  </div>
+</div>
+
+<!-- ── Header ────────────────────────────────────── -->
+<header class="site-header">
+  <a href="https://arumaldo.com" class="logo">Arumaldo</a>
+  <span class="pid" id="header-pid"></span>
+</header>
+
+<!-- ── Main ──────────────────────────────────────── -->
+<main>
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <span class="eyebrow" id="eyebrow-label">Website Proposal</span>
+      <h1 id="hero-headline">A website built<br>for <em id="client-name-em">your business</em>.</h1>
+      <p class="sub" id="hero-sub">
+        This proposal outlines your custom website package, pricing, and what happens next.
+      </p>
+    </section>
+
+    <!-- Expiry notice (shown when state=unlocked and expiry date is set) -->
+    <div class="expiry-note" id="expiry-note" style="display:none">
+      ⚠️ <span id="expiry-text">This proposal expires on <strong id="expiry-date"></strong>. Complete payment before then to lock in your pricing.</span>
+    </div>
+
+    <!-- ── PRICING ────────────────────────────────── -->
+    <section id="pricing-section">
+      <div class="section-label" id="pricing-label">Your Package</div>
+      <h2 class="section-title" id="pricing-title">What's included — and what it costs.</h2>
+
+      <!-- LOCKED STATE -->
+      <div class="pricing-locked" id="pricing-locked">
+        <div class="lock-icon">🔒</div>
+        <h3 id="lock-headline">Pricing is reserved for you.</h3>
+        <p id="lock-body">This proposal includes a custom pricing summary. Confirm your details to unlock it — no commitment required.</p>
+        <a href="#" id="unlock-btn" class="btn-unlock" data-goal="unlock-pricing">
+          Unlock My Pricing →
+        </a>
+      </div>
+
+      <!-- UNLOCKED STATE -->
+      <div class="pricing-unlocked" id="pricing-unlocked">
+
+        <!-- Website package card -->
+        <div class="pricing-card primary" id="pkg-card">
+          <div class="pricing-card-head">
+            <div>
+              <div class="pkg-name" id="pkg-name">Multi-Page Corporate Website</div>
+              <div class="pkg-desc" id="pkg-desc">Up to 6 pages · 2 change rounds · Premium design</div>
+            </div>
+            <div>
+              <div class="pkg-price" id="pkg-price">$2,500</div>
+              <div class="pkg-cadence" id="pkg-cadence">one-time</div>
+            </div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list" id="pkg-features">
+              <li>Custom design built to your brand</li>
+              <li>Up to 6 pages (Home, About, Services, Portfolio, Blog, Contact)</li>
+              <li>Mobile-responsive on all devices</li>
+              <li>SEO-ready structure and meta tags</li>
+              <li>Contact form and basic lead capture</li>
+              <li>2 change rounds before launch</li>
+              <li>Delivered in 7–14 business days</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Hosting card -->
+        <div class="pricing-card" id="hosting-card">
+          <div class="pricing-card-head">
+            <div>
+              <div class="pkg-name" id="host-name">Managed Hosting</div>
+              <div class="pkg-desc" id="host-desc">Required for all Arumaldo websites</div>
+            </div>
+            <div>
+              <div class="pkg-price" id="host-price">$300</div>
+              <div class="pkg-cadence" id="host-cadence">/year · saves $60 vs monthly</div>
+            </div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Secure cloud hosting on Arumaldo-managed infrastructure</li>
+              <li>SSL certificate included</li>
+              <li>Daily backups and uptime monitoring</li>
+              <li>Hosting renews automatically until cancelled</li>
+            </ul>
+            <div class="hosting-notice">
+              <strong>Hosting is mandatory.</strong> Your website runs on Arumaldo infrastructure. You own your domain and all content.
+            </div>
+          </div>
+        </div>
+
+        <!-- WCR card (shown if wcr=1) -->
+        <div class="pricing-card" id="wcr-card" style="display:none">
+          <div class="pricing-card-head">
+            <div>
+              <div class="pkg-name" id="wcr-name">Website Change Request Service</div>
+              <div class="pkg-desc" id="wcr-desc">Up to 5 changes per month included</div>
+            </div>
+            <div>
+              <div class="pkg-price" id="wcr-price">$999</div>
+              <div class="pkg-cadence" id="wcr-cadence">/year · saves $189 vs monthly</div>
+            </div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Up to 5 eligible Change Requests per month</li>
+              <li>Submit updates via email or form — no tech skills needed</li>
+              <li>Additional changes at $50 each if limit is exceeded</li>
+              <li>Covers text, images, links, layout tweaks, and more</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Commerce card (shown if commerce=1) -->
+        <div class="pricing-card" id="commerce-card" style="display:none">
+          <div class="pricing-card-head">
+            <div>
+              <div class="pkg-name" id="com-name">Commerce Integration</div>
+              <div class="pkg-desc" id="com-desc">Service-commerce — as proposed</div>
+            </div>
+            <div>
+              <div class="pkg-price" id="com-price">Included</div>
+              <div class="pkg-cadence">in this proposal</div>
+            </div>
+          </div>
+          <div class="pricing-card-body">
+            <div class="commerce-notice">
+              <h4>Service-Commerce Only</h4>
+              <p>Your website will include the service-commerce features described in this proposal. Physical product storefronts are not included. Commerce scope is strictly what is listed here.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DNS card (shown if dns=1) -->
+        <div class="pricing-card" id="dns-card" style="display:none">
+          <div class="pricing-card-head">
+            <div>
+              <div class="pkg-name">DNS Implementation</div>
+              <div class="pkg-desc">Arumaldo connects your domain for you</div>
+            </div>
+            <div>
+              <div class="pkg-price">$100</div>
+              <div class="pkg-cadence">one-time</div>
+            </div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>We configure your domain's DNS records on your behalf</li>
+              <li>Requires access to your domain registrar (you provide login)</li>
+              <li>Includes SSL setup and propagation verification</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Total summary -->
+        <div id="total-summary" style="
+          background: var(--white);
+          border: 2px solid var(--deep-cave);
+          border-radius: var(--radius);
+          padding: 20px 28px;
+          margin-top: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+        ">
+          <div>
+            <div style="font-size:13px;color:var(--ink-muted);margin-bottom:4px" id="total-label">Today you pay</div>
+            <div style="font-size:13px;color:var(--ink-muted)" id="total-sub">+ hosting billed separately after setup</div>
+          </div>
+          <div style="font-family:'Fraunces',serif;font-size:32px;color:var(--deep-cave)" id="total-amount">$2,500</div>
+        </div>
+      </div><!-- /pricing-unlocked -->
+    </section>
+
+    <!-- ── WHAT'S INCLUDED ────────────────────────── -->
+    <section id="included-section">
+      <div class="section-label" id="inc-label">What You Get</div>
+      <h2 class="section-title" id="inc-title">Everything handled for you.</h2>
+      <div class="included-grid">
+        <div class="included-item">
+          <div class="icon">🎨</div>
+          <strong id="inc1-t">Custom Design</strong>
+          <span id="inc1-d">Built to your brand — not a generic template.</span>
+        </div>
+        <div class="included-item">
+          <div class="icon">📱</div>
+          <strong id="inc2-t">Mobile-First</strong>
+          <span id="inc2-d">Looks great on every screen, every device.</span>
+        </div>
+        <div class="included-item">
+          <div class="icon">🔒</div>
+          <strong id="inc3-t">SSL + Secure Hosting</strong>
+          <span id="inc3-d">Your site runs on managed, monitored infrastructure.</span>
+        </div>
+        <div class="included-item">
+          <div class="icon">🔍</div>
+          <strong id="inc4-t">SEO Foundation</strong>
+          <span id="inc4-d">Proper structure, meta tags, and fast load times.</span>
+        </div>
+        <div class="included-item">
+          <div class="icon">✏️</div>
+          <strong id="inc5-t">2 Change Rounds</strong>
+          <span id="inc5-d">Review and request revisions before launch.</span>
+        </div>
+        <div class="included-item">
+          <div class="icon">📦</div>
+          <strong id="inc6-t">You Own Everything</strong>
+          <span id="inc6-d">Your brand, content, and domain are always yours.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS ───────────────────────────── -->
+    <section id="process-section">
+      <div class="section-label" id="proc-label">The Process</div>
+      <h2 class="section-title" id="proc-title">From payment to launch in 7–14 days.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong id="s1-t">Pay &amp; Complete Intake</strong>
+            <span id="s1-d">Pay 100% upfront, then fill out a short intake form with your content, logo, and preferences.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong id="s2-t">We Design &amp; Build</strong>
+            <span id="s2-d">We create your custom design and build every page to spec. You receive a private preview link.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong id="s3-t">Review &amp; Revise</strong>
+            <span id="s3-d">Two rounds of changes are included. Request edits via email — we handle the rest.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong id="s4-t">Launch</strong>
+            <span id="s4-d">We connect your domain and go live. You get launch confirmation and handoff instructions.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────── -->
+    <section id="cta-section">
+      <div class="cta-box" id="cta-locked-box">
+        <h3 id="cta-locked-h">Ready to see your pricing?</h3>
+        <p id="cta-locked-p">Unlock your proposal to see the exact cost and pay when you're ready.</p>
+        <a href="#" id="cta-unlock-btn" class="btn-pay" data-goal="unlock-pricing">Unlock My Pricing →</a>
+      </div>
+
+      <div class="cta-box" id="cta-unlocked-box" style="display:none">
+        <h3 id="cta-h">Ready to start your website?</h3>
+        <p id="cta-p">Payment is 100% secure through Zoho Billing. Your spot is reserved once payment clears.</p>
+        <a href="#" id="pay-btn" class="btn-pay" data-goal="payment-cta">Pay &amp; Get Started →</a>
+        <div class="cta-sub" id="cta-sub-text">🔒 Secure checkout · 100% upfront · Hosting billed separately</div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+</main>
+
+<!-- ── Footer ─────────────────────────────────────── -->
+<footer class="site-footer">
+  <p>© 2025 Arumaldo · <a href="https://arumaldo.com">arumaldo.com</a> · <span id="footer-pid"></span></p>
+</footer>
+
+
+<script>
+/* ================================================================
+   PROPOSAL ENGINE
+   URL params:
+     state   : locked | unlocked | expired        (default: locked)
+     lang    : en | es                             (default: en)
+     type    : outbound | inbound                  (default: outbound)
+     pid     : proposal ID string
+     name    : client first name or company
+     pkg     : 1p | mp                             (default: mp)
+     host    : monthly | yearly                    (default: yearly)
+     wcr     : 0 | 1                               (default: 0)
+     commerce: 0 | 1                               (default: 0)
+     dns     : 0 | 1                               (default: 0)
+     exp     : expiry date ISO string (YYYY-MM-DD) (optional)
+
+   Payment links (from assets/payment_links.json):
+     See PAYMENT_LINKS object below — update with live URLs.
+================================================================ */
+
+// Org token from assets/payment_links.json
+const ORG_TOKEN = "bbb93e1014f76e837bd7104b49d16fae8dcfc5faa1a502c5ad482bf477cf719e";
+
+// Base subscription URLs per package + hosting cadence
+// WCR is a separate subscription sent via follow-up email after main payment
+// DNS ($100) is invoiced separately after main payment
+const PAYMENT_LINKS = {
+  "en_mp_yearly":        `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-Y?addon_codes=ARU-WEB-MP-FEE`,
+  "en_mp_monthly":       `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-M?addon_codes=ARU-WEB-MP-FEE`,
+  "en_1p_yearly":        `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-Y?addon_codes=ARU-WEB-1P-FEE`,
+  "en_1p_monthly":       `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-M?addon_codes=ARU-WEB-1P-FEE`,
+  // ES uses same URLs (language is browser-locale based in Zoho Billing)
+  "es_mp_yearly":        `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-Y?addon_codes=ARU-WEB-MP-FEE`,
+  "es_mp_monthly":       `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-M?addon_codes=ARU-WEB-MP-FEE`,
+  "es_1p_yearly":        `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-Y?addon_codes=ARU-WEB-1P-FEE`,
+  "es_1p_monthly":       `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-HOST-M?addon_codes=ARU-WEB-1P-FEE`,
+  // WCR separate subscription links (sent via follow-up email)
+  "wcr_yearly":          `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-WCR-Y`,
+  "wcr_monthly":         `https://billing.zohosecure.com/subscribe/${ORG_TOKEN}/ARU-WCR-M`,
+};
+
+const COPY = {
+  en: {
+    eyebrow_outbound: "Website Proposal",
+    eyebrow_inbound:  "Your Website Proposal",
+    hero_headline:    (name) => `A website built<br>for <em>${name || "your business"}</em>.`,
+    hero_sub:         "This proposal outlines your custom website package, pricing, and what happens next.",
+    pricing_label:    "Your Package",
+    pricing_title:    "What's included — and what it costs.",
+    lock_headline:    "Pricing is reserved for you.",
+    lock_body:        "This proposal includes a custom pricing summary. Confirm your details to unlock it — no commitment required.",
+    unlock_btn:       "Unlock My Pricing →",
+    pkg_1p_name:      "One-Page Professional Website",
+    pkg_1p_desc:      "1 page · 2 change rounds · Focused, conversion-ready",
+    pkg_1p_features:  [
+      "Single-page design built to your brand",
+      "Sections: Hero, About, Services, Testimonials, Contact",
+      "Mobile-responsive on all devices",
+      "SEO-ready structure and meta tags",
+      "Contact form included",
+      "2 change rounds before launch",
+      "Delivered in 5–10 business days",
+    ],
+    pkg_mp_name:      "Multi-Page Corporate Website",
+    pkg_mp_desc:      "Up to 6 pages · 2 change rounds · Premium design",
+    pkg_mp_features:  [
+      "Custom design built to your brand",
+      "Up to 6 pages (Home, About, Services, Portfolio, Blog, Contact)",
+      "Mobile-responsive on all devices",
+      "SEO-ready structure and meta tags",
+      "Contact form and basic lead capture",
+      "2 change rounds before launch",
+      "Delivered in 7–14 business days",
+    ],
+    host_yearly_name:    "Managed Hosting",
+    host_yearly_desc:    "Required · saves $60 vs monthly",
+    host_yearly_price:   "$300",
+    host_yearly_cadence: "/year",
+    host_monthly_name:   "Managed Hosting",
+    host_monthly_desc:   "Required for all Arumaldo websites",
+    host_monthly_price:  "$30",
+    host_monthly_cadence:"/month",
+    hosting_note:        "<strong>Hosting is mandatory.</strong> Your website runs on Arumaldo infrastructure. You own your domain and all content.",
+    wcr_yearly_name:     "Website Change Request Service",
+    wcr_yearly_desc:     "Up to 5 changes/month included",
+    wcr_yearly_price:    "$999",
+    wcr_yearly_cadence:  "/year · saves $189 vs monthly",
+    wcr_monthly_price:   "$99",
+    wcr_monthly_cadence: "/month",
+    total_label:         "Today you pay",
+    total_sub_yearly:    "+ hosting $300/yr billed separately",
+    total_sub_monthly:   "+ hosting $30/mo billed separately",
+    cta_locked_h:        "Ready to see your pricing?",
+    cta_locked_p:        "Unlock your proposal to see the exact cost and pay when you're ready.",
+    cta_h:               "Ready to start your website?",
+    cta_p:               "Payment is 100% secure through Zoho Billing. Your spot is reserved once payment clears.",
+    cta_sub:             "🔒 Secure checkout · 100% upfront · Hosting billed separately",
+    pay_btn:             "Pay & Get Started →",
+    exp_title:           "This Proposal Has Expired",
+    exp_body:            "Pricing and availability may have changed. Contact us to request an updated proposal.",
+    exp_cta:             "Request a New Proposal",
+    expiry_text:         (d) => `This proposal expires on <strong>${d}</strong>. Complete payment before then to lock in your pricing.`,
+  },
+  es: {
+    eyebrow_outbound: "Propuesta de Sitio Web",
+    eyebrow_inbound:  "Tu Propuesta de Sitio Web",
+    hero_headline:    (name) => `Un sitio web construido<br>para <em>${name || "tu negocio"}</em>.`,
+    hero_sub:         "Esta propuesta describe tu paquete de sitio web personalizado, precios y los próximos pasos.",
+    pricing_label:    "Tu Paquete",
+    pricing_title:    "Qué incluye — y cuánto cuesta.",
+    lock_headline:    "Los precios están reservados para ti.",
+    lock_body:        "Esta propuesta incluye un resumen de precios personalizado. Confirma tus datos para desbloquearlo — sin compromiso.",
+    unlock_btn:       "Desbloquear Mi Precio →",
+    pkg_1p_name:      "Sitio Web Profesional de Una Página",
+    pkg_1p_desc:      "1 página · 2 rondas de cambios · Enfocado y optimizado",
+    pkg_1p_features:  [
+      "Diseño de una página adaptado a tu marca",
+      "Secciones: Inicio, Sobre nosotros, Servicios, Testimonios, Contacto",
+      "Responsive en todos los dispositivos",
+      "Estructura SEO y meta etiquetas incluidas",
+      "Formulario de contacto incluido",
+      "2 rondas de cambios antes del lanzamiento",
+      "Entrega en 5–10 días hábiles",
+    ],
+    pkg_mp_name:      "Sitio Web Corporativo Multi-Página",
+    pkg_mp_desc:      "Hasta 6 páginas · 2 rondas de cambios · Diseño premium",
+    pkg_mp_features:  [
+      "Diseño personalizado adaptado a tu marca",
+      "Hasta 6 páginas (Inicio, Empresa, Servicios, Portafolio, Blog, Contacto)",
+      "Responsive en todos los dispositivos",
+      "Estructura SEO y meta etiquetas incluidas",
+      "Formulario de contacto y captura de leads",
+      "2 rondas de cambios antes del lanzamiento",
+      "Entrega en 7–14 días hábiles",
+    ],
+    host_yearly_name:    "Alojamiento Administrado",
+    host_yearly_desc:    "Obligatorio · ahorra $60 vs mensual",
+    host_yearly_price:   "$300",
+    host_yearly_cadence: "/año",
+    host_monthly_name:   "Alojamiento Administrado",
+    host_monthly_desc:   "Obligatorio para todos los sitios Arumaldo",
+    host_monthly_price:  "$30",
+    host_monthly_cadence:"/mes",
+    hosting_note:        "<strong>El alojamiento es obligatorio.</strong> Tu sitio funciona en infraestructura administrada por Arumaldo. Tú eres dueño de tu dominio y todo el contenido.",
+    wcr_yearly_name:     "Servicio de Cambios al Sitio Web",
+    wcr_yearly_desc:     "Hasta 5 cambios/mes incluidos",
+    wcr_yearly_price:    "$999",
+    wcr_yearly_cadence:  "/año · ahorra $189 vs mensual",
+    wcr_monthly_price:   "$99",
+    wcr_monthly_cadence: "/mes",
+    total_label:         "Pagas hoy",
+    total_sub_yearly:    "+ alojamiento $300/año facturado por separado",
+    total_sub_monthly:   "+ alojamiento $30/mes facturado por separado",
+    cta_locked_h:        "¿Listo para ver tu precio?",
+    cta_locked_p:        "Desbloquea tu propuesta para ver el costo exacto y pagar cuando estés listo.",
+    cta_h:               "¿Listo para iniciar tu sitio web?",
+    cta_p:               "El pago es 100% seguro a través de Zoho Billing. Tu lugar queda reservado una vez que se confirme el pago.",
+    cta_sub:             "🔒 Pago seguro · 100% por adelantado · Alojamiento facturado por separado",
+    pay_btn:             "Pagar y Comenzar →",
+    exp_title:           "Esta Propuesta Ha Vencido",
+    exp_body:            "Los precios y disponibilidad pueden haber cambiado. Contáctanos para solicitar una propuesta actualizada.",
+    exp_cta:             "Solicitar Nueva Propuesta",
+    expiry_text:         (d) => `Esta propuesta vence el <strong>${d}</strong>. Completa el pago antes de esa fecha para asegurar tu precio.`,
+  }
+};
+
+function getParam(key, fallback = '') {
+  return new URLSearchParams(window.location.search).get(key) || fallback;
+}
+
+function renderProposal() {
+  const state    = getParam('state', 'locked');
+  const lang     = getParam('lang', 'en');
+  const type     = getParam('type', 'outbound');
+  const pid      = getParam('pid', '');
+  const name     = getParam('name', '');
+  const pkg      = getParam('pkg', 'mp');
+  const host     = getParam('host', 'yearly');
+  const wcr      = getParam('wcr', '0') === '1';
+  const commerce = getParam('commerce', '0') === '1';
+  const dns      = getParam('dns', '0') === '1';
+  const exp      = getParam('exp', '');
+
+  const c = COPY[lang] || COPY.en;
+  const isMP = pkg !== '1p';
+
+  // Page title and lang
+  document.documentElement.lang = lang;
+  document.title = lang === 'es'
+    ? `Propuesta de Sitio Web — Arumaldo`
+    : `Website Proposal — Arumaldo`;
+
+  // Proposal ID
+  if (pid) {
+    document.getElementById('header-pid').textContent = 'Proposal ' + pid;
+    document.getElementById('footer-pid').textContent  = 'Proposal ' + pid;
+  }
+
+  // EXPIRED
+  if (state === 'expired') {
+    const ov = document.getElementById('expired-overlay');
+    document.getElementById('exp-title').textContent = c.exp_title;
+    document.getElementById('exp-body').textContent  = c.exp_body;
+    document.getElementById('exp-cta').textContent   = c.exp_cta;
+    ov.classList.add('active');
+    return;
+  }
+
+  // Expiry notice
+  if (exp && state === 'unlocked') {
+    const d = new Date(exp);
+    const fmt = d.toLocaleDateString(lang === 'es' ? 'es-PA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('expiry-date').textContent = fmt;
+    document.getElementById('expiry-text').innerHTML = c.expiry_text(fmt);
+    document.getElementById('expiry-note').style.display = 'flex';
+  }
+
+  // Hero
+  document.getElementById('eyebrow-label').textContent = type === 'inbound' ? c.eyebrow_inbound : c.eyebrow_outbound;
+  document.getElementById('hero-headline').innerHTML = c.hero_headline(name);
+  document.getElementById('hero-sub').textContent = c.hero_sub;
+
+  // Pricing section labels
+  document.getElementById('pricing-label').textContent = c.pricing_label;
+  document.getElementById('pricing-title').textContent = c.pricing_title;
+
+  // LOCKED state
+  if (state === 'locked') {
+    document.getElementById('lock-headline').textContent = c.lock_headline;
+    document.getElementById('lock-body').textContent = c.lock_body;
+    document.getElementById('unlock-btn').textContent = c.unlock_btn;
+
+    const unlockUrl = `pricing-unlock.html?pid=${encodeURIComponent(pid)}&lang=${lang}`;
+    document.getElementById('unlock-btn').href = unlockUrl;
+
+    // CTA
+    document.getElementById('cta-locked-h').textContent = c.cta_locked_h;
+    document.getElementById('cta-locked-p').textContent = c.cta_locked_p;
+    document.getElementById('cta-unlock-btn').textContent = c.unlock_btn;
+    document.getElementById('cta-unlock-btn').href = unlockUrl;
+    return;
+  }
+
+  // UNLOCKED state — show pricing cards
+  document.getElementById('pricing-locked').style.display = 'none';
+  document.getElementById('pricing-unlocked').style.display = 'block';
+  document.getElementById('cta-locked-box').style.display  = 'none';
+  document.getElementById('cta-unlocked-box').style.display = 'block';
+
+  // Package card
+  const pkgFeatures = isMP ? c.pkg_mp_features : c.pkg_1p_features;
+  document.getElementById('pkg-name').textContent  = isMP ? c.pkg_mp_name : c.pkg_1p_name;
+  document.getElementById('pkg-desc').textContent  = isMP ? c.pkg_mp_desc : c.pkg_1p_desc;
+  document.getElementById('pkg-price').textContent = isMP ? '$2,500' : '$1,500';
+  document.getElementById('pkg-cadence').textContent = lang === 'es' ? 'pago único' : 'one-time';
+  const fl = document.getElementById('pkg-features');
+  fl.innerHTML = '';
+  pkgFeatures.forEach(f => { const li = document.createElement('li'); li.textContent = f; fl.appendChild(li); });
+
+  // Hosting card
+  const hKey = host === 'yearly' ? 'yearly' : 'monthly';
+  document.getElementById('host-name').textContent    = c[`host_${hKey}_name`];
+  document.getElementById('host-desc').textContent    = c[`host_${hKey}_desc`];
+  document.getElementById('host-price').textContent   = c[`host_${hKey}_price`];
+  document.getElementById('host-cadence').textContent = c[`host_${hKey}_cadence`];
+  document.querySelector('.hosting-notice').innerHTML  = c.hosting_note;
+
+  // WCR card
+  if (wcr) {
+    document.getElementById('wcr-card').style.display = 'block';
+    document.getElementById('wcr-name').textContent    = c.wcr_yearly_name;
+    document.getElementById('wcr-desc').textContent    = c.wcr_yearly_desc;
+    document.getElementById('wcr-price').textContent   = host === 'yearly' ? c.wcr_yearly_price : c.wcr_monthly_price;
+    document.getElementById('wcr-cadence').textContent = host === 'yearly' ? c.wcr_yearly_cadence : c.wcr_monthly_cadence;
+  }
+
+  // Commerce card
+  if (commerce) {
+    document.getElementById('commerce-card').style.display = 'block';
+  }
+
+  // DNS card
+  if (dns) {
+    document.getElementById('dns-card').style.display = 'block';
+  }
+
+  // Total
+  let oneTimeTotal = isMP ? 2500 : 1500;
+  if (dns) oneTimeTotal += 100;
+  document.getElementById('total-label').textContent = c.total_label;
+  document.getElementById('total-sub').textContent = host === 'yearly' ? c.total_sub_yearly : c.total_sub_monthly;
+  document.getElementById('total-amount').textContent = '$' + oneTimeTotal.toLocaleString();
+
+  // CTA pay button
+  document.getElementById('cta-h').textContent    = c.cta_h;
+  document.getElementById('cta-p').textContent    = c.cta_p;
+  document.getElementById('cta-sub-text').textContent = c.cta_sub;
+  document.getElementById('pay-btn').textContent  = c.pay_btn;
+
+  // Build payment link key (WCR and DNS are separate billing steps)
+  const linkKey = `${lang}_${pkg}_${host}`;
+  const payUrl = PAYMENT_LINKS[linkKey] || PAYMENT_LINKS[`en_${pkg}_${host}`] || '#';
+  document.getElementById('pay-btn').href = payUrl;
+
+  // Fire PageSense payment click tracking via onclick
+  document.getElementById('pay-btn').addEventListener('click', function() {
+    if (window._pagesense) window._pagesense.push(['trackEvent', 'pagesense_payment_click']);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderProposal);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>New Client Brief — -arumaldo.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --deep-cave:    #1A1F1C;
+    --filtered-sun: #C9980A;
+    --water-veil:   #A8BFB0;
+    --living-green: #3B5E3F;
+    --matte-silver: #E8E8E6;
+    --paper:        #F0EBDF;
+    --cream:        #ECE7DA;
+    --ink:          #1E1D19;
+    --bronze:       #9A6A3C;
+    --text-muted:   #7A7265;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    background: var(--deep-cave);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(168,191,176,0.1);
+  }
+
+  .header-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--matte-silver);
+    letter-spacing: -0.5px;
+  }
+
+  .header-tagline {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ─── HERO STRIP ─── */
+  .form-hero {
+    background: var(--deep-cave);
+    padding: 60px 40px 50px;
+    border-bottom: 1px solid rgba(168,191,176,0.08);
+  }
+
+  .form-hero-inner { max-width: 720px; margin: 0 auto; }
+
+  .form-hero-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    opacity: 0.6;
+    margin-bottom: 12px;
+  }
+
+  .form-hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 56px);
+    color: var(--matte-silver);
+    line-height: 1.0;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .form-hero-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--water-veil);
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  /* ─── PROGRESS ─── */
+  .progress-wrap {
+    background: var(--cream);
+    border-bottom: 1px solid rgba(26,31,28,0.07);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .progress-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .progress-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 8px 12px;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .progress-step.active { border-bottom-color: var(--filtered-sun); }
+  .progress-step.done { border-bottom-color: var(--living-green); }
+
+  .step-circle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(26,31,28,0.08);
+    border: 1.5px solid rgba(26,31,28,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    transition: all 0.2s;
+  }
+
+  .progress-step.active .step-circle {
+    background: var(--filtered-sun);
+    border-color: var(--filtered-sun);
+    color: var(--deep-cave);
+  }
+
+  .progress-step.done .step-circle {
+    background: var(--living-green);
+    border-color: var(--living-green);
+    color: white;
+  }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.2;
+    display: none;
+  }
+
+  .progress-step.active .step-label { color: var(--ink); }
+  .progress-step.done .step-label { color: var(--living-green); }
+
+  @media (min-width: 600px) {
+    .step-label { display: block; }
+  }
+
+  .progress-bar-track {
+    height: 3px;
+    background: rgba(26,31,28,0.08);
+    position: absolute;
+    bottom: -3px;
+    left: 0; right: 0;
+  }
+
+  /* ─── MAIN LAYOUT ─── */
+  .form-layout {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 40px 80px;
+  }
+
+  /* ─── STEP PANEL ─── */
+  .step-panel {
+    display: none;
+    animation: slideIn 0.3s ease;
+  }
+
+  .step-panel.active { display: block; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideBack {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .step-panel.back { animation: slideBack 0.3s ease; }
+
+  .step-header {
+    margin-bottom: 40px;
+  }
+
+  .step-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--filtered-sun);
+    margin-bottom: 10px;
+  }
+
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 40px);
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── FORM ELEMENTS ─── */
+  .field-group {
+    margin-bottom: 28px;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .field-group .field-hint {
+    font-size: 12px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--text-muted);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-left: 6px;
+  }
+
+  .field-group input[type="text"],
+  .field-group input[type="url"],
+  .field-group input[type="email"],
+  .field-group select,
+  .field-group textarea {
+    width: 100%;
+    background: white;
+    border: 1.5px solid rgba(26,31,28,0.12);
+    border-radius: 4px;
+    padding: 13px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .field-group input:focus,
+  .field-group select:focus,
+  .field-group textarea:focus {
+    border-color: var(--filtered-sun);
+    box-shadow: 0 0 0 3px rgba(201,152,10,0.1);
+  }
+
+  .field-group textarea { resize: vertical; line-height: 1.6; }
+
+  .field-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7265' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+
+  .char-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    text-align: right;
+  }
+
+  .char-count.warn { color: var(--filtered-sun); }
+
+  /* ─── RADIO PILLS ─── */
+  .radio-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .radio-pills input[type="radio"] { display: none; }
+
+  .radio-pills label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: white;
+    border: 1.5px solid rgba(26,31,28,0.12);
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  .radio-pills input[type="radio"]:checked + label {
+    background: var(--filtered-sun);
+    border-color: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-weight: 600;
+  }
+
+  .radio-pills label:hover {
+    border-color: var(--filtered-sun);
+    color: var(--ink);
+  }
+
+  /* ─── CHECKBOXES ─── */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    background: white;
+    border: 1.5px solid rgba(26,31,28,0.1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .checkbox-item:hover { border-color: var(--filtered-sun); }
+
+  .checkbox-item input[type="checkbox"] { display: none; }
+
+  .checkbox-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid rgba(26,31,28,0.18);
+    border-radius: 3px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.15s;
+  }
+
+  .checkbox-item input[type="checkbox"]:checked ~ .checkbox-box {
+    background: var(--filtered-sun);
+    border-color: var(--filtered-sun);
+  }
+
+  .checkbox-item input[type="checkbox"]:checked ~ .checkbox-box::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 6px;
+    width: 5px; height: 9px;
+    border: 2px solid var(--deep-cave);
+    border-top: none; border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-label {
+    font-size: 13px;
+    color: var(--ink);
+    user-select: none;
+  }
+
+  .checkbox-item input[type="checkbox"]:checked ~ .checkbox-label {
+    font-weight: 600;
+  }
+
+  /* ─── YES/NO TOGGLE ─── */
+  .yn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .yn-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    background: white;
+    border: 1.5px solid rgba(26,31,28,0.12);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .yn-btn.selected {
+    background: var(--living-green);
+    border-color: var(--living-green);
+    color: white;
+  }
+
+  .yn-btn:hover:not(.selected) {
+    border-color: var(--living-green);
+    color: var(--living-green);
+  }
+
+  /* ─── FILE UPLOAD ─── */
+  .file-upload {
+    position: relative;
+  }
+
+  .file-drop {
+    border: 2px dashed rgba(26,31,28,0.15);
+    border-radius: 6px;
+    padding: 32px;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .file-drop:hover {
+    border-color: var(--filtered-sun);
+    background: rgba(201,152,10,0.03);
+  }
+
+  .file-drop.dragging {
+    border-color: var(--filtered-sun);
+    background: rgba(201,152,10,0.05);
+  }
+
+  .file-drop input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .file-drop-icon { font-size: 28px; margin-bottom: 10px; }
+
+  .file-drop-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .file-drop-text strong { color: var(--ink); }
+
+  .file-drop-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  .file-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(59,94,63,0.08);
+    border: 1px solid rgba(59,94,63,0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--living-green);
+  }
+
+  .file-remove {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0 2px;
+    transition: color 0.15s;
+  }
+
+  .file-remove:hover { color: #c0392b; }
+
+  /* ─── INSPIRATION INPUTS ─── */
+  .inspiration-fields { display: flex; flex-direction: column; gap: 12px; }
+
+  .inspiration-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .inspiration-num {
+    width: 28px; height: 28px;
+    background: var(--cream);
+    border: 1px solid rgba(26,31,28,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .inspiration-row input {
+    flex: 1;
+    background: white;
+    border: 1.5px solid rgba(26,31,28,0.12);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .inspiration-row input:focus { border-color: var(--filtered-sun); }
+
+  /* ─── NAV BUTTONS ─── */
+  .form-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 48px;
+    gap: 16px;
+  }
+
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1.5px solid rgba(26,31,28,0.15);
+    border-radius: 4px;
+    padding: 12px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+
+  .btn-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    border: none;
+    border-radius: 4px;
+    padding: 14px 36px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-next:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--living-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .step-counter {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .field-divider {
+    height: 1px;
+    background: rgba(26,31,28,0.07);
+    margin: 32px 0;
+  }
+
+  /* ─── SUCCESS ─── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 80px 40px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .success-screen.show { display: block; }
+
+  .success-icon {
+    font-size: 56px;
+    margin-bottom: 28px;
+    animation: popIn 0.5s ease;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .success-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 56px);
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .success-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .success-steps {
+    background: var(--cream);
+    border: 1px solid rgba(26,31,28,0.07);
+    border-radius: 8px;
+    padding: 32px;
+    text-align: left;
+    margin-bottom: 32px;
+  }
+
+  .success-steps h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  .success-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .success-step-item:last-child { margin-bottom: 0; }
+
+  .ss-num {
+    width: 28px; height: 28px;
+    background: var(--filtered-sun);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--deep-cave);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .ss-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .ss-text strong { color: var(--living-green); }
+
+  .success-email-note {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 20px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .site-header { padding: 16px 20px; }
+    .form-hero { padding: 40px 20px 36px; }
+    .progress-wrap { padding: 0 20px; }
+    .form-layout { padding: 36px 20px 60px; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+    .yn-group { flex-direction: row; }
+    .form-nav { flex-direction: column-reverse; align-items: stretch; }
+    .btn-back, .btn-next, .btn-submit { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header class="site-header">
+  <div class="header-logo">-arumaldo.</div>
+  <div class="header-tagline">We Build the Web Your Business Deserves.</div>
+</header>
+
+<!-- ─── FORM HERO ─── -->
+<div class="form-hero">
+  <div class="form-hero-inner">
+    <div class="form-hero-label">New Client Brief</div>
+    <h1 class="form-hero-title">Let's build<br>your website.</h1>
+    <p class="form-hero-sub">This brief is everything we need to create<br>exactly what your business deserves.</p>
+  </div>
+</div>
+
+<!-- ─── PROGRESS ─── -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-step active" id="prog-1" onclick="goToStep(1)">
+      <div class="step-circle">1</div>
+      <div class="step-label">Business</div>
+    </div>
+    <div class="progress-step" id="prog-2" onclick="goToStep(2)">
+      <div class="step-circle">2</div>
+      <div class="step-label">Content</div>
+    </div>
+    <div class="progress-step" id="prog-3" onclick="goToStep(3)">
+      <div class="step-circle">3</div>
+      <div class="step-label">Design</div>
+    </div>
+    <div class="progress-step" id="prog-4" onclick="goToStep(4)">
+      <div class="step-circle">4</div>
+      <div class="step-label">Technical</div>
+    </div>
+    <div class="progress-step" id="prog-5" onclick="goToStep(5)">
+      <div class="step-circle">5</div>
+      <div class="step-label">Final Notes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FORM ─── -->
+<div class="form-layout">
+
+  <!-- ─── STEP 1: Business ─── -->
+  <div class="step-panel active" id="step-1">
+    <div class="step-header">
+      <div class="step-tag">Step 01 of 05</div>
+      <h2 class="step-title">Tell us about<br>your business.</h2>
+      <p class="step-desc">The foundation of your website. The more you tell us, the better we can build.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Business Name <span style="color:var(--filtered-sun)">*</span></label>
+      <input type="text" id="f-business-name" placeholder="e.g. Panama Boat Rentals" />
+    </div>
+
+    <div class="field-group">
+      <label>Industry / Type of Business <span style="color:var(--filtered-sun)">*</span></label>
+      <input type="text" id="f-industry" placeholder="e.g. Boat rental and charter company" />
+    </div>
+
+    <div class="field-group">
+      <label>
+        Business Description <span style="color:var(--filtered-sun)">*</span>
+        <span class="field-hint">Tell us what you do, who you serve, and what makes you different.</span>
+      </label>
+      <textarea id="f-description" rows="5" placeholder="We are a family-owned boat rental company in Panama City, offering day trips and overnight charters for tourists and locals. We've been in business for 12 years and are known for our personalized service and well-maintained fleet..." minlength="200"></textarea>
+      <div class="char-count" id="desc-count">0 / 200 minimum</div>
+    </div>
+
+    <div class="field-group">
+      <label>Primary Goal of the Website <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="radio-pills">
+        <input type="radio" name="goal" id="goal-leads" value="Generate leads" />
+        <label for="goal-leads">Generate leads</label>
+        <input type="radio" name="goal" id="goal-services" value="Showcase services" />
+        <label for="goal-services">Showcase services</label>
+        <input type="radio" name="goal" id="goal-sell" value="Sell online" />
+        <label for="goal-sell">Sell online</label>
+        <input type="radio" name="goal" id="goal-cred" value="Build credibility" />
+        <label for="goal-cred">Build credibility</label>
+        <input type="radio" name="goal" id="goal-other" value="Other" />
+        <label for="goal-other">Other</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Target Audience
+        <span class="field-hint">Who is your ideal customer?</span>
+      </label>
+      <textarea id="f-audience" rows="3" placeholder="Tourists visiting Panama, aged 25-55, looking for premium experiences. Also local businesses for corporate team-building events..."></textarea>
+    </div>
+
+    <div class="form-nav">
+      <div></div>
+      <button class="btn-next" onclick="nextStep(1)">Continue <span>→</span></button>
+    </div>
+  </div>
+
+  <!-- ─── STEP 2: Content ─── -->
+  <div class="step-panel" id="step-2">
+    <div class="step-header">
+      <div class="step-tag">Step 02 of 05</div>
+      <h2 class="step-title">Your website<br>content.</h2>
+      <p class="step-desc">What pages do you need? What do you want visitors to know, feel, and do?</p>
+    </div>
+
+    <div class="field-group">
+      <label>Website Pages Needed <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item" for="page-home">
+          <input type="checkbox" id="page-home" name="pages" value="Home" checked />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">🏠 Home</span>
+        </label>
+        <label class="checkbox-item" for="page-about">
+          <input type="checkbox" id="page-about" name="pages" value="About" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">👥 About</span>
+        </label>
+        <label class="checkbox-item" for="page-services">
+          <input type="checkbox" id="page-services" name="pages" value="Services" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">⚙️ Services</span>
+        </label>
+        <label class="checkbox-item" for="page-portfolio">
+          <input type="checkbox" id="page-portfolio" name="pages" value="Portfolio" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">🖼️ Portfolio / Work</span>
+        </label>
+        <label class="checkbox-item" for="page-blog">
+          <input type="checkbox" id="page-blog" name="pages" value="Blog" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">✍️ Blog</span>
+        </label>
+        <label class="checkbox-item" for="page-contact">
+          <input type="checkbox" id="page-contact" name="pages" value="Contact" checked />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">✉️ Contact</span>
+        </label>
+        <label class="checkbox-item" for="page-other">
+          <input type="checkbox" id="page-other" name="pages" value="Other" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">➕ Other</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>
+        Key Messages <span style="color:var(--filtered-sun)">*</span>
+        <span class="field-hint">What must visitors understand in the first 30 seconds?</span>
+      </label>
+      <textarea id="f-messages" rows="4" placeholder="1. We're the most reliable and safe charter option in Panama.&#10;2. Booking is easy — online or by WhatsApp.&#10;3. We have boats for every group size, from 2 to 40 people."></textarea>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Calls to Action
+        <span class="field-hint">What should visitors do on your website?</span>
+      </label>
+      <input type="text" id="f-cta" placeholder="e.g. Book a charter, Request a quote, Call us now" />
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Do you have existing copy / text written? <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="yn-group">
+        <div class="yn-btn" id="copy-yes" onclick="toggleYN('copy', 'yes')">Yes, I have copy ready</div>
+        <div class="yn-btn" id="copy-no" onclick="toggleYN('copy', 'no')">No, write it for me</div>
+      </div>
+    </div>
+
+    <div class="field-group" id="copy-upload-field" style="display:none;">
+      <label>Upload your existing copy</label>
+      <div class="file-drop" id="copy-drop">
+        <input type="file" id="copy-files" accept=".doc,.docx,.pdf,.txt,.pages" onchange="handleFiles('copy')" />
+        <div class="file-drop-icon">📄</div>
+        <div class="file-drop-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="file-drop-sub">.doc, .docx, .pdf, .txt, .pages</div>
+      </div>
+      <div class="file-list" id="copy-file-list"></div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep(2)">← Back</button>
+      <button class="btn-next" onclick="nextStep(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ─── STEP 3: Design ─── -->
+  <div class="step-panel" id="step-3">
+    <div class="step-header">
+      <div class="step-tag">Step 03 of 05</div>
+      <h2 class="step-title">Design<br>direction.</h2>
+      <p class="step-desc">Help us understand your visual identity. If you have a brand, we'll follow it. If you don't, we'll create it.</p>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Website Inspirations <span style="color:var(--filtered-sun)">*</span>
+        <span class="field-hint">3 URLs required — sites you love, not necessarily competitors</span>
+      </label>
+      <div class="inspiration-fields">
+        <div class="inspiration-row">
+          <div class="inspiration-num">1</div>
+          <input type="url" id="inspo-1" placeholder="https://example.com" />
+        </div>
+        <div class="inspiration-row">
+          <div class="inspiration-num">2</div>
+          <input type="url" id="inspo-2" placeholder="https://example.com" />
+        </div>
+        <div class="inspiration-row">
+          <div class="inspiration-num">3</div>
+          <input type="url" id="inspo-3" placeholder="https://example.com" />
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>
+        Color Preferences
+        <span class="field-hint">Existing brand colors, hex codes, or a general direction</span>
+      </label>
+      <input type="text" id="f-colors" placeholder="e.g. Navy blue and gold, or #1A1F1C and #C9980A" />
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>How should your website feel? <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="radio-pills">
+        <input type="radio" name="feeling" id="feel-prof" value="Professional" />
+        <label for="feel-prof">Professional</label>
+        <input type="radio" name="feeling" id="feel-warm" value="Warm" />
+        <label for="feel-warm">Warm</label>
+        <input type="radio" name="feeling" id="feel-tech" value="Technical" />
+        <label for="feel-tech">Technical</label>
+        <input type="radio" name="feeling" id="feel-bold" value="Bold" />
+        <label for="feel-bold">Bold</label>
+        <input type="radio" name="feeling" id="feel-min" value="Minimal" />
+        <label for="feel-min">Minimal</label>
+        <input type="radio" name="feeling" id="feel-lux" value="Luxurious" />
+        <label for="feel-lux">Luxurious</label>
+        <input type="radio" name="feeling" id="feel-play" value="Playful" />
+        <label for="feel-play">Playful</label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Upload Brand Book / Guidelines</label>
+      <div class="file-drop">
+        <input type="file" id="brand-book" accept=".pdf,.ai,.eps,.sketch,.fig,.zip" onchange="handleFiles('brand-book')" />
+        <div class="file-drop-icon">📋</div>
+        <div class="file-drop-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="file-drop-sub">.pdf, .ai, .sketch, .figma, .zip</div>
+      </div>
+      <div class="file-list" id="brand-book-file-list"></div>
+    </div>
+
+    <div class="field-group">
+      <label>Upload Logo Files <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="file-drop">
+        <input type="file" id="logo-files" accept=".svg,.ai,.png,.pdf,.eps" onchange="handleFiles('logo-files')" />
+        <div class="file-drop-icon">🔷</div>
+        <div class="file-drop-text"><strong>Click to upload</strong> your logo</div>
+        <div class="file-drop-sub">.svg, .ai, .png, .pdf, .eps — vector preferred</div>
+      </div>
+      <div class="file-list" id="logo-files-file-list"></div>
+    </div>
+
+    <div class="field-group">
+      <label>Upload Brand Photos / Icons</label>
+      <div class="file-drop">
+        <input type="file" id="brand-photos" accept="image/*,.zip" multiple onchange="handleFiles('brand-photos')" />
+        <div class="file-drop-icon">🖼️</div>
+        <div class="file-drop-text"><strong>Click to upload</strong> or drag and drop</div>
+        <div class="file-drop-sub">Images, icons, any brand visuals — multiple files accepted</div>
+      </div>
+      <div class="file-list" id="brand-photos-file-list"></div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep(3)">← Back</button>
+      <button class="btn-next" onclick="nextStep(3)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ─── STEP 4: Technical ─── -->
+  <div class="step-panel" id="step-4">
+    <div class="step-header">
+      <div class="step-tag">Step 04 of 05</div>
+      <h2 class="step-title">Technical<br>details.</h2>
+      <p class="step-desc">Hosting, domains, and integrations. The stuff that makes your site actually work.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Current Website URL <span class="field-hint">If you have one</span></label>
+      <input type="url" id="f-current-url" placeholder="https://yourcurrentsite.com (optional)" />
+    </div>
+
+    <div class="field-group">
+      <label>Desired Domain <span class="field-hint">The URL you want, e.g. mybusiness.com</span></label>
+      <input type="text" id="f-domain" placeholder="e.g. panamaboatrentals.com" />
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Do you need a contact form? <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="yn-group">
+        <div class="yn-btn" id="form-yes" onclick="toggleYN('form', 'yes')">Yes</div>
+        <div class="yn-btn" id="form-no" onclick="toggleYN('form', 'no')">No</div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Do you need e-commerce? <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="yn-group">
+        <div class="yn-btn" id="ecom-yes" onclick="toggleYN('ecom', 'yes')">Yes</div>
+        <div class="yn-btn" id="ecom-no" onclick="toggleYN('ecom', 'no')">No</div>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Specific Integrations Needed <span class="field-hint">Check all that apply</span></label>
+      <div class="checkbox-grid">
+        <label class="checkbox-item" for="int-zoho">
+          <input type="checkbox" id="int-zoho" name="integrations" value="Zoho CRM" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">☁️ Zoho CRM</span>
+        </label>
+        <label class="checkbox-item" for="int-wa">
+          <input type="checkbox" id="int-wa" name="integrations" value="WhatsApp" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">💬 WhatsApp</span>
+        </label>
+        <label class="checkbox-item" for="int-ig">
+          <input type="checkbox" id="int-ig" name="integrations" value="Instagram Feed" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">📸 Instagram Feed</span>
+        </label>
+        <label class="checkbox-item" for="int-ga">
+          <input type="checkbox" id="int-ga" name="integrations" value="Google Analytics" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">📊 Google Analytics</span>
+        </label>
+        <label class="checkbox-item" for="int-maps">
+          <input type="checkbox" id="int-maps" name="integrations" value="Google Maps" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">🗺️ Google Maps</span>
+        </label>
+        <label class="checkbox-item" for="int-cal">
+          <input type="checkbox" id="int-cal" name="integrations" value="Online Booking/Calendar" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">📅 Booking / Calendar</span>
+        </label>
+        <label class="checkbox-item" for="int-pay">
+          <input type="checkbox" id="int-pay" name="integrations" value="Payment Processing" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">💳 Payment Processing</span>
+        </label>
+        <label class="checkbox-item" for="int-chat">
+          <input type="checkbox" id="int-chat" name="integrations" value="Live Chat" />
+          <div class="checkbox-box"></div>
+          <span class="checkbox-label">💭 Live Chat</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep(4)">← Back</button>
+      <button class="btn-next" onclick="nextStep(4)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ─── STEP 5: Final Notes ─── -->
+  <div class="step-panel" id="step-5">
+    <div class="step-header">
+      <div class="step-tag">Step 05 of 05</div>
+      <h2 class="step-title">Almost done.<br>Last details.</h2>
+      <p class="step-desc">A few more things before we get to work. This is your last chance to tell us anything important.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Anything else we should know?</label>
+      <textarea id="f-extra" rows="5" placeholder="Hard launch deadline, competitor sites to be different from, features you've seen elsewhere that you love, things you absolutely don't want..."></textarea>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <!-- ─── BILLING / INVOICING ─── -->
+    <div class="field-group">
+      <label>Invoice to <span style="color:var(--filtered-sun)">*</span>
+        <span class="field-hint">How should we issue your invoice?</span>
+      </label>
+      <div class="radio-pills">
+        <input type="radio" name="billing-type" id="bill-personal" value="personal" onchange="toggleBillingFields()" />
+        <label for="bill-personal">🧑 Personal / Individual</label>
+        <input type="radio" name="billing-type" id="bill-company" value="company" onchange="toggleBillingFields()" />
+        <label for="bill-company">🏢 Company / Empresa</label>
+      </div>
+    </div>
+
+    <!-- Company billing fields (shown when "company" is selected) -->
+    <div id="company-billing-fields" style="display:none;">
+      <div class="field-group">
+        <label>Razón Social <span style="color:var(--filtered-sun)">*</span>
+          <span class="field-hint">Legal company name exactly as registered.</span>
+        </label>
+        <input type="text" id="f-razon-social" placeholder="e.g. Panama Boat Rentals, S.A." />
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 80px; gap:16px;">
+        <div class="field-group">
+          <label>RUC <span style="color:var(--filtered-sun)">*</span></label>
+          <input type="text" id="f-ruc" placeholder="e.g. 8-888-123456" />
+        </div>
+        <div class="field-group">
+          <label>DV <span style="color:var(--filtered-sun)">*</span></label>
+          <input type="text" id="f-dv" placeholder="e.g. 45" maxlength="3" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Fiscal / Legal Address <span style="color:var(--filtered-sun)">*</span>
+          <span class="field-hint">Registered address used for tax purposes.</span>
+        </label>
+        <textarea id="f-fiscal-address" rows="2" placeholder="e.g. Calle 50, Edificio Torre Global, Piso 14, Oficina 14-B, Ciudad de Panamá"></textarea>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>How did you hear about us? <span style="color:var(--filtered-sun)">*</span></label>
+      <select id="f-source">
+        <option value="" disabled selected>Select an option</option>
+        <option value="referral">Referral from a friend or colleague</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="instagram">Instagram</option>
+        <option value="google">Google Search</option>
+        <option value="proposal">Received a proposal from you</option>
+        <option value="demo">Saw a demo site you built</option>
+        <option value="cold">Cold outreach / email from you</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="field-group">
+      <label>Preferred Communication <span style="color:var(--filtered-sun)">*</span></label>
+      <div class="radio-pills">
+        <input type="radio" name="comms" id="comm-wa" value="WhatsApp" />
+        <label for="comm-wa">💬 WhatsApp</label>
+        <input type="radio" name="comms" id="comm-email" value="Email" />
+        <label for="comm-email">✉️ Email</label>
+        <input type="radio" name="comms" id="comm-both" value="Both" />
+        <label for="comm-both">Both</label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div style="background: var(--cream); border: 1px solid rgba(26,31,28,0.07); border-radius: 6px; padding: 20px 24px; margin-bottom: 28px;">
+      <p style="font-size:13px; color:var(--text-muted); line-height:1.65;">
+        By submitting this brief, you confirm that you are authorized to share all uploaded files and information.
+        Your data is used exclusively to build your website and will never be shared with third parties.
+        Questions? <a href="mailto:abdiel@arumaldo.com" style="color:var(--living-green);">abdiel@arumaldo.com</a>
+      </p>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep(5)">← Back</button>
+      <button class="btn-submit" onclick="submitForm()">Submit My Brief ✓</button>
+    </div>
+  </div>
+
+  <!-- ─── SUCCESS ─── -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">🎉</div>
+    <h2 class="success-title">Brief received.</h2>
+    <p class="success-sub">
+      Your project brief is in our hands. We'll review every detail and reach out within <strong>24 hours</strong> to confirm next steps.
+    </p>
+    <div class="success-steps">
+      <h3>What happens next</h3>
+      <div class="success-step-item">
+        <div class="ss-num">1</div>
+        <div class="ss-text">We review your brief and confirm we have everything we need. Expect a message within <strong>24 hours</strong>.</div>
+      </div>
+      <div class="success-step-item">
+        <div class="ss-num">2</div>
+        <div class="ss-text">We begin building. You'll receive a <strong>live preview link</strong> within 7 days.</div>
+      </div>
+      <div class="success-step-item">
+        <div class="ss-num">3</div>
+        <div class="ss-text">You review, we refine. Up to <strong>two revision rounds</strong> included in your investment.</div>
+      </div>
+      <div class="success-step-item">
+        <div class="ss-num">4</div>
+        <div class="ss-text">You approve, we transfer. <strong>Your site goes live</strong> — you own everything.</div>
+      </div>
+    </div>
+    <p class="success-email-note">
+      A confirmation has been sent to your email. Questions?<br>
+      <a href="mailto:abdiel@arumaldo.com" style="color:var(--living-green);">abdiel@arumaldo.com</a>
+    </p>
+  </div>
+
+</div>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 5;
+
+  // ─── STEP NAVIGATION ───
+  function goToStep(n) {
+    if (n > currentStep) return; // only navigate back freely
+    showStep(n);
+  }
+
+  function showStep(n, direction = 'forward') {
+    const panels = document.querySelectorAll('.step-panel');
+    panels.forEach(p => {
+      p.classList.remove('active', 'back');
+    });
+
+    const target = document.getElementById('step-' + n);
+    if (!target) return;
+    if (direction === 'back') target.classList.add('back');
+    target.classList.add('active');
+
+    // Update progress
+    for (let i = 1; i <= totalSteps; i++) {
+      const prog = document.getElementById('prog-' + i);
+      const circle = prog.querySelector('.step-circle');
+      prog.classList.remove('active', 'done');
+      if (i < n) {
+        prog.classList.add('done');
+        circle.textContent = '✓';
+      } else if (i === n) {
+        prog.classList.add('active');
+        circle.textContent = i;
+      } else {
+        circle.textContent = i;
+      }
+    }
+
+    currentStep = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep(from) {
+    if (!validateStep(from)) return;
+    showStep(from + 1, 'forward');
+  }
+
+  function prevStep(from) {
+    showStep(from - 1, 'back');
+  }
+
+  // ─── VALIDATION ───
+  function validateStep(step) {
+    if (step === 1) {
+      const name = document.getElementById('f-business-name').value.trim();
+      const industry = document.getElementById('f-industry').value.trim();
+      const desc = document.getElementById('f-description').value.trim();
+      const goal = document.querySelector('input[name="goal"]:checked');
+      if (!name) { shake('f-business-name'); return false; }
+      if (!industry) { shake('f-industry'); return false; }
+      if (desc.length < 200) {
+        shake('f-description');
+        document.getElementById('desc-count').classList.add('warn');
+        return false;
+      }
+      if (!goal) { alert('Please select a primary goal for your website.'); return false; }
+    }
+    if (step === 2) {
+      const msgs = document.getElementById('f-messages').value.trim();
+      const pages = document.querySelectorAll('input[name="pages"]:checked');
+      if (!pages.length) { alert('Please select at least one page.'); return false; }
+      if (!msgs) { shake('f-messages'); return false; }
+    }
+    if (step === 3) {
+      const i1 = document.getElementById('inspo-1').value.trim();
+      const i2 = document.getElementById('inspo-2').value.trim();
+      const i3 = document.getElementById('inspo-3').value.trim();
+      const feeling = document.querySelector('input[name="feeling"]:checked');
+      if (!i1 || !i2 || !i3) {
+        alert('Please provide all 3 website inspirations.');
+        if (!i1) shake('inspo-1');
+        else if (!i2) shake('inspo-2');
+        else shake('inspo-3');
+        return false;
+      }
+      if (!feeling) { alert('Please select how your website should feel.'); return false; }
+    }
+    if (step === 5) {
+      const source = document.getElementById('f-source').value;
+      const comms = document.querySelector('input[name="comms"]:checked');
+      if (!source) { shake('f-source'); return false; }
+      if (!comms) { alert('Please select your preferred communication method.'); return false; }
+    }
+    return true;
+  }
+
+  function shake(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = 'shakeField 0.4s ease';
+    el.focus();
+    setTimeout(() => el.style.animation = '', 400);
+  }
+
+  // ─── CHAR COUNT ───
+  document.getElementById('f-description').addEventListener('input', function() {
+    const count = this.value.length;
+    const el = document.getElementById('desc-count');
+    el.textContent = count + ' / 200 minimum';
+    el.classList.toggle('warn', count < 200 && count > 0);
+    if (count >= 200) el.style.color = 'var(--living-green)';
+    else el.style.color = '';
+  });
+
+  // ─── YES/NO TOGGLE ───
+  function toggleYN(group, val) {
+    const yesBtn = document.getElementById(group + '-yes');
+    const noBtn  = document.getElementById(group + '-no');
+    yesBtn.classList.remove('selected');
+    noBtn.classList.remove('selected');
+    if (val === 'yes') {
+      yesBtn.classList.add('selected');
+      if (group === 'copy') {
+        document.getElementById('copy-upload-field').style.display = 'block';
+      }
+    } else {
+      noBtn.classList.add('selected');
+      if (group === 'copy') {
+        document.getElementById('copy-upload-field').style.display = 'none';
+      }
+    }
+  }
+
+  // ─── FILE HANDLING ───
+  function handleFiles(inputId) {
+    const input = document.getElementById(inputId + (inputId.endsWith('-files') || inputId === 'brand-book' || inputId === 'brand-photos' || inputId === 'logo-files' ? '' : '-files'));
+    const realInput = document.getElementById(inputId) || document.getElementById(inputId + '-files');
+    if (!realInput || !realInput.files) return;
+
+    const files = Array.from(realInput.files);
+    const listId = inputId + '-file-list';
+    let listEl = document.getElementById(listId);
+
+    // For inputs with known IDs
+    const lookup = {
+      'copy': 'copy-file-list',
+      'brand-book': 'brand-book-file-list',
+      'logo-files': 'logo-files-file-list',
+      'brand-photos': 'brand-photos-file-list',
+    };
+
+    const listTarget = document.getElementById(lookup[inputId] || listId);
+    if (!listTarget) return;
+    listTarget.innerHTML = '';
+
+    files.forEach((file, i) => {
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.innerHTML = `📎 <span>${file.name}</span> <span style="color:var(--text-muted);font-size:11px;">(${(file.size / 1024).toFixed(0)} KB)</span><button class="file-remove" onclick="this.parentElement.remove()" title="Remove">✕</button>`;
+      listTarget.appendChild(item);
+    });
+  }
+
+  // Wire up all file inputs
+  ['copy', 'brand-book', 'logo-files', 'brand-photos'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => handleFiles(id));
+  });
+  document.getElementById('copy-files').addEventListener('change', () => handleFiles('copy'));
+
+  // ─── DRAG AND DROP ───
+  document.querySelectorAll('.file-drop').forEach(drop => {
+    drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('dragging'); });
+    drop.addEventListener('dragleave', () => drop.classList.remove('dragging'));
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      drop.classList.remove('dragging');
+      const input = drop.querySelector('input[type="file"]');
+      if (input) {
+        const dt = new DataTransfer();
+        Array.from(e.dataTransfer.files).forEach(f => dt.items.add(f));
+        input.files = dt.files;
+        input.dispatchEvent(new Event('change'));
+      }
+    });
+  });
+
+  // ─── BILLING TOGGLE ───
+  function toggleBillingFields() {
+    const isCompany = document.querySelector('input[name="billing-type"]:checked')?.value === 'company';
+    const el = document.getElementById('company-billing-fields');
+    if (el) el.style.display = isCompany ? 'block' : 'none';
+  }
+
+  // ─── READ URL PARAMS (deal_id, proposal_id passed from CRM payment success) ───
+  const urlParams = new URLSearchParams(window.location.search);
+  const CRM_DEAL_ID    = urlParams.get('deal_id')    || '';
+  const PROPOSAL_ID    = urlParams.get('proposal_id') || '';
+  const CUSTOMER_EMAIL = urlParams.get('email')       || '';
+
+  // ─── SUBMIT ───
+  const INTAKE_ENDPOINT = '/api/intake'; // Filled in Phase 6 with Cloudflare Worker URL
+
+  async function submitForm() {
+    if (!validateStep(5)) return;
+
+    const billingType = document.querySelector('input[name="billing-type"]:checked')?.value || '';
+
+    const formData = {
+      // CRM linkage
+      deal_id:    CRM_DEAL_ID,
+      proposal_id: PROPOSAL_ID,
+      customer_email: CUSTOMER_EMAIL,
+
+      // Step 1 — Business
+      businessName: document.getElementById('f-business-name')?.value || '',
+      industry:     document.getElementById('f-industry')?.value || '',
+      description:  document.getElementById('f-description')?.value || '',
+      goal:         document.querySelector('input[name="goal"]:checked')?.value || '',
+      audience:     document.getElementById('f-audience')?.value || '',
+      messages:     document.getElementById('f-messages')?.value || '',
+      cta:          document.getElementById('f-cta')?.value || '',
+
+      // Step 3 — Design
+      inspirations: [
+        document.getElementById('inspo-1')?.value || '',
+        document.getElementById('inspo-2')?.value || '',
+        document.getElementById('inspo-3')?.value || '',
+      ].filter(Boolean),
+      colors:  document.getElementById('f-colors')?.value || '',
+      feeling: document.querySelector('input[name="feeling"]:checked')?.value || '',
+
+      // Step 4 — Technical
+      currentUrl: document.getElementById('f-current-url')?.value || '',
+      domain:     document.getElementById('f-domain')?.value || '',
+
+      // Step 5 — Final
+      extra:  document.getElementById('f-extra')?.value || '',
+      source: document.getElementById('f-source')?.value || '',
+      comms:  document.querySelector('input[name="comms"]:checked')?.value || '',
+
+      // Billing
+      billingType:   billingType,
+      razonSocial:   document.getElementById('f-razon-social')?.value || '',
+      ruc:           document.getElementById('f-ruc')?.value || '',
+      dv:            document.getElementById('f-dv')?.value || '',
+      fiscalAddress: document.getElementById('f-fiscal-address')?.value || '',
+    };
+
+    // POST to worker endpoint (placeholder until Phase 6 deployment)
+    if (INTAKE_ENDPOINT) {
+      try {
+        const btn = document.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.textContent = 'Submitting…';
+
+        await fetch(INTAKE_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'intake', data: formData }),
+        });
+      } catch (err) {
+        console.error('Submission error:', err);
+      }
+    } else {
+      // Dev mode: log only
+      console.log('INTAKE FORM DATA:', JSON.stringify(formData, null, 2));
+    }
+
+    // Show success screen
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('success-screen').classList.add('show');
+    document.querySelectorAll('.progress-step').forEach(p => p.classList.add('done'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+<style>
+  @keyframes shakeField {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+</style>
+</body>
+</html>
