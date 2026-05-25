@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BUSINESS_NAME}} — Your Demo Website</title>
+
+  <!-- ── PageSense (Zoho Analytics) ───────────────────────────────────────── -->
+  <!-- Replace YOUR_PAGESENSE_ID below with your actual PageSense embed code  -->
+  <!--
+  <script type="text/javascript">
+    window.$zoho = window.$zoho || {};
+    $zoho.pagesense = $zoho.pagesense || [];
+    $zoho.pagesense.push(['trackPageView']);
+  </script>
+  <script id="zsiqscript" src="https://cdn.pagesense.io/js/YOUR_PAGESENSE_ID/YOUR_PROJECT_ID.js"
+    type="text/javascript" defer></script>
+  -->
+
+  <style>
+    /* ── Reset ──────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:   #C9980A;
+      --gold-d: #a57e08;
+      --gold-l: #f5e6a3;
+      --dark:   #1a1a1a;
+      --mid:    #555;
+      --light:  #f7f7f7;
+      --white:  #ffffff;
+      --red:    #e53935;
+      --green:  #2e7d32;
+      --radius: 12px;
+      --max-w:  1100px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* ── Demo Banner ─────────────────────────────────────────────────────────── */
+    .demo-banner {
+      background: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: .82rem;
+      letter-spacing: .04em;
+    }
+    .demo-banner strong { color: var(--gold); }
+
+    /* ── Top Nav ─────────────────────────────────────────────────────────────── */
+    nav {
+      background: var(--white);
+      border-bottom: 3px solid var(--gold);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    }
+    .nav-logo { height: 36px; }
+    .nav-logo-text {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: -.01em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-toggle-nav { display: flex; gap: 6px; }
+    .lang-btn {
+      padding: 4px 12px;
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      background: none;
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--gold);
+      transition: all .18s;
+    }
+    .lang-btn.active { background: var(--gold); color: var(--white); }
+    .btn-extend {
+      padding: 8px 20px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: background .18s;
+    }
+    .btn-extend:hover { background: var(--gold-d); }
+
+    /* ── Countdown bar ───────────────────────────────────────────────────────── */
+    .countdown-bar {
+      background: linear-gradient(90deg, #1a1a1a 0%, #2d2200 100%);
+      padding: 14px 20px;
+      text-align: center;
+    }
+    .countdown-label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .cd-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 54px;
+    }
+    .cd-num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .cd-label {
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #888;
+      margin-top: 2px;
+    }
+    .cd-sep { font-size: 1.8rem; font-weight: 800; color: var(--gold); line-height: 1; align-self: flex-start; padding-top: 4px; }
+    .expired-msg { color: var(--red); font-weight: 700; font-size: .95rem; }
+
+    /* ── Hero ────────────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--white);
+      padding: 64px 32px 48px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero .tagline {
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: var(--mid);
+      max-width: 620px;
+      margin: 0 auto 32px;
+    }
+    .hero-cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s, transform .1s;
+    }
+    .btn-primary:hover { background: var(--gold-d); }
+    .btn-primary:active { transform: scale(.98); }
+    .btn-outline {
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--white); }
+
+    /* ── Section layout ──────────────────────────────────────────────────────── */
+    .section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 56px 32px;
+    }
+    .section-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .section .lead {
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 600px;
+      margin-bottom: 32px;
+    }
+    .divider { border: none; border-top: 2px solid #e8e8e8; margin: 0; }
+
+    /* ── Feature cards ───────────────────────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      border-left: 4px solid var(--gold);
+    }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+    .feature-card p { font-size: .88rem; color: var(--mid); line-height: 1.55; }
+
+    /* ── Screenshots / Demo preview ──────────────────────────────────────────── */
+    .demo-preview {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 24px rgba(0,0,0,.1);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    .demo-preview-bar {
+      background: #e8e8e8;
+      padding: 8px 14px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .demo-url-bar {
+      flex: 1;
+      background: var(--white);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: .78rem;
+      color: #666;
+      margin: 0 10px;
+    }
+    .demo-preview-content {
+      background: #f0f0f0;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    /* ── Pricing (gated) ─────────────────────────────────────────────────────── */
+    #pricing { background: var(--dark); }
+    #pricing .section { padding: 56px 32px; }
+    #pricing .section-label { color: var(--gold); }
+    #pricing h2 { color: var(--white); }
+    #pricing .lead { color: #aaa; }
+
+    /* Email gate */
+    .price-gate {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(201,152,10,.3);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      max-width: 480px;
+      text-align: center;
+    }
+    .price-gate p { color: #ccc; font-size: .9rem; margin-bottom: 20px; line-height: 1.6; }
+    .gate-form { display: flex; gap: 10px; flex-wrap: wrap; }
+    .gate-form input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 2px solid rgba(201,152,10,.5);
+      border-radius: 8px;
+      background: rgba(255,255,255,.07);
+      color: var(--white);
+      font-size: .95rem;
+      outline: none;
+    }
+    .gate-form input[type="email"]::placeholder { color: #777; }
+    .gate-form input[type="email"]:focus { border-color: var(--gold); }
+    .gate-status { font-size: .82rem; margin-top: 10px; min-height: 18px; }
+    .gate-status.ok { color: #81c784; }
+    .gate-status.err { color: #ef9a9a; }
+
+    /* Pricing cards (hidden until unlocked) */
+    .pricing-cards {
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .pricing-cards.visible { display: grid; }
+    .price-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--gold);
+      background: rgba(201,152,10,.08);
+    }
+    .badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .price-card h3 { color: var(--white); font-size: 1.05rem; margin-bottom: 6px; }
+    .price-amount {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin: 12px 0 4px;
+      line-height: 1;
+    }
+    .price-period { font-size: .8rem; color: #888; margin-bottom: 16px; }
+    .price-features { list-style: none; margin-bottom: 24px; }
+    .price-features li {
+      font-size: .85rem;
+      color: #ccc;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .price-features li::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .price-card .btn-primary { width: 100%; font-size: .9rem; padding: 12px; }
+
+    /* ── Extend modal ─────────────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 16px 48px rgba(0,0,0,.25);
+      position: relative;
+      overflow: hidden;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      background: var(--dark);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h2 { color: var(--white); font-size: 1.1rem; }
+    .modal-close {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-body { padding: 28px; }
+
+    /* Extension form inside modal */
+    .ext-field { margin-bottom: 16px; }
+    .ext-field label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--mid);
+      margin-bottom: 5px;
+    }
+    .ext-field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .18s;
+    }
+    .ext-field input:focus { border-color: var(--gold); }
+    .ext-field input.error { border-color: var(--red); }
+    .ext-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .ext-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background .18s;
+    }
+    .ext-submit:hover { background: var(--gold-d); }
+    .ext-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .ext-msg { border-radius: 8px; padding: 12px 14px; font-size: .88rem; margin-top: 14px; display: none; }
+    .ext-msg.success { display: block; background: #e8f5e9; color: #2e7d32; }
+    .ext-msg.error   { display: block; background: #fce4ec; color: #c62828; }
+
+    /* ── Footer ──────────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--dark);
+      padding: 28px 32px;
+      text-align: center;
+      font-size: .82rem;
+      color: #666;
+      border-top: 3px solid var(--gold);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── Responsive ──────────────────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 12px 16px; }
+      .section { padding: 40px 16px; }
+      .hero { padding: 40px 16px 32px; }
+      .ext-two-col { grid-template-columns: 1fr; }
+      .cd-num { font-size: 1.6rem; }
+      .price-gate { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  DEMO BANNER
+═══════════════════════════════════════════════════════════════════════════ -->
+<div class="demo-banner">
+  <span class="i18n"
+    data-en="🚀 This is a live demo site built by <strong>ARUMALDO</strong> — tailored specifically for your business."
+    data-es="🚀 Este es un sitio demo en vivo construido por <strong>ARUMALDO</strong> — diseñado específicamente para tu negocio.">
+    🚀 This is a live demo site built by <strong>ARUMALDO</strong> — tailored specifically for your business.
+  </span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  TOP NAV
+═══════════════════════════════════════════════════════════════════════════ -->
+<nav>
+  <!-- Replace with actual logo or text -->
+  <span class="nav-logo-text">{{BUSINESS_NAME}}</span>
+
+  <div class="nav-right">
+    <div class="lang-toggle-nav">
+      <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+      <button class="lang-btn" onclick="setLang('es')">🇲🇽 ES</button>
+    </div>
+    <button class="btn-extend" onclick="openExtendModal()"
+      data-en="⏱ Extend Demo" data-es="⏱ Extender Demo">
+      ⏱ Extend Demo
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  COUNTDOWN BAR
+═══════════════════════════════════════════════════════════════════════════ -->
+<div class="countdown-bar">
+  <div class="countdown-label i18n"
+    data-en="⏳ Demo access expires in"
+    data-es="⏳ El acceso al demo expira en">
+    ⏳ Demo access expires in
+  </div>
+  <div class="countdown-timer" id="countdownTimer">
+    <div class="cd-unit"><span class="cd-num" id="cd-days">00</span><span class="cd-label i18n" data-en="Days" data-es="Días">Days</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-hours">00</span><span class="cd-label i18n" data-en="Hours" data-es="Horas">Hours</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-mins">00</span><span class="cd-label i18n" data-en="Min" data-es="Min">Min</span></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-unit"><span class="cd-num" id="cd-secs">00</span><span class="cd-label i18n" data-en="Sec" data-es="Seg">Sec</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  HERO
+═══════════════════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <h1 class="i18n"
+    data-en="Your business deserves a website that <span>actually works</span>."
+    data-es="Tu negocio merece un sitio web que <span>realmente funcione</span>.">
+    Your business deserves a website that <span>actually works</span>.
+  </h1>
+  <p class="tagline i18n"
+    data-en="Fast. Bilingual. Built to convert visitors into paying customers — starting from day one."
+    data-es="Rápido. Bilingüe. Diseñado para convertir visitantes en clientes — desde el primer día.">
+    Fast. Bilingual. Built to convert visitors into paying customers — starting from day one.
+  </p>
+  <div class="hero-cta-row">
+    <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})"
+      data-en="See Pricing →" data-es="Ver Precios →">
+      See Pricing →
+    </button>
+    <button class="btn-outline" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})"
+      data-en="Explore Features" data-es="Explorar Funciones">
+      Explore Features
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  FEATURES
+═══════════════════════════════════════════════════════════════════════════ -->
+<hr class="divider">
+<div id="features" class="section">
+  <div class="section-label i18n" data-en="What's Included" data-es="Qué Incluye">What's Included</div>
+  <h2 class="i18n" data-en="Everything you need to grow online." data-es="Todo lo que necesitas para crecer en línea.">
+    Everything you need to grow online.
+  </h2>
+  <p class="lead i18n"
+    data-en="Each site is custom-built, not a template. Designed for your market, your customers, your goals."
+    data-es="Cada sitio se construye a medida, no con plantillas. Diseñado para tu mercado, tus clientes y tus objetivos.">
+    Each site is custom-built, not a template. Designed for your market, your customers, your goals.
+  </p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 class="i18n" data-en="Lightning Fast" data-es="Ultra Rápido">Lightning Fast</h3>
+      <p class="i18n"
+        data-en="Google PageSpeed 95+. Your site loads in under 1 second — so customers don't bounce."
+        data-es="Google PageSpeed 95+. Tu sitio carga en menos de 1 segundo — para que los clientes no se vayan.">
+        Google PageSpeed 95+. Your site loads in under 1 second — so customers don't bounce.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3 class="i18n" data-en="Bilingual (EN + ES)" data-es="Bilingüe (EN + ES)">Bilingual (EN + ES)</h3>
+      <p class="i18n"
+        data-en="Reach both English and Spanish-speaking customers with a single site."
+        data-es="Llega a clientes en inglés y español con un solo sitio.">
+        Reach both English and Spanish-speaking customers with a single site.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3 class="i18n" data-en="Mobile-First Design" data-es="Diseño Mobile-First">Mobile-First Design</h3>
+      <p class="i18n"
+        data-en="70% of your customers browse on phones. Your site will look perfect on every screen."
+        data-es="El 70% de tus clientes navegan en teléfonos. Tu sitio lucirá perfecto en cada pantalla.">
+        70% of your customers browse on phones. Your site will look perfect on every screen.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3 class="i18n" data-en="SEO-Ready" data-es="Listo para SEO">SEO-Ready</h3>
+      <p class="i18n"
+        data-en="Proper schema markup, meta tags, sitemaps, and Google Analytics wired in from day one."
+        data-es="Marcado de schema, meta tags, sitemaps y Google Analytics configurados desde el inicio.">
+        Proper schema markup, meta tags, sitemaps, and Google Analytics wired in from day one.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <h3 class="i18n" data-en="Live Chat Integration" data-es="Integración de Chat en Vivo">Live Chat Integration</h3>
+      <p class="i18n"
+        data-en="Zoho SalesIQ chat widget installed — capture leads 24/7 even when you're asleep."
+        data-es="Widget de chat Zoho SalesIQ — captura leads las 24 horas aunque estés dormido.">
+        Zoho SalesIQ chat widget installed — capture leads 24/7 even when you're asleep.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3 class="i18n" data-en="Secure & Hosted" data-es="Seguro y Hospedado">Secure & Hosted</h3>
+      <p class="i18n"
+        data-en="SSL, DDoS protection, and 99.9% uptime. Deployed on Cloudflare's global network."
+        data-es="SSL, protección DDoS y 99.9% de disponibilidad. Desplegado en la red global de Cloudflare.">
+        SSL, DDoS protection, and 99.9% uptime. Deployed on Cloudflare's global network.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  DEMO PREVIEW (placeholder)
+═══════════════════════════════════════════════════════════════════════════ -->
+<hr class="divider">
+<div class="section">
+  <div class="section-label i18n" data-en="Live Preview" data-es="Vista Previa en Vivo">Live Preview</div>
+  <h2 class="i18n" data-en="This is what your visitors will see." data-es="Esto es lo que verán tus visitantes.">
+    This is what your visitors will see.
+  </h2>
+  <div class="demo-preview">
+    <div class="demo-preview-bar">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+      <span class="demo-url-bar">https://{{BUSINESS_DOMAIN}}</span>
+    </div>
+    <div class="demo-preview-content">
+      <!-- Replace with an actual screenshot or iframe of the demo -->
+      <span class="i18n"
+        data-en="[ Screenshot or iframe of your demo website ]"
+        data-es="[ Captura de pantalla o iframe de tu sitio demo ]">
+        [ Screenshot or iframe of your demo website ]
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  PRICING (gated)
+═══════════════════════════════════════════════════════════════════════════ -->
+<div id="pricing">
+  <div class="section">
+    <div class="section-label i18n" data-en="Investment" data-es="Inversión">Investment</div>
+    <h2 class="i18n" data-en="Simple, transparent pricing." data-es="Precios simples y transparentes.">
+      Simple, transparent pricing.
+    </h2>
+    <p class="lead i18n"
+      data-en="Enter your email to unlock our pricing — no spam, just the numbers."
+      data-es="Ingresa tu correo para desbloquear nuestros precios — sin spam, solo los números.">
+      Enter your email to unlock our pricing — no spam, just the numbers.
+    </p>
+
+    <!-- Email gate form -->
+    <div class="price-gate" id="priceGate">
+      <p class="i18n"
+        data-en="Pricing is tailored to each project. Enter your email and we'll reveal the full breakdown instantly."
+        data-es="Los precios son específicos para cada proyecto. Ingresa tu correo y te mostramos el desglose completo al instante.">
+        Pricing is tailored to each project. Enter your email and we'll reveal the full breakdown instantly.
+      </p>
+      <form class="gate-form" id="gateForm" novalidate>
+        <input type="email" id="gateEmail" placeholder="your@email.com" required>
+        <button type="submit" class="btn-primary i18n" data-en="Unlock Pricing" data-es="Desbloquear Precios" style="padding:12px 22px; font-size:.9rem;">
+          Unlock Pricing
+        </button>
+      </form>
+      <div class="gate-status" id="gateStatus"></div>
+    </div>
+
+    <!-- Pricing cards (revealed after email verification) -->
+    <div class="pricing-cards" id="pricingCards">
+      <div class="price-card">
+        <h3 class="i18n" data-en="One-Page Site" data-es="Sitio de Una Página">One-Page Site</h3>
+        <div class="price-amount">${{PRICE_1}}</div>
+        <div class="price-period i18n"
+          data-en="one-time setup + ${{MONTHLY_1}}/mo"
+          data-es="pago único + ${{MONTHLY_1}}/mes">
+          one-time setup + ${{MONTHLY_1}}/mo
+        </div>
+        <ul class="price-features">
+          <li class="i18n" data-en="1-page bilingual website" data-es="Sitio web bilingüe de 1 página">1-page bilingual website</li>
+          <li class="i18n" data-en="Mobile-first design" data-es="Diseño mobile-first">Mobile-first design</li>
+          <li class="i18n" data-en="Contact form + Live chat" data-es="Formulario de contacto + Chat">Contact form + Live chat</li>
+          <li class="i18n" data-en="SSL + Cloudflare hosting" data-es="SSL + hospedaje Cloudflare">SSL + Cloudflare hosting</li>
+          <li class="i18n" data-en="Monthly performance report" data-es="Reporte mensual de rendimiento">Monthly performance report</li>
+        </ul>
+        <button class="btn-primary i18n" data-en="Get Started →" data-es="Comenzar →" onclick="window.location.href='{{CHECKOUT_URL_1}}'">
+          Get Started →
+        </button>
+      </div>
+
+      <div class="price-card featured">
+        <div class="badge i18n" data-en="Most Popular" data-es="Más Popular">Most Popular</div>
+        <h3 class="i18n" data-en="Multi-Page Site" data-es="Sitio Multi-Página">Multi-Page Site</h3>
+        <div class="price-amount">${{PRICE_2}}</div>
+        <div class="price-period i18n"
+          data-en="one-time setup + ${{MONTHLY_2}}/mo"
+          data-es="pago único + ${{MONTHLY_2}}/mes">
+          one-time setup + ${{MONTHLY_2}}/mo
+        </div>
+        <ul class="price-features">
+          <li class="i18n" data-en="Up to 5 bilingual pages" data-es="Hasta 5 páginas bilingües">Up to 5 bilingual pages</li>
+          <li class="i18n" data-en="Everything in One-Page" data-es="Todo lo del plan anterior">Everything in One-Page</li>
+          <li class="i18n" data-en="Blog / News section" data-es="Sección de Blog / Noticias">Blog / News section</li>
+          <li class="i18n" data-en="Google Business integration" data-es="Integración con Google Business">Google Business integration</li>
+          <li class="i18n" data-en="Lead capture automation" data-es="Automatización de captura de leads">Lead capture automation</li>
+          <li class="i18n" data-en="Priority support" data-es="Soporte prioritario">Priority support</li>
+        </ul>
+        <button class="btn-primary i18n" data-en="Get Started →" data-es="Comenzar →" onclick="window.location.href='{{CHECKOUT_URL_2}}'">
+          Get Started →
+        </button>
+      </div>
+
+      <div class="price-card">
+        <h3 class="i18n" data-en="E-Commerce" data-es="E-Commerce">E-Commerce</h3>
+        <div class="price-amount">${{PRICE_3}}</div>
+        <div class="price-period i18n"
+          data-en="one-time setup + ${{MONTHLY_3}}/mo"
+          data-es="pago único + ${{MONTHLY_3}}/mes">
+          one-time setup + ${{MONTHLY_3}}/mo
+        </div>
+        <ul class="price-features">
+          <li class="i18n" data-en="Full online store" data-es="Tienda en línea completa">Full online store</li>
+          <li class="i18n" data-en="Everything in Multi-Page" data-es="Todo lo del plan anterior">Everything in Multi-Page</li>
+          <li class="i18n" data-en="Payment gateway (Stripe/PayPal)" data-es="Pasarela de pago (Stripe/PayPal)">Payment gateway (Stripe/PayPal)</li>
+          <li class="i18n" data-en="Inventory management" data-es="Gestión de inventario">Inventory management</li>
+          <li class="i18n" data-en="Abandoned cart recovery" data-es="Recuperación de carrito abandonado">Abandoned cart recovery</li>
+        </ul>
+        <button class="btn-primary i18n" data-en="Get Started →" data-es="Comenzar →" onclick="window.location.href='{{CHECKOUT_URL_3}}'">
+          Get Started →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  FOOTER
+═══════════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <p>
+    <span class="i18n"
+      data-en="Built with ❤️ by <a href='https://arumaldo.com'>ARUMALDO</a> — Web & Digital Solutions"
+      data-es="Creado con ❤️ por <a href='https://arumaldo.com'>ARUMALDO</a> — Web & Soluciones Digitales">
+      Built with ❤️ by <a href="https://arumaldo.com">ARUMALDO</a> — Web & Digital Solutions
+    </span>
+    &nbsp;·&nbsp;
+    <a href="mailto:hola@arumaldo.com">hola@arumaldo.com</a>
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  EXTEND DEMO MODAL
+═══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="extendModal" onclick="closeOnOverlay(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="i18n" data-en="⏱ Extend Your Free Demo" data-es="⏱ Extender Tu Demo Gratis">
+        ⏱ Extend Your Free Demo
+      </h2>
+      <button class="modal-close" onclick="closeExtendModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.88rem; color:#666; margin-bottom:20px;" class="i18n"
+        data-en="Need more time? No problem. Fill in your details and we'll extend your access by 7 days."
+        data-es="¿Necesitas más tiempo? Sin problema. Completa tus datos y extenderemos tu acceso por 7 días.">
+        Need more time? No problem. Fill in your details and we'll extend your access by 7 days.
+      </p>
+
+      <form id="extendForm" novalidate>
+        <input type="hidden" id="ext-proposal-id">
+
+        <div class="ext-two-col">
+          <div class="ext-field">
+            <label class="i18n" data-en="First Name *" data-es="Nombre *">First Name *</label>
+            <input type="text" id="ext-first" required>
+          </div>
+          <div class="ext-field">
+            <label class="i18n" data-en="Last Name *" data-es="Apellido *">Last Name *</label>
+            <input type="text" id="ext-last" required>
+          </div>
+        </div>
+
+        <div class="ext-field">
+          <label class="i18n" data-en="Business Name *" data-es="Nombre del Negocio *">Business Name *</label>
+          <input type="text" id="ext-company" required>
+        </div>
+
+        <div class="ext-field">
+          <label class="i18n" data-en="Mobile Phone *" data-es="Teléfono Móvil *">Mobile Phone *</label>
+          <input type="tel" id="ext-mobile" required>
+        </div>
+
+        <div class="ext-field">
+          <label class="i18n" data-en="Email *" data-es="Correo Electrónico *">Email *</label>
+          <input type="email" id="ext-email" required>
+        </div>
+
+        <button type="submit" class="ext-submit i18n"
+          data-en="Extend My Demo — 7 More Days →"
+          data-es="Extender Mi Demo — 7 Días Más →">
+          Extend My Demo — 7 More Days →
+        </button>
+      </form>
+
+      <div class="ext-msg" id="ext-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+  JAVASCRIPT
+═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+// ── Config ─────────────────────────────────────────────────────────────────────
+// These values are injected at deploy time (Vercel env vars or static replace)
+const WORKER_URL    = "{{WORKER_URL}}";    // https://zoho-forms-worker.xxx.workers.dev
+const PROPOSAL_ID   = "{{PROPOSAL_ID}}";   // e.g. "PRO-00042"
+const DEMO_EXPIRES  = "{{DEMO_EXPIRES}}";  // ISO date string e.g. "2026-06-15"
+
+// ── Language ────────────────────────────────────────────────────────────────────
+// Auto-detect from browser
+let lang = (navigator.language || "en").startsWith("es") ? "es" : "en";
+// URL override: ?lang=es
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("lang")) lang = urlParams.get("lang");
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll(".i18n").forEach(el => {
+    const txt = el.dataset[l];
+    if (txt !== undefined) el.innerHTML = txt;
+  });
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent.includes(l.toUpperCase()));
+  });
+}
+// Init
+setLang(lang);
+
+// ── Countdown timer ─────────────────────────────────────────────────────────────
+function initCountdown() {
+  let expiry;
+  try {
+    expiry = DEMO_EXPIRES && !DEMO_EXPIRES.startsWith("{{")
+      ? new Date(DEMO_EXPIRES).getTime()
+      : Date.now() + 7 * 24 * 60 * 60 * 1000; // fallback: 7 days from now
+  } catch { expiry = Date.now() + 7 * 24 * 60 * 60 * 1000; }
+
+  function tick() {
+    const now  = Date.now();
+    const diff = expiry - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdownTimer").innerHTML =
+        `<span class="expired-msg">${lang === "es" ? "⚠️ Demo expirado" : "⚠️ Demo Expired"}</span>`;
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    const pad = n => String(n).padStart(2, "0");
+    document.getElementById("cd-days").textContent  = pad(d);
+    document.getElementById("cd-hours").textContent = pad(h);
+    document.getElementById("cd-mins").textContent  = pad(m);
+    document.getElementById("cd-secs").textContent  = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+initCountdown();
+
+// ── Extend modal ────────────────────────────────────────────────────────────────
+document.getElementById("ext-proposal-id").value =
+  PROPOSAL_ID.startsWith("{{") ? (urlParams.get("Proposal_ID") || "") : PROPOSAL_ID;
+
+function openExtendModal() {
+  document.getElementById("extendModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeExtendModal() {
+  document.getElementById("extendModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function closeOnOverlay(e) {
+  if (e.target === document.getElementById("extendModal")) closeExtendModal();
+}
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeExtendModal(); });
+
+document.getElementById("extendForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector("button[type=submit]");
+  const msg = document.getElementById("ext-msg");
+  msg.className = "ext-msg";
+
+  const fields = { ext_first: "ext-first", ext_last: "ext-last", ext_company: "ext-company", ext_mobile: "ext-mobile", ext_email: "ext-email" };
+  let valid = true;
+  Object.values(fields).forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) { el.classList.add("error"); valid = false; }
+    else el.classList.remove("error");
+  });
+  if (!valid) {
+    msg.className = "ext-msg error";
+    msg.textContent = lang === "es" ? "Completa todos los campos." : "Please fill in all fields.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = lang === "es" ? "Enviando…" : "Sending…";
+
+  const payload = {
+    first_name:  document.getElementById("ext-first").value.trim(),
+    last_name:   document.getElementById("ext-last").value.trim(),
+    company:     document.getElementById("ext-company").value.trim(),
+    mobile:      document.getElementById("ext-mobile").value.trim(),
+    email:       document.getElementById("ext-email").value.trim(),
+    proposal_id: document.getElementById("ext-proposal-id").value.trim(),
+  };
+
+  try {
+    const url = WORKER_URL.startsWith("{{")
+      ? "https://zoho-forms-worker.YOUR_SUBDOMAIN.workers.dev"
+      : WORKER_URL;
+
+    const res  = await fetch(`${url}/submit/extension`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      e.target.style.display = "none";
+      msg.className = "ext-msg success";
+      msg.textContent = lang === "es"
+        ? `✅ Demo extendido hasta ${data.new_expiry}. ¡Nos pondremos en contacto pronto!`
+        : `✅ Demo extended until ${data.new_expiry}. We'll be in touch shortly!`;
+    } else {
+      throw new Error(data.error);
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = lang === "es" ? "Extender Mi Demo — 7 Días Más →" : "Extend My Demo — 7 More Days →";
+    msg.className = "ext-msg error";
+    msg.textContent = lang === "es"
+      ? "Algo salió mal. Por favor intenta de nuevo."
+      : "Something went wrong. Please try again.";
+  }
+});
+
+// ── Price gate (email verification) ────────────────────────────────────────────
+// Simple client-side gate: verify email format, then reveal pricing.
+// For production, replace with a real double-opt-in via the Worker.
+document.getElementById("gateForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email  = document.getElementById("gateEmail").value.trim();
+  const status = document.getElementById("gateStatus");
+  const btn    = e.target.querySelector("button");
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    status.className = "gate-status err";
+    status.textContent = lang === "es" ? "Por favor ingresa un correo válido." : "Please enter a valid email.";
+    return;
+  }
+
+  btn.disabled = true;
+  status.className = "gate-status ok";
+  status.textContent = lang === "es" ? "✓ Correo verificado. Mostrando precios…" : "✓ Email verified. Revealing pricing…";
+
+  // Optional: ping the worker to log the email as a CRM lead event
+  // (fire-and-forget — don't block the UX)
+  const workerBase = WORKER_URL.startsWith("{{")
+    ? "https://zoho-forms-worker.YOUR_SUBDOMAIN.workers.dev"
+    : WORKER_URL;
+
+  fetch(`${workerBase}/submit/extension`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      first_name: "—",
+      last_name:  "Price View",
+      email:      email,
+      proposal_id: PROPOSAL_ID.startsWith("{{") ? (urlParams.get("Proposal_ID") || "") : PROPOSAL_ID,
+    }),
+  }).catch(() => {});  // Silent — don't block UX
+
+  setTimeout(() => {
+    document.getElementById("priceGate").style.display    = "none";
+    document.getElementById("pricingCards").classList.add("visible");
+  }, 600);
+});
+</script>
+
+</body>
+</html>

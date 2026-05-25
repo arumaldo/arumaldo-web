@@ -52,7 +52,32 @@ module.exports = async function handler(req, res) {
     lead_id, proposal_id,
     first_name, last_name, email,
     phone, company, industry, country, current_url, need,
+    turnstile_token,
   } = body;
+
+  // Turnstile verification
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    if (!turnstile_token) {
+      return sendJson(res, 400, { error: "Security check is required" }, origin);
+    }
+    try {
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${encodeURIComponent(process.env.TURNSTILE_SECRET_KEY)}&response=${encodeURIComponent(turnstile_token)}`
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        console.warn("[pricing-unlock] Turnstile verification failed:", verifyData);
+        return sendJson(res, 400, { error: "Security verification failed. Please try again." }, origin);
+      }
+    } catch (err) {
+      console.error("[pricing-unlock] Turnstile verification error:", err.message);
+      return sendJson(res, 500, { error: "Security check service error" }, origin);
+    }
+  } else {
+    console.warn("[pricing-unlock] TURNSTILE_SECRET_KEY env variable is not set. Bypassing check.");
+  }
 
   if (!first_name || !last_name || !email) {
     return sendJson(res, 400, { error: "first_name, last_name, and email are required" }, origin);

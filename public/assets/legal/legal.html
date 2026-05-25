@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║          ARUMALDO — LEGAL DOCUMENTS HUB                     ║
+╠══════════════════════════════════════════════════════════════╣
+║  Tabs included:                                              ║
+║  1. Términos y Condiciones                                   ║
+║  2. Política de Privacidad                                   ║
+║  3. Política de Cookies                                      ║
+║  4. Protección de Datos                                      ║
+║                                                              ║
+║  Link from footer of arumaldo-en.html / arumaldo-es.html    ║
+║  Deep link to tab: legal.html#privacidad                     ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentos Legales — arumaldo</title>
+<meta name="description" content="Términos y condiciones, política de privacidad, política de cookies y protección de datos de arumaldo.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --deep-cave:    #1A1F1C;
+  --water-veil:   #A8BFB0;
+  --living-green: #3B5E3F;
+  --matte-silver: #E8E8E6;
+  --white:        #FFFFFF;
+  --ink:          #0E1210;
+  --body:         #2D3330;
+  --ghost:        #7A8A80;
+  --border:       rgba(26,31,28,0.10);
+  --font-serif:   'Fraunces', Georgia, serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
+  --container:    800px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--white);
+  color: var(--body);
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ─── HEADER ────────────────────────────────────────────────── */
+.legal-header {
+  background: var(--deep-cave);
+  padding: clamp(48px, 6vw, 80px) 0 0;
+}
+.legal-header__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px);
+}
+.legal-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--water-veil);
+  margin-bottom: 32px;
+  transition: color 0.2s;
+}
+.legal-header__back:hover { color: var(--matte-silver); }
+.legal-header__brand {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--water-veil);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.legal-header__title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.legal-header__subtitle {
+  font-size: 14px;
+  color: rgba(168,191,176,0.65);
+  margin-bottom: 40px;
+}
+
+/* ─── TABS ──────────────────────────────────────────────────── */
+.tabs-bar {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid rgba(168,191,176,0.12);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs-bar::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(168,191,176,0.55);
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.2s;
+  border-bottom: 2px solid transparent;
+  letter-spacing: 0.01em;
+}
+.tab-btn:hover { color: var(--water-veil); }
+.tab-btn.active {
+  color: var(--white);
+  border-bottom-color: var(--living-green);
+}
+
+/* ─── CONTENT AREA ──────────────────────────────────────────── */
+.legal-body {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 56px clamp(20px, 5vw, 48px) 80px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ─── DOCUMENT STYLES ───────────────────────────────────────── */
+.doc-meta {
+  font-size: 12px;
+  color: var(--ghost);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.04em;
+}
+.doc-section {
+  margin-bottom: 36px;
+}
+.doc-section h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.doc-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.doc-section p {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--body);
+  margin-bottom: 12px;
+}
+.doc-section p:last-child { margin-bottom: 0; }
+.doc-section ul, .doc-section ol {
+  margin: 10px 0 12px 20px;
+}
+.doc-section li {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--body);
+  margin-bottom: 6px;
+}
+.doc-section strong { color: var(--ink); font-weight: 600; }
+.doc-section a { color: var(--living-green); border-bottom: 1px solid rgba(59,94,63,0.3); }
+.doc-section a:hover { border-bottom-color: var(--living-green); }
+
+/* Info box */
+.info-box {
+  background: rgba(59,94,63,0.06);
+  border-left: 3px solid var(--living-green);
+  border-radius: 0 6px 6px 0;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14px;
+  color: var(--body);
+  line-height: 1.7;
+}
+.info-box strong { color: var(--living-green); }
+
+/* ─── COOKIE TABLE ──────────────────────────────────────────── */
+.cookie-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+.cookie-table th {
+  background: var(--matte-silver);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.cookie-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--body);
+  line-height: 1.5;
+}
+.cookie-table tr:last-child td { border-bottom: none; }
+.cookie-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+.cookie-badge--necessary {
+  background: rgba(59,94,63,0.12);
+  color: var(--living-green);
+}
+.cookie-badge--analytics {
+  background: rgba(26,31,28,0.08);
+  color: var(--ghost);
+}
+
+/* ─── CONTACT BLOCK ─────────────────────────────────────────── */
+.contact-block {
+  margin-top: 48px;
+  padding: 28px;
+  background: var(--matte-silver);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.contact-block__title {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.contact-block__body {
+  font-size: 14px;
+  color: var(--ghost);
+  line-height: 1.7;
+}
+.contact-block__body a {
+  color: var(--living-green);
+  border-bottom: 1px solid rgba(59,94,63,0.3);
+}
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
+.legal-footer {
+  background: var(--deep-cave);
+  padding: 32px 0;
+  border-top: 1px solid rgba(168,191,176,0.08);
+}
+.legal-footer__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.legal-footer__brand {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+}
+.legal-footer__brand span { color: var(--water-veil); }
+.legal-footer__copy {
+  font-size: 12px;
+  color: var(--ghost);
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .cookie-table { display: block; overflow-x: auto; }
+  .tab-btn { padding: 12px 16px; font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="legal-header">
+  <div class="legal-header__inner">
+    <a href="/" class="legal-header__back">← Volver a arumaldo.com</a>
+    <div class="legal-header__brand">arumaldo.</div>
+    <h1 class="legal-header__title">Documentos Legales</h1>
+    <p class="legal-header__subtitle">Última actualización: mayo 2026 · República de Panamá</p>
+
+    <!-- TABS -->
+    <nav class="tabs-bar" role="tablist" aria-label="Documentos legales">
+      <button class="tab-btn active" id="tab-terminos"
+        role="tab" aria-selected="true" aria-controls="panel-terminos"
+        onclick="switchTab('terminos')">Términos y Condiciones</button>
+      <button class="tab-btn" id="tab-privacidad"
+        role="tab" aria-selected="false" aria-controls="panel-privacidad"
+        onclick="switchTab('privacidad')">Política de Privacidad</button>
+      <button class="tab-btn" id="tab-cookies"
+        role="tab" aria-selected="false" aria-controls="panel-cookies"
+        onclick="switchTab('cookies')">Política de Cookies</button>
+      <button class="tab-btn" id="tab-datos"
+        role="tab" aria-selected="false" aria-controls="panel-datos"
+        onclick="switchTab('datos')">Protección de Datos</button>
+    </nav>
+  </div>
+</header>
+
+<!-- BODY -->
+<main class="legal-body">
+
+  <!-- ═══ TÉRMINOS Y CONDICIONES ═══ -->
+  <div class="tab-panel active" id="panel-terminos" role="tabpanel" aria-labelledby="tab-terminos">
+
+    <p class="doc-meta">TÉRMINOS Y CONDICIONES DE USO · Última actualización: mayo 2026</p>
+
+    <div class="doc-section">
+      <h2>1. Aceptación de los Términos</h2>
+      <p>Al acceder y utilizar el sitio web <strong>arumaldo.com</strong> (en adelante "el Sitio"), usted acepta quedar vinculado por estos Términos y Condiciones de Uso. Si no está de acuerdo con alguno de estos términos, le solicitamos abstenerse de utilizar el Sitio.</p>
+      <p>ARUMALDO opera el Sitio desde la República de Panamá. Estos términos se rigen por la legislación panameña.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Descripción del Servicio</h2>
+      <p>ARUMALDO ofrece servicios de diseño y desarrollo de sitios web profesionales para empresas. El Sitio funciona como plataforma de presentación comercial y canal de contacto. Los servicios específicos y sus condiciones se rigen por el contrato de servicios firmado entre las partes.</p>
+      <p>Los precios y especificaciones publicados en el Sitio son referenciales y pueden actualizarse sin previo aviso. La cotización formal entregada por ARUMALDO constituye el compromiso comercial vinculante.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. Uso Permitido del Sitio</h2>
+      <p>Usted se compromete a utilizar el Sitio exclusivamente para fines lícitos y de acuerdo con estos términos. Está prohibido:</p>
+      <ul>
+        <li>Usar el Sitio de forma que viole leyes o regulaciones locales, nacionales o internacionales.</li>
+        <li>Transmitir cualquier material de naturaleza ilegal, amenazante, ofensiva o fraudulenta.</li>
+        <li>Intentar obtener acceso no autorizado a sistemas, redes o datos.</li>
+        <li>Reproducir, distribuir o modificar el contenido del Sitio sin autorización escrita de ARUMALDO.</li>
+        <li>Usar el Sitio para enviar comunicaciones no solicitadas (spam).</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. Propiedad Intelectual</h2>
+      <p>Todo el contenido del Sitio — incluyendo diseño, textos, imágenes, código, logotipos y marca — es propiedad de ARUMALDO o de sus respectivos titulares, y está protegido por las leyes de propiedad intelectual vigentes en la República de Panamá y en el plano internacional.</p>
+      <p>Queda prohibida la reproducción total o parcial del contenido del Sitio sin el consentimiento expreso y por escrito de ARUMALDO.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Limitación de Responsabilidad</h2>
+      <p>ARUMALDO no garantiza que el Sitio esté disponible de forma ininterrumpida o libre de errores. El Sitio se proporciona "tal cual" y "según disponibilidad".</p>
+      <p>ARUMALDO no será responsable por daños directos, indirectos, incidentales o consecuentes derivados del uso o la imposibilidad de uso del Sitio, incluyendo pérdida de datos o interrupciones del negocio.</p>
+      <p>Los enlaces a sitios web de terceros presentes en el Sitio se proporcionan únicamente para conveniencia del usuario. ARUMALDO no controla ni es responsable del contenido de dichos sitios.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Formulario de Contacto</h2>
+      <p>Al completar el formulario de contacto del Sitio, usted autoriza a ARUMALDO a procesar su consulta y responderle por los medios indicados. La información proporcionada será tratada conforme a la Política de Privacidad.</p>
+      <p>ARUMALDO no está obligado a responder a todas las consultas recibidas y se reserva el derecho de declinar proyectos a su discreción.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Modificaciones</h2>
+      <p>ARUMALDO se reserva el derecho de modificar estos Términos en cualquier momento. Los cambios entrarán en vigor desde su publicación en el Sitio. El uso continuado del Sitio posterior a cualquier modificación constituye la aceptación de los nuevos términos.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>8. Ley Aplicable</h2>
+      <p>Estos Términos se rigen por las leyes de la <strong>República de Panamá</strong>. Cualquier controversia derivada de su interpretación o aplicación se resolverá según los mecanismos establecidos en la legislación panameña vigente.</p>
+    </div>
+
+    <div class="contact-block">
+      <h3 class="contact-block__title">¿Tienes preguntas?</h3>
+      <p class="contact-block__body">Para consultas sobre estos términos, contáctanos en <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a></p>
+    </div>
+
+  </div><!-- /panel-terminos -->
+
+  <!-- ═══ POLÍTICA DE PRIVACIDAD ═══ -->
+  <div class="tab-panel" id="panel-privacidad" role="tabpanel" aria-labelledby="tab-privacidad">
+
+    <p class="doc-meta">POLÍTICA DE PRIVACIDAD · Última actualización: mayo 2026</p>
+
+    <div class="info-box">
+      <strong>Resumen ejecutivo:</strong> Recopilamos únicamente la información que nos proporcionas voluntariamente a través de los formularios del Sitio. No la vendemos ni compartimos con terceros para fines comerciales. Puedes solicitar el acceso, corrección o eliminación de tus datos en cualquier momento.
+    </div>
+
+    <div class="doc-section">
+      <h2>1. Responsable del Tratamiento</h2>
+      <p><strong>ARUMALDO</strong>, con domicilio en la Ciudad de Panamá, República de Panamá.</p>
+      <p>Contacto: <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a></p>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Datos que Recopilamos</h2>
+      <h3>Datos que nos proporcionas</h3>
+      <ul>
+        <li><strong>Formulario de contacto:</strong> nombre, correo electrónico, número de teléfono/WhatsApp (opcional), mensaje o consulta.</li>
+        <li><strong>Formulario de cotización:</strong> los mismos datos anteriores más detalles sobre tu proyecto.</li>
+        <li><strong>Formulario de incorporación (post-pago):</strong> información detallada de tu empresa, materiales de marca, contenidos del sitio web.</li>
+      </ul>
+      <h3>Datos recopilados automáticamente</h3>
+      <ul>
+        <li>Dirección IP y tipo de dispositivo (a través del servidor de alojamiento).</li>
+        <li>Páginas visitadas y tiempo de permanencia (datos agregados y anónimos si se activan herramientas de analítica).</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. Finalidad del Tratamiento</h2>
+      <ul>
+        <li><strong>Atender tu consulta</strong> y responderte por los medios indicados.</li>
+        <li><strong>Preparar y enviarte una cotización</strong> de servicios.</li>
+        <li><strong>Ejecutar el contrato de servicios</strong> firmado contigo.</li>
+        <li><strong>Facturación y gestión de pagos</strong> a través de Zoho Billing.</li>
+        <li><strong>Comunicaciones relacionadas con el servicio</strong> contratado (estados del proyecto, entregables, instrucciones).</li>
+        <li><strong>Cumplimiento de obligaciones legales</strong> según las leyes de la República de Panamá.</li>
+      </ul>
+      <p>No utilizaremos tus datos para enviar comunicaciones comerciales no solicitadas.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. Base Legal del Tratamiento</h2>
+      <p>El tratamiento de tus datos se sustenta en las siguientes bases legales, conforme a la <strong>Ley 81 de 26 de marzo de 2019</strong> de la República de Panamá (Ley de Protección de Datos Personales):</p>
+      <ul>
+        <li><strong>Consentimiento:</strong> cuando completas voluntariamente un formulario del Sitio.</li>
+        <li><strong>Ejecución contractual:</strong> cuando el tratamiento es necesario para prestarte el servicio contratado.</li>
+        <li><strong>Obligación legal:</strong> cuando el tratamiento es requerido por ley aplicable.</li>
+        <li><strong>Interés legítimo:</strong> para el mantenimiento y mejora del Sitio.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Compartición de Datos con Terceros</h2>
+      <p>ARUMALDO no vende, alquila ni comercializa tus datos personales. Los datos podrán ser compartidos exclusivamente con los siguientes proveedores de servicio, bajo acuerdos de confidencialidad:</p>
+      <ul>
+        <li><strong>Zoho Corporation:</strong> gestión de CRM (leads y contactos), facturación y cobros. Política de privacidad: <a href="https://www.zoho.com/privacy.html" target="_blank" rel="noopener">zoho.com/privacy</a></li>
+        <li><strong>Proveedor de hosting:</strong> alojamiento web del Sitio y de los sitios de clientes.</li>
+        <li><strong>Formspree / procesador de formularios:</strong> para la transmisión de datos de formularios de contacto.</li>
+      </ul>
+      <p>No transferimos datos a países sin nivel de protección adecuado sin los mecanismos de garantía requeridos por la ley aplicable.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Retención de Datos</h2>
+      <ul>
+        <li><strong>Consultas sin contrato:</strong> hasta 12 meses desde el último contacto.</li>
+        <li><strong>Datos de clientes activos:</strong> durante la vigencia de la relación comercial.</li>
+        <li><strong>Datos de clientes anteriores:</strong> hasta 5 años para fines de cumplimiento legal y fiscal.</li>
+        <li><strong>Datos de facturación:</strong> según los plazos mínimos establecidos por la legislación fiscal panameña.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Tus Derechos</h2>
+      <p>De acuerdo con la Ley 81 de 2019 de Panamá, tienes derecho a:</p>
+      <ul>
+        <li><strong>Acceso:</strong> conocer qué datos tuyos procesamos.</li>
+        <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+        <li><strong>Supresión:</strong> solicitar la eliminación de tus datos.</li>
+        <li><strong>Limitación:</strong> solicitar la restricción del tratamiento.</li>
+        <li><strong>Oposición:</strong> oponerte al tratamiento basado en interés legítimo.</li>
+        <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado y legible.</li>
+        <li><strong>Revocación del consentimiento</strong> en cualquier momento, sin efectos retroactivos.</li>
+      </ul>
+      <p>Para ejercer cualquiera de estos derechos, envía tu solicitud a <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a> con identificación de la persona solicitante. Responderemos en un plazo máximo de 15 días hábiles.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>8. Seguridad</h2>
+      <p>Implementamos medidas técnicas y organizativas razonables para proteger tus datos contra acceso no autorizado, pérdida o divulgación. Sin embargo, ninguna transmisión por internet es 100% segura. En caso de una brecha de seguridad que afecte tus datos, te notificaremos conforme a lo requerido por la ley.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>9. Menores de Edad</h2>
+      <p>Los servicios de ARUMALDO están dirigidos exclusivamente a personas mayores de 18 años o a empresas representadas por personas mayores de edad. No recopilamos conscientemente datos de menores de edad.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>10. Cambios a esta Política</h2>
+      <p>Podremos actualizar esta política periódicamente. Te notificaremos de cambios significativos a través del Sitio o por correo electrónico si mantenemos una relación comercial activa contigo.</p>
+    </div>
+
+    <div class="contact-block">
+      <h3 class="contact-block__title">Contacto del Responsable de Privacidad</h3>
+      <p class="contact-block__body">
+        ARUMALDO<br>
+        <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a><br>
+        Ciudad de Panamá, República de Panamá
+      </p>
+    </div>
+
+  </div><!-- /panel-privacidad -->
+
+  <!-- ═══ POLÍTICA DE COOKIES ═══ -->
+  <div class="tab-panel" id="panel-cookies" role="tabpanel" aria-labelledby="tab-cookies">
+
+    <p class="doc-meta">POLÍTICA DE COOKIES · Última actualización: mayo 2026</p>
+
+    <div class="doc-section">
+      <h2>¿Qué son las cookies?</h2>
+      <p>Las cookies son pequeños archivos de texto que los sitios web almacenan en tu dispositivo cuando los visitas. Permiten que el sitio recuerde tus preferencias y mejore tu experiencia de navegación.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>¿Qué cookies utiliza arumaldo.com?</h2>
+      <p>El Sitio hace un uso mínimo e intencionado de cookies. No utilizamos cookies de publicidad ni de seguimiento entre sitios.</p>
+
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Cookie</th>
+            <th>Tipo</th>
+            <th>Propósito</th>
+            <th>Duración</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>arumaldo_lang</code></td>
+            <td><span class="cookie-badge cookie-badge--necessary">Necesaria</span></td>
+            <td>Recuerda tu preferencia de idioma (ES/EN).</td>
+            <td>30 días</td>
+          </tr>
+          <tr>
+            <td><code>arumaldo_consent</code></td>
+            <td><span class="cookie-badge cookie-badge--necessary">Necesaria</span></td>
+            <td>Registra si has aceptado esta política de cookies.</td>
+            <td>12 meses</td>
+          </tr>
+          <tr>
+            <td>Cookies de Google Fonts</td>
+            <td><span class="cookie-badge cookie-badge--analytics">Técnica</span></td>
+            <td>Carga las tipografías del Sitio desde los servidores de Google.</td>
+            <td>Sesión</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <strong>Nota:</strong> Si en el futuro activamos herramientas de analítica (como Google Analytics o similares), actualizaremos esta política y solicitaremos tu consentimiento antes de activarlas.
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <h2>¿Cómo gestionar o rechazar las cookies?</h2>
+      <p>Puedes controlar y/o eliminar las cookies según desees. Para más información, visita <a href="https://www.aboutcookies.org" target="_blank" rel="noopener">aboutcookies.org</a>.</p>
+      <p>Puedes eliminar todas las cookies que ya están en tu dispositivo y configurar la mayoría de los navegadores para que no las acepten. Sin embargo, al hacerlo es posible que debas ajustar manualmente algunas preferencias cada vez que visites el Sitio.</p>
+      <h3>Configuración de cookies por navegador:</h3>
+      <ul>
+        <li><strong>Chrome:</strong> Configuración → Privacidad y seguridad → Cookies</li>
+        <li><strong>Firefox:</strong> Opciones → Privacidad y seguridad → Cookies y datos del sitio</li>
+        <li><strong>Safari:</strong> Preferencias → Privacidad → Cookies y datos de sitios web</li>
+        <li><strong>Edge:</strong> Configuración → Privacidad, búsqueda y servicios → Cookies</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>Cookies de terceros</h2>
+      <p>El Sitio puede contener enlaces a servicios de terceros (por ejemplo, Zoho Billing para pagos). Estos servicios pueden establecer sus propias cookies según sus políticas de privacidad, sobre las cuales ARUMALDO no tiene control.</p>
+    </div>
+
+    <div class="contact-block">
+      <h3 class="contact-block__title">Preguntas sobre cookies</h3>
+      <p class="contact-block__body">Contáctanos en <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a></p>
+    </div>
+
+  </div><!-- /panel-cookies -->
+
+  <!-- ═══ PROTECCIÓN DE DATOS ═══ -->
+  <div class="tab-panel" id="panel-datos" role="tabpanel" aria-labelledby="tab-datos">
+
+    <p class="doc-meta">POLÍTICA DE PROTECCIÓN DE DATOS · Última actualización: mayo 2026</p>
+
+    <div class="info-box">
+      <strong>Marco legal aplicable:</strong> Ley 81 de 26 de marzo de 2019 de la República de Panamá (Ley de Protección de Datos Personales) y su Decreto Ejecutivo 285 de 2021 reglamentario. Para usuarios ubicados en la Unión Europea, se aplican adicionalmente los principios del Reglamento General de Protección de Datos (RGPD/GDPR).
+    </div>
+
+    <div class="doc-section">
+      <h2>1. Compromisos de Protección de Datos</h2>
+      <p>ARUMALDO se compromete a tratar los datos personales de sus usuarios y clientes con los más altos estándares de seguridad, transparencia y respeto, de acuerdo con los principios de la Ley 81 de 2019 de Panamá:</p>
+      <ul>
+        <li><strong>Licitud:</strong> tratamos datos únicamente cuando existe una base legal válida.</li>
+        <li><strong>Lealtad y transparencia:</strong> informamos claramente sobre cómo usamos tus datos.</li>
+        <li><strong>Limitación de finalidad:</strong> usamos los datos solo para los fines para los que fueron recopilados.</li>
+        <li><strong>Minimización:</strong> recopilamos únicamente los datos necesarios para la finalidad declarada.</li>
+        <li><strong>Exactitud:</strong> mantenemos los datos actualizados y corregimos inexactitudes.</li>
+        <li><strong>Limitación del plazo de conservación:</strong> no conservamos datos más tiempo del necesario.</li>
+        <li><strong>Integridad y confidencialidad:</strong> protegemos los datos contra tratamiento no autorizado.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Medidas de Seguridad Implementadas</h2>
+      <h3>Medidas técnicas</h3>
+      <ul>
+        <li>Transmisión de datos mediante protocolo HTTPS (cifrado TLS/SSL).</li>
+        <li>Acceso restringido a datos personales, limitado al equipo de ARUMALDO.</li>
+        <li>Datos almacenados en infraestructura que cumple con estándares de seguridad reconocidos.</li>
+        <li>Gestión de pagos a través de Zoho Billing, plataforma certificada con PCI DSS.</li>
+      </ul>
+      <h3>Medidas organizativas</h3>
+      <ul>
+        <li>Política de confidencialidad aplicable a cualquier colaborador o subcontratista.</li>
+        <li>Revisión periódica de accesos y permisos sobre datos personales.</li>
+        <li>Procedimiento documentado para la respuesta ante brechas de seguridad.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. Transferencias Internacionales de Datos</h2>
+      <p>Al utilizar proveedores de servicios internacionales (Zoho, plataformas de hosting), algunos datos pueden ser procesados fuera de Panamá. ARUMALDO asegura que dichas transferencias se realizan con proveedores que ofrecen niveles adecuados de protección, conforme a la normativa aplicable.</p>
+      <p>En caso de que seas usuario ubicado en la Unión Europea, las transferencias a países sin decisión de adecuación de la Comisión Europea se realizan bajo las salvaguardias apropiadas establecidas en el RGPD (artículo 46).</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. Datos de Clientes Empresariales</h2>
+      <p>Cuando ARUMALDO desarrolla un sitio web para un cliente empresarial que incluirá datos de sus propios usuarios o clientes, ARUMALDO actúa como <strong>encargado del tratamiento</strong> y el cliente como <strong>responsable del tratamiento</strong>.</p>
+      <p>En este rol, ARUMALDO se compromete a:</p>
+      <ul>
+        <li>Tratar los datos únicamente conforme a las instrucciones documentadas del cliente responsable.</li>
+        <li>Garantizar la confidencialidad de los datos tratados.</li>
+        <li>No transferir los datos a terceros sin autorización del responsable.</li>
+        <li>Asistir al responsable en el cumplimiento de sus obligaciones legales en materia de protección de datos.</li>
+        <li>Eliminar o devolver los datos personales al finalizar la prestación del servicio.</li>
+      </ul>
+      <p>Las condiciones específicas del encargo de tratamiento podrán formalizarse mediante un acuerdo de procesamiento de datos (DPA) adjunto al contrato de servicios, cuando sea requerido por la normativa aplicable.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Notificación de Brechas de Seguridad</h2>
+      <p>En caso de una brecha de seguridad que pueda suponer un riesgo para los derechos y libertades de las personas afectadas, ARUMALDO:</p>
+      <ul>
+        <li>Notificará a los afectados sin demoras indebidas.</li>
+        <li>Tomará las medidas correctivas necesarias para mitigar el impacto.</li>
+        <li>Documentará el incidente y las acciones tomadas.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Autoridad de Supervisión</h2>
+      <p>En la República de Panamá, la autoridad competente para la protección de datos personales es la <strong>Autoridad Nacional de Transparencia y Acceso a la Información (ANTAI)</strong>, a quien los titulares de datos pueden dirigir reclamaciones si consideran que sus derechos no han sido atendidos.</p>
+      <p>Para usuarios en la Unión Europea, tienen derecho a presentar una reclamación ante la autoridad de control de su Estado miembro correspondiente.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Actualizaciones de esta Política</h2>
+      <p>Esta política podrá ser revisada para reflejar cambios en la legislación aplicable o en nuestras prácticas de tratamiento de datos. La versión vigente siempre estará disponible en esta página, con la fecha de última actualización indicada.</p>
+    </div>
+
+    <div class="contact-block">
+      <h3 class="contact-block__title">Solicitudes de Derechos de Protección de Datos</h3>
+      <p class="contact-block__body">
+        Para ejercer tus derechos de acceso, rectificación, supresión, limitación, oposición o portabilidad,
+        envía tu solicitud con copia de tu documento de identidad a:<br><br>
+        <a href="mailto:legal@arumaldo.com">legal@arumaldo.com</a><br>
+        ARUMALDO<br>
+        Ciudad de Panamá, República de Panamá<br><br>
+        Tiempo de respuesta: máximo 15 días hábiles.
+      </p>
+    </div>
+
+  </div><!-- /panel-datos -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="legal-footer">
+  <div class="legal-footer__inner">
+    <div class="legal-footer__brand">arumaldo<span>.</span></div>
+    <div class="legal-footer__copy">
+      © 2025–2026 ARUMALDO · República de Panamá
+    </div>
+  </div>
+</footer>
+
+<script>
+function switchTab(id) {
+  // Deactivate all
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.remove('active');
+  });
+
+  // Activate selected
+  const btn   = document.getElementById('tab-' + id);
+  const panel = document.getElementById('panel-' + id);
+  if (btn && panel) {
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    panel.classList.add('active');
+    // Update URL hash without scrolling
+    history.replaceState(null, '', '#' + id);
+  }
+}
+
+// Handle deep links (e.g. legal.html#privacidad)
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '');
+  const validTabs = ['terminos', 'privacidad', 'cookies', 'datos'];
+  if (hash && validTabs.includes(hash)) {
+    switchTab(hash);
+  }
+});
+</script>
+
+</body>
+</html>

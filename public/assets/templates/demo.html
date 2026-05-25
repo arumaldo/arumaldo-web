@@ -347,7 +347,7 @@ function renderDemo() {
 
   // Wire payment CTA to proposal
   if (pid) {
-    document.getElementById('banner-cta').href = `/proposal/?pid=${encodeURIComponent(pid)}&state=locked&lang=${lang}`;
+    document.getElementById('banner-cta').href = `proposal.html?pid=${encodeURIComponent(pid)}&state=locked&lang=${lang}`;
   } else {
     document.getElementById('banner-cta').href = 'https://arumaldo.com/#contact';
   }

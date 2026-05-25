@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BUSINESS_NAME}} — Digital Preview by -arumaldo.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --deep-cave:    #1A1F1C;
+    --filtered-sun: #C9980A;
+    --water-veil:   #A8BFB0;
+    --living-green: #3B5E3F;
+    --matte-silver: #E8E8E6;
+    --paper:        #F0EBDF;
+    --cream:        #ECE7DA;
+    --ink:          #1E1D19;
+    --bronze:       #9A6A3C;
+    --text-muted:   #7A7265;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    padding-top: 52px; /* countdown bar height */
+  }
+
+  /* ─── COUNTDOWN BAR ─── */
+  #countdown-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    height: 52px;
+    background: var(--deep-cave);
+    border-bottom: 1px solid rgba(201,152,10,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 24px;
+  }
+
+  .bar-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--water-veil);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  .bar-icon { font-size: 15px; }
+
+  #countdown-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .cd-unit {
+    background: rgba(201,152,10,0.15);
+    border: 1px solid rgba(201,152,10,0.3);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--filtered-sun);
+    letter-spacing: 0.5px;
+    min-width: 38px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .cd-sep {
+    color: var(--filtered-sun);
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0.5;
+    margin: 0 1px;
+  }
+
+  .bar-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 7px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .bar-cta:hover { opacity: 0.85; }
+
+  /* ─── EXPIRY OVERLAY ─── */
+  #expiry-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(26,31,28,0.93);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    backdrop-filter: blur(6px);
+  }
+
+  #expiry-overlay.active { display: flex; }
+
+  .overlay-inner {
+    max-width: 520px;
+  }
+
+  .overlay-icon {
+    font-size: 40px;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  .overlay-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 52px);
+    color: var(--matte-silver);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .overlay-sub {
+    font-size: 16px;
+    color: var(--water-veil);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    opacity: 0.85;
+  }
+
+  .overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 14px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .overlay-btn:hover { opacity: 0.85; }
+
+  .overlay-credit {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ─── DEMO SITE ─── */
+
+  /* HERO */
+  .demo-hero {
+    background: var(--deep-cave);
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .demo-hero::before {
+    content: '';
+    position: absolute;
+    bottom: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(59,94,63,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .demo-hero::after {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,152,10,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .demo-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+  }
+
+  .demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(168,191,176,0.25);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--water-veil);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--living-green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .demo-hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 100px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+    color: var(--matte-silver);
+    margin-bottom: 20px;
+  }
+
+  .demo-hero-tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--water-veil);
+    margin-bottom: 44px;
+    line-height: 1.35;
+    max-width: 560px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 14px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-primary-demo:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-outline-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1.5px solid rgba(168,191,176,0.35);
+    color: var(--water-veil);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: pointer;
+    background: none;
+  }
+
+  .btn-outline-demo:hover {
+    border-color: var(--water-veil);
+    color: var(--matte-silver);
+  }
+
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .scroll-line {
+    width: 32px;
+    height: 1px;
+    background: var(--text-muted);
+  }
+
+  /* SERVICES */
+  .demo-services {
+    padding: 100px 60px;
+    background: var(--paper);
+  }
+
+  .demo-services-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .section-heading {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 52px);
+    letter-spacing: -1px;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 60px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--cream);
+    border: 1px solid rgba(26,31,28,0.07);
+    border-radius: 6px;
+    padding: 40px 32px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,31,28,0.08);
+  }
+
+  .service-num {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--filtered-sun);
+    margin-bottom: 20px;
+  }
+
+  .service-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--living-green);
+    text-decoration: none;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    transition: gap 0.2s;
+  }
+
+  .service-link:hover { gap: 10px; }
+
+  /* ABOUT */
+  .demo-about {
+    padding: 100px 60px;
+    background: var(--deep-cave);
+  }
+
+  .demo-about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    opacity: 0.6;
+    margin-bottom: 12px;
+  }
+
+  .about-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -1px;
+    line-height: 1.05;
+    color: var(--matte-silver);
+    margin-bottom: 24px;
+  }
+
+  .about-body {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--water-veil);
+    opacity: 0.85;
+  }
+
+  .about-visual {
+    background: rgba(168,191,176,0.05);
+    border: 1px solid rgba(168,191,176,0.1);
+    border-radius: 8px;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-visual-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+  }
+
+  .stat-item {
+    border-top: 1px solid rgba(168,191,176,0.15);
+    padding-top: 16px;
+  }
+
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 36px;
+    color: var(--filtered-sun);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  .demo-contact {
+    padding: 100px 60px;
+    background: var(--paper);
+  }
+
+  .demo-contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-info .section-eyebrow { margin-bottom: 12px; }
+
+  .contact-info .section-heading { margin-bottom: 24px; }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: var(--cream);
+    border: 1px solid rgba(26,31,28,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-item-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .contact-item-text span {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .contact-form-side {
+    background: var(--cream);
+    border: 1px solid rgba(26,31,28,0.07);
+    border-radius: 8px;
+    padding: 40px;
+  }
+
+  .contact-form-side h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
+  }
+
+  .cf-field {
+    margin-bottom: 16px;
+  }
+
+  .cf-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .cf-field input,
+  .cf-field textarea {
+    width: 100%;
+    background: var(--paper);
+    border: 1.5px solid rgba(26,31,28,0.12);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+
+  .cf-field input:focus,
+  .cf-field textarea:focus {
+    border-color: var(--living-green);
+  }
+
+  .cf-submit {
+    width: 100%;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 14px 28px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+
+  .cf-submit:hover { opacity: 0.85; }
+
+  /* ─── BOTTOM CTA BAR ─── */
+  #bottom-cta {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 900;
+    background: var(--deep-cave);
+    border-top: 1px solid rgba(201,152,10,0.2);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 24px;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+
+  #bottom-cta.visible { transform: translateY(0); }
+
+  .bottom-cta-text {
+    font-size: 14px;
+    color: var(--water-veil);
+  }
+
+  .bottom-cta-text strong { color: var(--matte-silver); }
+
+  .bottom-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .bottom-cta-btn:hover { opacity: 0.85; }
+
+  /* Add padding for bottom bar */
+  body.bar-visible { padding-bottom: 56px; }
+
+  /* ─── FLOAT BTN ─── */
+  #float-btn {
+    position: fixed;
+    bottom: 80px;
+    right: 28px;
+    z-index: 950;
+    width: 56px; height: 56px;
+    background: var(--filtered-sun);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 20px rgba(201,152,10,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  #float-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 28px rgba(201,152,10,0.45);
+  }
+
+  /* ─── QUOTE MODAL ─── */
+  #quote-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(26,31,28,0.75);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  #quote-modal.open { display: flex; }
+
+  .modal-box {
+    background: var(--paper);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    position: relative;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--ink); }
+
+  .modal-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .modal-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .modal-field {
+    margin-bottom: 14px;
+  }
+
+  .modal-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .modal-field input,
+  .modal-field textarea {
+    width: 100%;
+    background: var(--cream);
+    border: 1.5px solid rgba(26,31,28,0.1);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .modal-field input:focus,
+  .modal-field textarea:focus { border-color: var(--living-green); }
+
+  .modal-submit {
+    width: 100%;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 13px 28px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+
+  .modal-submit:hover { opacity: 0.85; }
+
+  .modal-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .modal-success.show { display: block; }
+
+  .modal-success-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .modal-success h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .modal-success p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── DEMO WATERMARK ─── */
+  .demo-watermark {
+    position: fixed;
+    bottom: 72px;
+    left: 20px;
+    z-index: 800;
+    background: rgba(26,31,28,0.85);
+    border: 1px solid rgba(168,191,176,0.2);
+    border-radius: 4px;
+    padding: 7px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  /* ─── FOOTER ─── */
+  .demo-footer {
+    background: var(--deep-cave);
+    border-top: 1px solid rgba(168,191,176,0.08);
+    padding: 48px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--matte-silver);
+    letter-spacing: -0.5px;
+  }
+
+  .footer-location {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .footer-credit {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .footer-credit a {
+    color: var(--water-veil);
+    text-decoration: none;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .demo-hero { padding: 60px 24px; min-height: auto; }
+    .demo-services { padding: 70px 24px; }
+    .demo-about { padding: 70px 24px; }
+    .demo-contact { padding: 70px 24px; }
+    .demo-about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .demo-contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: repeat(2, 1fr); }
+    .bar-text span.bar-label { display: none; }
+    #float-btn { bottom: 72px; }
+    .demo-footer { flex-direction: column; text-align: center; }
+    .footer-credit { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── COUNTDOWN BAR ─── -->
+<div id="countdown-bar">
+  <div class="bar-text">
+    <span class="bar-icon">⏱</span>
+    <span class="bar-label">This preview expires in:</span>
+    <div id="countdown-display">
+      <div class="cd-unit" id="cd-days">00</div><div class="cd-sep">D</div>
+      <div class="cd-unit" id="cd-hours">00</div><div class="cd-sep">H</div>
+      <div class="cd-unit" id="cd-min">00</div><div class="cd-sep">M</div>
+      <div class="cd-unit" id="cd-sec">00</div><div class="cd-sep">S</div>
+    </div>
+  </div>
+  <a href="{{CONTACT_URL}}" class="bar-cta">Request Quote Before It Expires →</a>
+</div>
+
+<!-- ─── EXPIRY OVERLAY ─── -->
+<div id="expiry-overlay">
+  <div class="overlay-inner">
+    <div class="overlay-icon">⌛</div>
+    <h2 class="overlay-title">This preview<br>has expired.</h2>
+    <p class="overlay-sub">
+      Contact us to receive a fresh proposal<br>for <strong>{{BUSINESS_NAME}}</strong>.
+    </p>
+    <a href="{{CONTACT_URL}}" class="overlay-btn">Request a Quote →</a>
+    <div class="overlay-credit">Built by <strong>-arumaldo.</strong> · abdiel@arumaldo.com</div>
+  </div>
+</div>
+
+<!-- ─── DEMO SITE ─── -->
+
+<!-- HERO -->
+<section class="demo-hero" id="top">
+  <div class="demo-hero-inner">
+    <div class="demo-badge">
+      <span class="badge-dot"></span>
+      Serving {{BUSINESS_LOCATION}}
+    </div>
+    <h1 class="demo-hero-title">{{BUSINESS_NAME}}</h1>
+    <p class="demo-hero-tagline">{{BUSINESS_TAGLINE}}</p>
+    <div class="hero-buttons">
+      <button class="btn-primary-demo" onclick="openModal()">Get in Touch</button>
+      <a href="#services" class="btn-outline-demo">Our Services ↓</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="demo-services" id="services">
+  <div class="demo-services-inner">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-heading">Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-title">{{SERVICE_1}}</div>
+        <p class="service-desc">Professional service delivered with precision and care. We bring years of expertise to every engagement.</p>
+        <button class="service-link" onclick="openModal()">Learn more →</button>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-title">{{SERVICE_2}}</div>
+        <p class="service-desc">Tailored solutions designed around your specific needs and goals. Quality you can see and feel.</p>
+        <button class="service-link" onclick="openModal()">Learn more →</button>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-title">{{SERVICE_3}}</div>
+        <p class="service-desc">Going beyond the basics to deliver comprehensive results that make a real difference for your business.</p>
+        <button class="service-link" onclick="openModal()">Learn more →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="demo-about" id="about">
+  <div class="demo-about-inner">
+    <div class="about-content">
+      <div class="about-label">About Us</div>
+      <h2 class="about-title">Who We Are</h2>
+      <p class="about-body">{{BUSINESS_DESCRIPTION}}</p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-visual-text">
+        Your photo or<br>team image here
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="demo-contact" id="contact">
+  <div class="demo-contact-inner">
+    <div class="contact-info">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2 class="section-heading">Ready to<br>get started?</h2>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            <span>{{BUSINESS_LOCATION}}</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <strong>Phone</strong>
+            <span>Available upon request</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            <span>contact@{{BUSINESS_NAME|lowercase}}.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form-side">
+      <h3>Send us a message</h3>
+      <div class="cf-field">
+        <label>Your Name</label>
+        <input type="text" placeholder="John Smith" />
+      </div>
+      <div class="cf-field">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com" />
+      </div>
+      <div class="cf-field">
+        <label>Message</label>
+        <textarea rows="4" placeholder="Tell us about your project..."></textarea>
+      </div>
+      <button class="cf-submit" onclick="openModal()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="demo-footer">
+  <div>
+    <div class="footer-name">{{BUSINESS_NAME}}</div>
+    <div class="footer-location">{{BUSINESS_LOCATION}}</div>
+  </div>
+  <div class="footer-credit">
+    Website preview built by <a href="https://arumaldo.com" target="_blank">-arumaldo.</a><br>
+    <span style="opacity:0.5;">This is a demo — not your live site yet.</span>
+  </div>
+</footer>
+
+<!-- ─── BOTTOM CTA BAR ─── -->
+<div id="bottom-cta">
+  <span class="bottom-cta-text"><strong>Like what you see?</strong></span>
+  <button class="bottom-cta-btn" onclick="openModal()">Request This For Your Business →</button>
+</div>
+
+<!-- ─── FLOAT BTN ─── -->
+<button id="float-btn" onclick="openModal()" title="Get a Quote">💬</button>
+
+<!-- ─── DEMO WATERMARK ─── -->
+<div class="demo-watermark">Demo Preview</div>
+
+<!-- ─── QUOTE MODAL ─── -->
+<div id="quote-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-form-wrap">
+      <h2 class="modal-title">Request a Quote</h2>
+      <p class="modal-sub">Interested in a website like this for <strong>{{BUSINESS_NAME}}</strong>? Let's talk.</p>
+      <div class="modal-field">
+        <label>Your Name</label>
+        <input type="text" id="modal-name" placeholder="Your full name" />
+      </div>
+      <div class="modal-field">
+        <label>Email Address</label>
+        <input type="email" id="modal-email" placeholder="your@email.com" />
+      </div>
+      <div class="modal-field">
+        <label>Message</label>
+        <textarea id="modal-message" rows="3" placeholder="Tell us about your business..."></textarea>
+      </div>
+      <button class="modal-submit" onclick="submitModal()">Send My Request →</button>
+    </div>
+    <div class="modal-success" id="modal-success">
+      <div class="modal-success-icon">✅</div>
+      <h3>Request received!</h3>
+      <p>We'll get back to you within 24 hours with a fresh proposal for your business.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── COUNTDOWN LOGIC ───
+  const PREVIEW_CREATED = '{{PREVIEW_CREATED}}';
+
+  function addBusinessDays(date, days) {
+    const d = new Date(date);
+    let count = 0;
+    while (count < days) {
+      d.setDate(d.getDate() + 1);
+      const day = d.getDay();
+      if (day !== 0 && day !== 6) count++;
+    }
+    return d;
+  }
+
+  const created = new Date(PREVIEW_CREATED);
+  const expiry = addBusinessDays(created, 2);
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = expiry - now;
+
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-min').textContent = '00';
+      document.getElementById('cd-sec').textContent = '00';
+      document.getElementById('expiry-overlay').classList.add('active');
+      clearInterval(timerInterval);
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const days    = Math.floor(totalSeconds / 86400);
+    const hours   = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-min').textContent   = pad(minutes);
+    document.getElementById('cd-sec').textContent   = pad(seconds);
+  }
+
+  updateCountdown();
+  const timerInterval = setInterval(updateCountdown, 1000);
+
+  // ─── BOTTOM CTA ───
+  window.addEventListener('scroll', () => {
+    const bar = document.getElementById('bottom-cta');
+    if (window.scrollY > 300) {
+      bar.classList.add('visible');
+      document.body.classList.add('bar-visible');
+    } else {
+      bar.classList.remove('visible');
+      document.body.classList.remove('bar-visible');
+    }
+  });
+
+  // ─── MODAL ───
+  function openModal() {
+    document.getElementById('quote-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('quote-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('quote-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function submitModal() {
+    const name = document.getElementById('modal-name').value.trim();
+    const email = document.getElementById('modal-email').value.trim();
+    if (!name || !email) {
+      alert('Please enter your name and email.');
+      return;
+    }
+    // In production: POST to Zoho CRM or similar
+    document.getElementById('modal-form-wrap').style.display = 'none';
+    document.getElementById('modal-success').classList.add('show');
+  }
+
+  // Keyboard ESC closes modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>

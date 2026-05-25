@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  ARUMALDO — NDA TEMPLATE (ACUERDO DE CONFIDENCIALIDAD)
+  Panama Jurisdiction — Mutual / Unilateral options
+  ============================================================
+  PRIVATE DOCUMENT — Contains full legal name + cédula.
+  For internal use only. Send signed copy to client.
+
+  Variables to replace before use:
+    {{CLIENT_ENTITY}}     — Company or full legal name of client
+    {{CLIENT_RUC}}        — RUC of client company (if applicable)
+    {{CLIENT_REP}}        — Full legal name of client signatory
+    {{CLIENT_CEDULA}}     — Cédula / Pasaporte of client signatory
+    {{CLIENT_CAPACITY}}   — "Representante Legal" or "en su nombre personal"
+    {{NDA_TYPE}}          — "MUTUO" or "UNILATERAL"
+    {{NDA_PURPOSE}}       — One sentence describing the purpose
+    {{NDA_DURATION}}      — e.g. "dos (2) años" / "veinticuatro (24) meses"
+    {{NDA_DATE_DAY}}      — e.g. "veintiuno (21)"
+    {{NDA_DATE_MONTH}}    — e.g. "mayo"
+    {{NDA_DATE_YEAR}}     — e.g. "dos mil veintiséis (2026)"
+    {{NDA_CITY}}          — "Ciudad de Panamá" (default)
+  ============================================================
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acuerdo de Confidencialidad · arumaldo × {{CLIENT_ENTITY}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       DESIGN TOKENS — Structural Warmth
+    ============================================= */
+    :root {
+      --paper:         #F0EBDF;
+      --cream:         #ECE7DA;
+      --ink:           #1E1D19;
+      --ink-soft:      #3D3B33;
+      --ink-muted:     #7A7668;
+      --ink-faint:     #B0AD9F;
+      --bronze:        #9A6A3C;
+      --border:        #DDD8CC;
+      --border-strong: #B0AD9F;
+      --white:         #FFFFFF;
+
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans:  'Inter', system-ui, sans-serif;
+    }
+
+    /* RESET */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       TOP BAR
+    ============================================= */
+    .topbar {
+      background: var(--ink);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar__logo {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar__label {
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .btn-print {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--cream);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 140ms;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-print:hover { background: var(--paper); }
+
+    /* =============================================
+       DOCUMENT WRAPPER
+    ============================================= */
+    .doc-wrapper {
+      max-width: 820px;
+      margin: 40px auto;
+      padding: 0 24px 80px;
+    }
+
+    /* =============================================
+       DOCUMENT CARD
+    ============================================= */
+    .doc {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(30,29,25,0.10);
+    }
+
+    /* =============================================
+       DOCUMENT HEADER
+    ============================================= */
+    .doc__header {
+      background: var(--cream);
+      border-bottom: 2px solid var(--border);
+      padding: 48px 56px 40px;
+      text-align: center;
+    }
+    .doc__seal {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 16px;
+    }
+    .doc__title {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0 0 8px 0;
+    }
+    .doc__subtitle {
+      font-size: 15px;
+      color: var(--ink-muted);
+      margin: 0 0 24px 0;
+    }
+    .doc__parties-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      background: var(--ink);
+      margin: 0 -56px -40px;
+      padding: 18px 56px;
+    }
+    .doc__party {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .doc__party--sep {
+      font-size: 18px;
+      color: var(--ink-faint);
+      font-weight: 300;
+    }
+
+    /* =============================================
+       DOCUMENT BODY
+    ============================================= */
+    .doc__body {
+      padding: 56px 56px 48px;
+    }
+
+    /* Preamble */
+    .preamble {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .preamble strong { color: var(--ink); font-weight: 700; }
+
+    /* Clauses */
+    .clause {
+      margin-bottom: 32px;
+    }
+    .clause__heading {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .clause__num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--bronze);
+      letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+    .clause__body {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+    .clause__body p { margin: 0 0 12px 0; }
+    .clause__body p:last-child { margin-bottom: 0; }
+    .clause__body ul {
+      margin: 8px 0 12px 0;
+      padding-left: 24px;
+    }
+    .clause__body ul li {
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+    .clause__body strong { color: var(--ink); }
+
+    /* Confidential info box */
+    .info-box {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--bronze);
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin: 12px 0;
+    }
+
+    /* =============================================
+       SIGNATURE BLOCK
+    ============================================= */
+    .doc__signatures {
+      background: var(--cream);
+      border-top: 2px solid var(--border);
+      padding: 48px 56px;
+    }
+    .doc__sig-intro {
+      font-size: 14px;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    .sig-block {
+      display: flex;
+      flex-direction: column;
+    }
+    .sig-block__label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .sig-block__role {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bronze);
+      margin-bottom: 40px;
+    }
+    .sig-line {
+      border-bottom: 1px solid var(--ink);
+      margin-bottom: 12px;
+    }
+    .sig-block__name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+    .sig-block__id {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .doc__footer {
+      background: var(--ink);
+      padding: 20px 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .doc__footer__text {
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.03em;
+    }
+    .doc__footer__logo {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    /* =============================================
+       PRINT STYLES
+    ============================================= */
+    @media print {
+      body { background: white; }
+      .topbar { display: none; }
+      .doc-wrapper { max-width: 100%; margin: 0; padding: 0; }
+      .doc {
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+      }
+      .doc__body { padding: 40px 48px; }
+      .doc__header { padding: 32px 48px 28px; }
+      .doc__signatures { padding: 32px 48px; }
+      .doc__footer { display: none; }
+      .clause { page-break-inside: avoid; }
+      .sig-grid { page-break-inside: avoid; }
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 680px) {
+      .topbar { padding: 12px 20px; }
+      .doc-wrapper { padding: 0 12px 60px; }
+      .doc__header { padding: 36px 28px 28px; }
+      .doc__parties-strip { margin: 0 -28px -28px; padding: 16px 28px; flex-direction: column; gap: 4px; }
+      .doc__party--sep { display: none; }
+      .doc__body { padding: 32px 28px; }
+      .doc__signatures { padding: 32px 28px; }
+      .sig-grid { grid-template-columns: 1fr; }
+      .doc__footer { padding: 16px 28px; flex-direction: column; gap: 6px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="https://arumaldo.com" class="topbar__logo">-arumaldo.</a>
+    <div class="topbar__actions">
+      <span class="topbar__label">Acuerdo de Confidencialidad</span>
+      <button class="btn-print" onclick="window.print()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimir / PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- DOCUMENT WRAPPER -->
+  <div class="doc-wrapper">
+    <div class="doc">
+
+      <!-- HEADER -->
+      <div class="doc__header">
+        <div class="doc__seal">República de Panamá · Acuerdo {{NDA_TYPE}}</div>
+        <h1 class="doc__title">Acuerdo de Confidencialidad<br>y No Divulgación</h1>
+        <p class="doc__subtitle">{{NDA_CITY}}, {{NDA_DATE_DAY}} de {{NDA_DATE_MONTH}} de {{NDA_DATE_YEAR}}</p>
+        <div class="doc__parties-strip">
+          <span class="doc__party">DIGITAL RESET LA, CORP.</span>
+          <span class="doc__party--sep">×</span>
+          <span class="doc__party">{{CLIENT_ENTITY}}</span>
+        </div>
+      </div>
+
+      <!-- BODY -->
+      <div class="doc__body">
+
+        <!-- PREAMBLE -->
+        <div class="preamble">
+          <p>
+            Los suscritos, <strong>ABDIEL DAVID RUMALDO FÁBREGA</strong>, varón, panameño, mayor de edad, con cédula de identidad personal No. <strong>8-768-529</strong>, actuando en nombre y representación de la sociedad <strong>DIGITAL RESET LA, CORP.</strong>, sociedad anónima debidamente inscrita con el Folio <strong>155699433</strong> de la Sección de Micropelículas (Mercantil) del Registro Público de la República de Panamá, debidamente autorizado para este acto, en adelante denominado <strong>"EL PROVEEDOR"</strong>;
+          </p>
+          <p>
+            y por la otra parte, <strong>{{CLIENT_REP}}</strong>, portador(a) del documento de identidad No. <strong>{{CLIENT_CEDULA}}</strong>, actuando en su calidad de <strong>{{CLIENT_CAPACITY}}</strong> de <strong>{{CLIENT_ENTITY}}</strong>
+            <span id="rucSpan">, con RUC <strong>{{CLIENT_RUC}}</strong></span>,
+            en adelante denominado(a) <strong>"EL RECEPTOR"</strong>;
+          </p>
+          <p>
+            en conjunto denominadas <strong>"LAS PARTES"</strong>, han convenido en celebrar el presente <strong>Acuerdo de Confidencialidad y No Divulgación</strong>, en adelante <strong>"EL ACUERDO"</strong>, con sujeción a las siguientes cláusulas y condiciones, con el propósito de <strong>{{NDA_PURPOSE}}</strong>:
+          </p>
+        </div>
+
+        <!-- CLAUSE 1 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">PRIMERA</span>
+            Definición de Información Confidencial
+          </div>
+          <div class="clause__body">
+            <p>Para efectos del presente Acuerdo, se entiende por <strong>"Información Confidencial"</strong> toda información, datos, documentos, materiales, especificaciones técnicas, código fuente, diseños, estrategias comerciales, listas de clientes, procesos, metodologías, propuestas económicas, proyecciones financieras, y cualquier otro dato de naturaleza sensible o propietaria que una parte divulgue a la otra, ya sea de forma oral, escrita, electrónica o en cualquier otro medio.</p>
+            <p>La Información Confidencial incluye, pero no se limita a:</p>
+            <div class="info-box">
+              <ul style="margin:0;padding-left:18px;">
+                <li>Información técnica, código fuente, arquitecturas de sistemas y especificaciones de diseño.</li>
+                <li>Datos financieros, presupuestos, proyecciones y estructuras de precios.</li>
+                <li>Información comercial, incluyendo listas de clientes, estrategias de mercadeo y acuerdos con terceros.</li>
+                <li>Conceptos, ideas, metodologías y procesos de trabajo no publicados.</li>
+                <li>Cualquier información marcada como "confidencial" o que, por su naturaleza, deba razonablemente tratarse como tal.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLAUSE 2 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">SEGUNDA</span>
+            Obligaciones de Confidencialidad
+          </div>
+          <div class="clause__body">
+            <p><strong>EL RECEPTOR</strong> se compromete a:</p>
+            <ul>
+              <li>Mantener la Información Confidencial en estricta reserva y no divulgarla a terceros sin el previo consentimiento escrito de la parte divulgante.</li>
+              <li>Utilizar la Información Confidencial únicamente para los fines establecidos en el presente Acuerdo.</li>
+              <li>Adoptar las mismas medidas de protección que utiliza para proteger su propia información confidencial, no pudiendo ser éstas inferiores a un nivel razonable de diligencia.</li>
+              <li>Informar de manera inmediata a la parte divulgante ante cualquier divulgación no autorizada de la Información Confidencial de la que tenga conocimiento.</li>
+              <li>Limitar el acceso a la Información Confidencial únicamente al personal que la necesite conocer para los fines del presente Acuerdo, asegurándose que dichas personas se encuentren sujetas a obligaciones de confidencialidad equivalentes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CLAUSE 3 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">TERCERA</span>
+            Exclusiones
+          </div>
+          <div class="clause__body">
+            <p>Las obligaciones de confidencialidad establecidas en el presente Acuerdo no serán aplicables a información que:</p>
+            <ul>
+              <li>Sea o se vuelva de dominio público sin que ello se deba a una acción u omisión del RECEPTOR.</li>
+              <li>El RECEPTOR pueda demostrar que ya conocía con anterioridad a la fecha de su divulgación y que no estaba sujeta a restricciones de confidencialidad.</li>
+              <li>Sea recibida legítimamente de un tercero que no esté sujeto a ninguna obligación de confidencialidad con respecto a dicha información.</li>
+              <li>Sea desarrollada de forma independiente por el RECEPTOR sin hacer uso de la Información Confidencial.</li>
+              <li>Deba ser divulgada en cumplimiento de una disposición legal o mandato judicial, previo aviso escrito a la parte divulgante cuando sea legalmente posible.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CLAUSE 4 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">CUARTA</span>
+            Propiedad Intelectual
+          </div>
+          <div class="clause__body">
+            <p>Nada en el presente Acuerdo se interpretará como la concesión de licencia alguna sobre derechos de propiedad intelectual, patentes, marcas comerciales, derechos de autor u otros derechos de propiedad de ninguna de LAS PARTES. Toda Información Confidencial divulgada permanecerá siendo propiedad exclusiva de la parte que la divulgó.</p>
+            <p>El mero acceso a la Información Confidencial no confiere al RECEPTOR ningún derecho sobre la misma, más allá del uso autorizado para los fines establecidos en el presente Acuerdo.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 5 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">QUINTA</span>
+            Duración
+          </div>
+          <div class="clause__body">
+            <p>Las obligaciones de confidencialidad establecidas en el presente Acuerdo tendrán una vigencia de <strong>{{NDA_DURATION}}</strong>, contados a partir de la fecha de firma del presente instrumento.</p>
+            <p>No obstante, en cuanto a información que constituya secreto comercial o información estratégica de particular importancia, las obligaciones de confidencialidad se mantendrán vigentes mientras dicha información conserve su carácter de confidencial, independientemente del plazo anterior.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 6 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">SEXTA</span>
+            Devolución o Destrucción de Información
+          </div>
+          <div class="clause__body">
+            <p>A solicitud de la parte divulgante, o en caso de terminación del presente Acuerdo o de la relación comercial entre LAS PARTES, <strong>EL RECEPTOR</strong> deberá, a elección de la parte divulgante: (i) devolver toda la Información Confidencial y sus copias en el plazo de cinco (5) días hábiles; o (ii) proceder a la destrucción certificada de dicha información, confirmando por escrito dicha destrucción.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 7 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">SÉPTIMA</span>
+            Consecuencias del Incumplimiento
+          </div>
+          <div class="clause__body">
+            <p>LAS PARTES reconocen que el incumplimiento de las obligaciones establecidas en el presente Acuerdo podría causar daños graves e irreparables a la parte afectada, por lo que la misma tendrá derecho a solicitar medidas cautelares u otros recursos equitativos ante los tribunales competentes, además de cualquier otra acción o recurso disponible bajo las leyes de la República de Panamá.</p>
+            <p>Lo anterior sin perjuicio de la reclamación de daños y perjuicios que correspondan.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 8 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">OCTAVA</span>
+            Cesión
+          </div>
+          <div class="clause__body">
+            <p>Los derechos y obligaciones establecidos en el presente Acuerdo no podrán ser cedidos, transferidos ni delegados por ninguna de LAS PARTES sin el consentimiento previo y por escrito de la otra parte. El presente Acuerdo constituye el acuerdo completo entre LAS PARTES con relación a su objeto, y sustituye cualquier comunicación, negociación o acuerdo previo, ya sea oral o escrito, relacionado con la confidencialidad de la información descrita en el mismo.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 9 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">NOVENA</span>
+            Legislación Aplicable y Resolución de Disputas
+          </div>
+          <div class="clause__body">
+            <p>El presente Acuerdo se rige por las leyes de la República de Panamá. Cualquier controversia o disputa que surja en relación con el presente Acuerdo, su interpretación, aplicación, ejecución o terminación, deberá resolverse mediante Arbitraje, previo intento de Conciliación, por el <strong>Centro de Conciliación y Arbitraje de Panamá</strong>, conforme a sus reglas de procedimiento vigentes al momento de la controversia.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 10 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">DÉCIMA</span>
+            Salvabilidad e Integridad del Acuerdo
+          </div>
+          <div class="clause__body">
+            <p>Si alguna de las cláusulas del presente Acuerdo fuera declarada nula o inaplicable, dicha nulidad no afectará la validez del resto del instrumento, el cual permanecerá en pleno vigor. La tolerancia o pasividad de alguna de LAS PARTES ante el incumplimiento de la otra no implicará renuncia a sus derechos bajo el presente Acuerdo, pudiendo ejercerlos en cualquier momento posterior.</p>
+          </div>
+        </div>
+
+        <!-- CLAUSE 11 -->
+        <div class="clause">
+          <div class="clause__heading">
+            <span class="clause__num">UNDÉCIMA</span>
+            Acuerdo Completo
+          </div>
+          <div class="clause__body">
+            <p>LAS PARTES declaran que el presente instrumento constituye el acuerdo completo y definitivo en materia de confidencialidad entre ellas, y que han leído, comprendido y aceptan todos sus términos de manera libre y voluntaria.</p>
+          </div>
+        </div>
+
+      </div>
+      <!-- /BODY -->
+
+      <!-- SIGNATURES -->
+      <div class="doc__signatures">
+        <p class="doc__sig-intro">
+          En señal de conformidad y aceptación, las partes suscriben el presente Acuerdo<br>
+          en <strong>{{NDA_CITY}}</strong>, el día <strong>{{NDA_DATE_DAY}}</strong> de <strong>{{NDA_DATE_MONTH}}</strong> de <strong>{{NDA_DATE_YEAR}}</strong>.
+        </p>
+
+        <div class="sig-grid">
+          <!-- PROVIDER -->
+          <div class="sig-block">
+            <div class="sig-block__label">Por el Proveedor</div>
+            <div class="sig-block__role">DIGITAL RESET LA, CORP.</div>
+            <div class="sig-line"></div>
+            <div class="sig-block__name">Abdiel David Rumaldo Fábrega</div>
+            <div class="sig-block__id">Ced.: 8-768-529</div>
+            <div class="sig-block__id" style="margin-top:6px;font-size:12px;color:var(--ink-faint);">Representante Legal · Folio 155699433</div>
+          </div>
+
+          <!-- CLIENT -->
+          <div class="sig-block">
+            <div class="sig-block__label">Por el Receptor</div>
+            <div class="sig-block__role">{{CLIENT_ENTITY}}</div>
+            <div class="sig-line"></div>
+            <div class="sig-block__name">{{CLIENT_REP}}</div>
+            <div class="sig-block__id">{{CLIENT_CEDULA}}</div>
+            <div class="sig-block__id" style="margin-top:6px;font-size:12px;color:var(--ink-faint);">{{CLIENT_CAPACITY}}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DOCUMENT FOOTER -->
+      <div class="doc__footer">
+        <span class="doc__footer__text">Acuerdo de Confidencialidad · Leyes de la República de Panamá</span>
+        <span class="doc__footer__logo">-arumaldo.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // If CLIENT_RUC is empty placeholder, hide the RUC span
+    const rucSpan = document.getElementById('rucSpan');
+    if (rucSpan && rucSpan.textContent.includes('{{CLIENT_RUC}}')) {
+      rucSpan.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>

@@ -73,6 +73,32 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { error: "body must be { type: 'intake', data: {...} }" }, origin);
   }
 
+  const turnstile_token = body.turnstile_token || data.turnstile_token;
+
+  // Turnstile verification
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    if (!turnstile_token) {
+      return sendJson(res, 400, { error: "Security check is required" }, origin);
+    }
+    try {
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${encodeURIComponent(process.env.TURNSTILE_SECRET_KEY)}&response=${encodeURIComponent(turnstile_token)}`
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        console.warn("[intake] Turnstile verification failed:", verifyData);
+        return sendJson(res, 400, { error: "Security verification failed. Please try again." }, origin);
+      }
+    } catch (err) {
+      console.error("[intake] Turnstile verification error:", err.message);
+      return sendJson(res, 500, { error: "Security check service error" }, origin);
+    }
+  } else {
+    console.warn("[intake] TURNSTILE_SECRET_KEY env variable is not set. Bypassing check.");
+  }
+
   const {
     deal_id,
     proposal_id,

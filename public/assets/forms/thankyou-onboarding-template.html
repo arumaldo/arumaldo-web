@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Aboard — {{BUSINESS_NAME}}</title>
+
+  <!-- ── PageSense ── Uncomment and replace YOUR_IDs ──────────────────────── -->
+  <!--
+  <script type="text/javascript">
+    window.$zoho = window.$zoho || {};
+    $zoho.pagesense = $zoho.pagesense || [];
+    $zoho.pagesense.push(['trackPageView']);
+  </script>
+  <script id="zsiqscript" src="https://cdn.pagesense.io/js/YOUR_PAGESENSE_ID/YOUR_PROJECT_ID.js"
+    type="text/javascript" defer></script>
+  -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:   #C9980A;
+      --gold-d: #a57e08;
+      --gold-l: rgba(201,152,10,.08);
+      --dark:   #1a1a1a;
+      --mid:    #555;
+      --muted:  #888;
+      --light:  #f7f7f7;
+      --white:  #ffffff;
+      --green:  #2e7d32;
+      --green-l:#e8f5e9;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,.1);
+      --max-w:  820px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.65;
+    }
+
+    /* ── Top stripe ── */
+    .top-stripe {
+      background: var(--gold);
+      height: 5px;
+      width: 100%;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--white);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+    }
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .lang-toggle { display: flex; gap: 6px; }
+    .lang-btn {
+      padding: 4px 12px;
+      border: 2px solid var(--gold);
+      border-radius: 20px;
+      background: none;
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--gold);
+      transition: all .18s;
+    }
+    .lang-btn.active { background: var(--gold); color: var(--white); }
+
+    /* ── Hero confetti area ── */
+    .hero {
+      text-align: center;
+      padding: 52px 24px 36px;
+      background: var(--white);
+      border-bottom: 1px solid #eee;
+    }
+    .hero-emoji { font-size: 3.2rem; display: block; margin-bottom: 16px; }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero .lead {
+      font-size: 1rem;
+      color: var(--mid);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Steps banner ── */
+    .steps-banner {
+      background: var(--dark);
+      padding: 28px 24px;
+    }
+    .steps-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 28px;
+      position: relative;
+      flex: 1;
+      min-width: 120px;
+    }
+    .step-item:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -4px;
+      top: 18px;
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .9rem;
+      margin-bottom: 8px;
+      flex-shrink: 0;
+    }
+    .step-num.done {
+      background: var(--green);
+    }
+    .step-label {
+      font-size: .75rem;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .step-item.active .step-label { color: var(--gold); font-weight: 600; }
+    .step-item.completed .step-label { color: #81c784; }
+
+    /* ── Main content ── */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+
+    /* ── Payment confirmed box ── */
+    .confirmed-box {
+      background: var(--green-l);
+      border: 2px solid #a5d6a7;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .confirmed-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .confirmed-text h3 { font-size: 1rem; color: var(--green); margin-bottom: 4px; }
+    .confirmed-text p { font-size: .88rem; color: #388e3c; }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .section-subtitle {
+      font-size: .9rem;
+      color: var(--mid);
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    /* ── Onboarding form ── */
+    .onb-section-head {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 5px;
+      margin: 28px 0 18px;
+    }
+    .onb-section-head:first-of-type { margin-top: 0; }
+
+    .onb-field { margin-bottom: 18px; }
+    .onb-field label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--mid);
+      margin-bottom: 5px;
+    }
+    .opt-tag { font-weight: 400; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .75rem; }
+
+    .onb-field input[type="text"],
+    .onb-field input[type="email"],
+    .onb-field input[type="tel"],
+    .onb-field input[type="url"],
+    .onb-field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 9px;
+      font-size: .95rem;
+      color: var(--dark);
+      font-family: inherit;
+      outline: none;
+      transition: border-color .18s;
+      background: var(--white);
+    }
+    .onb-field textarea { min-height: 96px; resize: vertical; }
+    .onb-field input:focus,
+    .onb-field textarea:focus { border-color: var(--gold); }
+    .onb-field input.error,
+    .onb-field textarea.error { border-color: #e53935; }
+
+    .onb-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .onb-three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+    .field-hint {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── Submit ── */
+    .onb-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s, transform .1s;
+      margin-top: 8px;
+    }
+    .onb-submit:hover { background: var(--gold-d); }
+    .onb-submit:active { transform: scale(.98); }
+    .onb-submit:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* ── Spinner ── */
+    .spinner { display: none; text-align: center; padding: 16px; }
+    .spinner svg { animation: spin 1s linear infinite; width: 40px; height: 40px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Success state ── */
+    .success-card {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .success-card.visible { display: block; }
+    .success-card .big-emoji { font-size: 4rem; display: block; margin-bottom: 20px; }
+    .success-card h2 { font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+    .success-card p { font-size: .95rem; color: var(--mid); max-width: 480px; margin: 0 auto 24px; }
+    .next-steps {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: left;
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+    .next-steps h3 { font-size: .9rem; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
+    .next-step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      font-size: .88rem;
+      color: var(--mid);
+    }
+    .next-step-num {
+      width: 22px;
+      height: 22px;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .72rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* ── Error msg ── */
+    .onb-msg { display: none; border-radius: 9px; padding: 14px 16px; font-size: .9rem; margin-top: 16px; }
+    .onb-msg.success { display: block; background: #e8f5e9; color: #2e7d32; }
+    .onb-msg.error   { display: block; background: #fce4ec; color: #c62828; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      padding: 22px 32px;
+      text-align: center;
+      font-size: .8rem;
+      color: #666;
+      border-top: 3px solid var(--gold);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 560px) {
+      .onb-two-col, .onb-three-col { grid-template-columns: 1fr; }
+      .steps-inner { gap: 4px; }
+      .step-item { padding: 0 10px; }
+      main { padding: 32px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-stripe"></div>
+
+<!-- ── Header ──────────────────────────────────────────────────────────────── -->
+<header>
+  <span class="logo-text">ARUMALDO</span>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+    <button class="lang-btn" onclick="setLang('es')">🇲🇽 ES</button>
+  </div>
+</header>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────────── -->
+<div class="hero">
+  <span class="hero-emoji">🎉</span>
+  <h1 class="i18n"
+    data-en="You're officially a <span>client!</span>"
+    data-es="¡Ya eres oficialmente <span>nuestro cliente!</span>">
+    You're officially a <span>client!</span>
+  </h1>
+  <p class="lead i18n"
+    data-en="Payment confirmed. Now let's get your project started — fill in the onboarding form below and we'll kick things off within 1 business day."
+    data-es="Pago confirmado. Ahora arranquemos tu proyecto — completa el formulario abajo y comenzaremos en 1 día hábil.">
+    Payment confirmed. Now let's get your project started — fill in the onboarding form below and we'll kick things off within 1 business day.
+  </p>
+</div>
+
+<!-- ── Progress steps ──────────────────────────────────────────────────────── -->
+<div class="steps-banner">
+  <div class="steps-inner">
+    <div class="step-item completed">
+      <div class="step-num done">✓</div>
+      <div class="step-label i18n" data-en="Demo viewed" data-es="Demo visto">Demo viewed</div>
+    </div>
+    <div class="step-item completed">
+      <div class="step-num done">✓</div>
+      <div class="step-label i18n" data-en="Payment made" data-es="Pago realizado">Payment made</div>
+    </div>
+    <div class="step-item active">
+      <div class="step-num">3</div>
+      <div class="step-label i18n" data-en="Onboarding info" data-es="Info de incorporación">Onboarding info</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-label i18n" data-en="Build begins" data-es="Inicio de construcción">Build begins</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-label i18n" data-en="Your site live!" data-es="¡Tu sitio en vivo!">Your site live!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main ────────────────────────────────────────────────────────────────── -->
+<main>
+
+  <!-- Payment confirmed callout -->
+  <div class="confirmed-box">
+    <span class="confirmed-icon">✅</span>
+    <div class="confirmed-text">
+      <h3 class="i18n" data-en="Payment Confirmed" data-es="Pago Confirmado">Payment Confirmed</h3>
+      <p class="i18n"
+        data-en="Your invoice has been paid. A receipt has been sent to your email. You're now 1 step away from getting your project started!"
+        data-es="Tu factura ha sido pagada. El recibo fue enviado a tu correo. ¡Estás a 1 paso de comenzar tu proyecto!">
+        Your invoice has been paid. A receipt has been sent to your email. You're now 1 step away from getting your project started!
+      </p>
+    </div>
+  </div>
+
+  <!-- Onboarding form (shown by default, hidden after success) -->
+  <div id="onbFormWrap">
+    <h2 class="section-title i18n"
+      data-en="Tell us about your business"
+      data-es="Cuéntanos sobre tu negocio">
+      Tell us about your business
+    </h2>
+    <p class="section-subtitle i18n"
+      data-en="This takes about 5 minutes. The more detail you provide, the faster and better we can build your site."
+      data-es="Esto toma unos 5 minutos. Mientras más detalles nos des, más rápido y mejor construiremos tu sitio.">
+      This takes about 5 minutes. The more detail you provide, the faster and better we can build your site.
+    </p>
+
+    <form id="onbForm" novalidate>
+      <!-- Hidden deal ID from URL param -->
+      <input type="hidden" id="deal_id">
+
+      <!-- ── SECTION 1: Business ── -->
+      <div class="onb-section-head i18n" data-en="Business Information" data-es="Información del Negocio">
+        Business Information
+      </div>
+
+      <div class="onb-field">
+        <label class="i18n"
+          data-en="Current Website URL <span class='opt-tag'>(if you have one)</span>"
+          data-es="URL del Sitio Web Actual <span class='opt-tag'>(si tienes uno)</span>">
+          Current Website URL <span class="opt-tag">(if you have one)</span>
+        </label>
+        <input type="url" id="current_website_url" placeholder="https://...">
+      </div>
+
+      <div class="onb-field">
+        <label class="i18n"
+          data-en="Business Description <span class='opt-tag'>(optional but recommended)</span>"
+          data-es="Descripción del Negocio <span class='opt-tag'>(opcional pero recomendado)</span>">
+          Business Description <span class="opt-tag">(optional but recommended)</span>
+        </label>
+        <textarea id="company_description"
+          class="i18n-ph"
+          data-en="What do you do? Who are your ideal customers? What makes you different from competitors?"
+          data-es="¿Qué haces? ¿Quiénes son tus clientes ideales? ¿Qué te diferencia de la competencia?"
+          placeholder="What do you do? Who are your ideal customers? What makes you different from competitors?"></textarea>
+      </div>
+
+      <div class="onb-field">
+        <label>
+          <span class="i18n" data-en="Business Address" data-es="Dirección del Negocio">Business Address</span>
+          <span style="color:#e53935"> *</span>
+        </label>
+        <input type="text" id="company_address" required
+          class="i18n-ph"
+          data-en="Street, City, State, ZIP / Postal Code"
+          data-es="Calle, Ciudad, Estado, CP"
+          placeholder="Street, City, State, ZIP / Postal Code">
+      </div>
+
+      <div class="onb-field">
+        <label class="i18n"
+          data-en="Google Maps URL <span class='opt-tag'>(optional)</span>"
+          data-es="URL de Google Maps <span class='opt-tag'>(opcional)</span>">
+          Google Maps URL <span class="opt-tag">(optional)</span>
+        </label>
+        <input type="url" id="google_maps_url" placeholder="https://maps.google.com/...">
+        <p class="field-hint i18n"
+          data-en="Find your business on Google Maps → click Share → Copy link"
+          data-es="Busca tu negocio en Google Maps → clic en Compartir → Copiar enlace">
+          Find your business on Google Maps → click Share → Copy link
+        </p>
+      </div>
+
+      <!-- ── SECTION 2: Contact ── -->
+      <div class="onb-section-head i18n" data-en="Contact Information" data-es="Información de Contacto">
+        Contact Information
+      </div>
+
+      <div class="onb-two-col">
+        <div class="onb-field">
+          <label>
+            <span class="i18n" data-en="Business Phone" data-es="Teléfono del Negocio">Business Phone</span>
+            <span style="color:#e53935"> *</span>
+          </label>
+          <input type="tel" id="company_phone" required autocomplete="tel">
+        </div>
+        <div class="onb-field">
+          <label>
+            <span class="i18n" data-en="Business Email" data-es="Correo del Negocio">Business Email</span>
+            <span style="color:#e53935"> *</span>
+          </label>
+          <input type="email" id="company_email" required autocomplete="email">
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: Brand Assets ── -->
+      <div class="onb-section-head i18n" data-en="Brand Assets" data-es="Activos de Marca">
+        Brand Assets
+      </div>
+
+      <div class="onb-two-col">
+        <div class="onb-field">
+          <label class="i18n"
+            data-en="Logo File Link <span class='opt-tag'>(optional)</span>"
+            data-es="Enlace del Logotipo <span class='opt-tag'>(opcional)</span>">
+            Logo File Link <span class="opt-tag">(optional)</span>
+          </label>
+          <input type="url" id="logo_file" placeholder="https://drive.google.com/...">
+          <p class="field-hint i18n"
+            data-en="Share via Google Drive, Dropbox, or WeTransfer. Formats: PNG, SVG, PDF, AI."
+            data-es="Comparte por Google Drive, Dropbox o WeTransfer. Formatos: PNG, SVG, PDF, AI.">
+            Share via Google Drive, Dropbox, or WeTransfer.
+          </p>
+        </div>
+        <div class="onb-field">
+          <label class="i18n"
+            data-en="Brand / Style Guide Link <span class='opt-tag'>(optional)</span>"
+            data-es="Enlace del Manual de Marca <span class='opt-tag'>(opcional)</span>">
+            Brand / Style Guide Link <span class="opt-tag">(optional)</span>
+          </label>
+          <input type="url" id="brand_book_file" placeholder="https://...">
+          <p class="field-hint i18n"
+            data-en="PDF, Google Doc, or Figma file. Include colors, fonts, tone of voice if possible."
+            data-es="PDF, Google Doc o archivo de Figma. Incluye colores, tipografías y tono de voz si puedes.">
+            PDF, Google Doc, or Figma file.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── SECTION 4: Inspiration ── -->
+      <div class="onb-section-head i18n" data-en="Website Inspiration" data-es="Inspiración para el Sitio Web">
+        Website Inspiration
+      </div>
+
+      <p class="section-subtitle" style="margin-bottom:14px; font-size:.85rem;" class="i18n"
+        data-en="What 3 websites do you admire? Doesn't have to be in your industry — just sites whose look, feel, or layout you like."
+        data-es="¿Qué 3 sitios web admiras? No tienen que ser de tu industria — solo sitios cuyo diseño o estilo te gusta.">
+        <span class="i18n"
+          data-en="What 3 websites do you admire? Doesn't have to be in your industry — just sites whose look, feel, or layout you like."
+          data-es="¿Qué 3 sitios web admiras? No tienen que ser de tu industria — solo sitios cuyo diseño o estilo te gusta.">
+          What 3 websites do you admire? Doesn't have to be in your industry — just sites whose look, feel, or layout you like.
+        </span>
+      </p>
+
+      <div class="onb-three-col">
+        <div class="onb-field">
+          <label>URL 1 <span class="opt-tag">(opt.)</span></label>
+          <input type="url" id="inspiration_url_1" placeholder="https://...">
+        </div>
+        <div class="onb-field">
+          <label>URL 2 <span class="opt-tag">(opt.)</span></label>
+          <input type="url" id="inspiration_url_2" placeholder="https://...">
+        </div>
+        <div class="onb-field">
+          <label>URL 3 <span class="opt-tag">(opt.)</span></label>
+          <input type="url" id="inspiration_url_3" placeholder="https://...">
+        </div>
+      </div>
+
+      <button type="submit" class="onb-submit i18n"
+        data-en="Submit &amp; Start My Project →"
+        data-es="Enviar e Iniciar Mi Proyecto →">
+        Submit &amp; Start My Project →
+      </button>
+    </form>
+
+    <div class="spinner" id="spinner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C9980A" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10" stroke-dasharray="40 20"/>
+      </svg>
+    </div>
+
+    <div class="onb-msg" id="onbMsg"></div>
+  </div>
+
+  <!-- Success state (shown after form submit) -->
+  <div class="success-card" id="successCard">
+    <span class="big-emoji">🚀</span>
+    <h2 class="i18n" data-en="You're all set!" data-es="¡Todo listo!">You're all set!</h2>
+    <p class="i18n"
+      data-en="Your onboarding info has been received. Our team will review everything and reach out within 1 business day to schedule your kickoff call."
+      data-es="Tu información de incorporación fue recibida. Nuestro equipo revisará todo y se pondrá en contacto dentro de 1 día hábil para agendar tu llamada de inicio.">
+      Your onboarding info has been received. Our team will review everything and reach out within 1 business day to schedule your kickoff call.
+    </p>
+    <div class="next-steps">
+      <h3 class="i18n" data-en="What happens next:" data-es="¿Qué pasa después?">What happens next:</h3>
+      <div class="next-step-item">
+        <div class="next-step-num">1</div>
+        <span class="i18n"
+          data-en="We review your onboarding details (1–4 hours)"
+          data-es="Revisamos tus detalles de incorporación (1–4 horas)">
+          We review your onboarding details (1–4 hours)
+        </span>
+      </div>
+      <div class="next-step-item">
+        <div class="next-step-num">2</div>
+        <span class="i18n"
+          data-en="We schedule a 30-min kickoff call via email"
+          data-es="Agendamos una llamada de inicio de 30 min por correo">
+          We schedule a 30-min kickoff call via email
+        </span>
+      </div>
+      <div class="next-step-item">
+        <div class="next-step-num">3</div>
+        <span class="i18n"
+          data-en="Build begins — first draft delivered in 5–7 business days"
+          data-es="Comienza la construcción — primer borrador en 5–7 días hábiles">
+          Build begins — first draft delivered in 5–7 business days
+        </span>
+      </div>
+      <div class="next-step-item">
+        <div class="next-step-num">4</div>
+        <span class="i18n"
+          data-en="Review, revisions, and final launch 🎉"
+          data-es="Revisión, ajustes y lanzamiento final 🎉">
+          Review, revisions, and final launch 🎉
+        </span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+<footer>
+  <p>
+    <span class="i18n"
+      data-en="Questions? Email us at <a href='mailto:hola@arumaldo.com'>hola@arumaldo.com</a>"
+      data-es="¿Preguntas? Escríbenos a <a href='mailto:hola@arumaldo.com'>hola@arumaldo.com</a>">
+      Questions? Email us at <a href="mailto:hola@arumaldo.com">hola@arumaldo.com</a>
+    </span>
+    &nbsp;·&nbsp;
+    <a href="https://arumaldo.com">arumaldo.com</a>
+  </p>
+</footer>
+
+<!-- ── JavaScript ──────────────────────────────────────────────────────────── -->
+<script>
+// ── Config (injected at deploy time) ────────────────────────────────────────
+const WORKER_URL = "{{WORKER_URL}}";
+const DEAL_ID    = "{{DEAL_ID}}";
+
+// ── Pre-fill deal_id from URL param or config ────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const dealId = (!DEAL_ID || DEAL_ID.startsWith("{{"))
+  ? (urlParams.get("deal_id") || urlParams.get("Deal_ID") || "")
+  : DEAL_ID;
+document.getElementById("deal_id").value = dealId;
+
+// ── Language ─────────────────────────────────────────────────────────────────
+let lang = (navigator.language || "en").startsWith("es") ? "es" : "en";
+if (urlParams.get("lang")) lang = urlParams.get("lang");
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll(".i18n").forEach(el => {
+    const txt = el.dataset[l];
+    if (txt !== undefined) el.innerHTML = txt;
+  });
+  document.querySelectorAll(".i18n-ph").forEach(el => {
+    const ph = el.dataset[l];
+    if (ph) el.placeholder = ph;
+  });
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent.includes(l.toUpperCase()));
+  });
+  // Submit button
+  const btn = document.querySelector(".onb-submit");
+  if (btn) btn.textContent = l === "en"
+    ? "Submit & Start My Project →"
+    : "Enviar e Iniciar Mi Proyecto →";
+}
+setLang(lang);
+
+// ── Form submission ──────────────────────────────────────────────────────────
+const requiredFields = ["company_address", "company_phone", "company_email"];
+
+document.getElementById("onbForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const btn    = document.querySelector(".onb-submit");
+  const spinner = document.getElementById("spinner");
+  const msg    = document.getElementById("onbMsg");
+
+  msg.className = "onb-msg";
+
+  // Validate deal_id
+  if (!document.getElementById("deal_id").value) {
+    msg.className = "onb-msg error";
+    msg.textContent = lang === "es"
+      ? "⚠️ Referencia de proyecto no encontrada. Usa el enlace de tu correo de bienvenida."
+      : "⚠️ Project reference not found. Please use the link from your welcome email.";
+    return;
+  }
+
+  // Validate required fields
+  let valid = true;
+  requiredFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el || !el.value.trim()) {
+      if (el) el.classList.add("error");
+      valid = false;
+    } else {
+      el.classList.remove("error");
+    }
+  });
+  if (!valid) {
+    msg.className = "onb-msg error";
+    msg.textContent = lang === "es"
+      ? "Por favor completa los campos requeridos (marcados con *)."
+      : "Please fill in the required fields (marked with *).";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = lang === "es" ? "Enviando…" : "Submitting…";
+  spinner.style.display = "block";
+
+  const g = id => document.getElementById(id)?.value.trim() || "";
+
+  const payload = {
+    deal_id:             g("deal_id"),
+    current_website_url: g("current_website_url"),
+    company_description: g("company_description"),
+    company_address:     g("company_address"),
+    google_maps_url:     g("google_maps_url"),
+    company_phone:       g("company_phone"),
+    company_email:       g("company_email"),
+    logo_file:           g("logo_file"),
+    brand_book_file:     g("brand_book_file"),
+    inspiration_url_1:   g("inspiration_url_1"),
+    inspiration_url_2:   g("inspiration_url_2"),
+    inspiration_url_3:   g("inspiration_url_3"),
+  };
+
+  try {
+    const workerBase = (!WORKER_URL || WORKER_URL.startsWith("{{"))
+      ? "https://zoho-forms-worker.YOUR_SUBDOMAIN.workers.dev"
+      : WORKER_URL;
+
+    const res  = await fetch(`${workerBase}/submit/onboarding`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      spinner.style.display = "none";
+      document.getElementById("onbFormWrap").style.display = "none";
+      document.getElementById("successCard").classList.add("visible");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      throw new Error(data.error || "Unknown error");
+    }
+  } catch (err) {
+    spinner.style.display = "none";
+    btn.disabled = false;
+    btn.textContent = lang === "es"
+      ? "Enviar e Iniciar Mi Proyecto →"
+      : "Submit & Start My Project →";
+    msg.className = "onb-msg error";
+    msg.textContent = lang === "es"
+      ? "Algo salió mal. Por favor intenta de nuevo o escríbenos a hola@arumaldo.com."
+      : "Something went wrong. Please try again or email us at hola@arumaldo.com.";
+    console.error(err);
+  }
+});
+</script>
+
+</body>
+</html>

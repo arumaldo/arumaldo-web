@@ -45,7 +45,31 @@ module.exports = async function handler(req, res) {
     return sendJson(res, 400, { error: "Invalid or missing JSON body" }, origin);
   }
 
-  const { first_name, last_name, email, phone, company, package: pkg, message, source } = body;
+  const { first_name, last_name, email, phone, company, package: pkg, message, source, turnstile_token } = body;
+
+  // Turnstile verification
+  if (process.env.TURNSTILE_SECRET_KEY) {
+    if (!turnstile_token) {
+      return sendJson(res, 400, { error: "Security check is required" }, origin);
+    }
+    try {
+      const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${encodeURIComponent(process.env.TURNSTILE_SECRET_KEY)}&response=${encodeURIComponent(turnstile_token)}`
+      });
+      const verifyData = await verifyRes.json();
+      if (!verifyData.success) {
+        console.warn("[proposal-request] Turnstile verification failed:", verifyData);
+        return sendJson(res, 400, { error: "Security verification failed. Please try again." }, origin);
+      }
+    } catch (err) {
+      console.error("[proposal-request] Turnstile verification error:", err.message);
+      return sendJson(res, 500, { error: "Security check service error" }, origin);
+    }
+  } else {
+    console.warn("[proposal-request] TURNSTILE_SECRET_KEY env variable is not set. Bypassing check.");
+  }
 
   // Required field validation
   if (!first_name || !last_name || !email) {

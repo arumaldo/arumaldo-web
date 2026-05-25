@@ -237,13 +237,12 @@
     80% { transform: translateX(4px); }
   }
 </style>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
 <!-- ─── HERO ─── -->
 <div class="hero">
-  <div class="hero-logo"><img src="/assets/logos/logo-b_transparente.png" alt="Arumaldo" style="height: 24px; width: auto; margin: 0 auto; display: block;"></div>
+  <div class="hero-logo">-arumaldo.</div>
   <h1 class="hero-title">See your<br>pricing.</h1>
   <p class="hero-sub">Tell us a bit about your business and we'll show you exactly what your website investment looks like.</p>
 </div>
@@ -333,11 +332,6 @@
       </select>
     </div>
 
-    <div class="field-group">
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAADFGvwzI_wtWWITT" data-theme="light"></div>
-      <div class="error-msg" id="global-error" style="margin-top: 10px;"></div>
-    </div>
-
     <button class="btn-submit" id="btn-submit" onclick="submitUnlock()">
       Show Me My Pricing →
     </button>
@@ -405,11 +399,6 @@
     const country   = document.getElementById('f-country').value;
     const need      = document.getElementById('f-need').value;
 
-    const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value || '';
-    const globalError = document.getElementById('global-error');
-    globalError.textContent = '';
-    globalError.classList.remove('show');
-
     let valid = true;
     if (!firstName) { document.getElementById('f-first').classList.add('error'); valid = false; }
     if (!lastName)  { document.getElementById('f-last').classList.add('error');  valid = false; }
@@ -423,12 +412,6 @@
     if (!industry) { document.getElementById('f-industry').classList.add('error'); valid = false; }
     if (!country)  { document.getElementById('f-country').classList.add('error');  valid = false; }
     if (!need)     { document.getElementById('f-need').classList.add('error');     valid = false; }
-
-    if (valid && !turnstileToken) {
-      globalError.textContent = 'Please complete the security check.';
-      globalError.classList.add('show');
-      valid = false;
-    }
 
     if (!valid) return;
 
@@ -445,39 +428,31 @@
       country:     country,
       current_url: document.getElementById('f-url').value.trim(),
       need:        need,
-      turnstile_token: turnstileToken,
     };
 
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
     btn.textContent = 'Unlocking…';
 
-    try {
-      if (UNLOCK_ENDPOINT && !UNLOCK_ENDPOINT.startsWith('{{')) {
-        const res = await fetch(UNLOCK_ENDPOINT, {
+    if (UNLOCK_ENDPOINT) {
+      try {
+        await fetch(UNLOCK_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-      } else {
-        console.log('PRICING UNLOCK PAYLOAD:', JSON.stringify(payload, null, 2));
-        await new Promise(r => setTimeout(r, 600));
+      } catch (err) {
+        console.error('Unlock submission error:', err);
       }
-
-      // Show success
-      document.getElementById('form-card').querySelectorAll('.field-group, .field-row, hr, .btn-submit, .card-label, .card-title, .card-desc, .privacy-note')
-        .forEach(el => el.style.display = 'none');
-      document.getElementById('success-screen').classList.add('show');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (err) {
-      console.error('Unlock submission error:', err);
-      globalError.textContent = 'Something went wrong. Please try again or email us directly.';
-      globalError.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = 'Show Me My Pricing →';
-      if (window.turnstile) window.turnstile.reset();
+    } else {
+      console.log('PRICING UNLOCK PAYLOAD:', JSON.stringify(payload, null, 2));
     }
+
+    // Show success
+    document.getElementById('form-card').querySelectorAll('.field-group, .field-row, hr, .btn-submit, .card-label, .card-title, .card-desc, .privacy-note')
+      .forEach(el => el.style.display = 'none');
+    document.getElementById('success-screen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ─── CLEAR ERROR ON INPUT ───

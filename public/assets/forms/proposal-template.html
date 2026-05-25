@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Proposal — {{CLIENT_NAME}} · -arumaldo.</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --deep-cave:    #1A1F1C;
+    --filtered-sun: #C9980A;
+    --water-veil:   #A8BFB0;
+    --living-green: #3B5E3F;
+    --matte-silver: #E8E8E6;
+    --paper:        #F0EBDF;
+    --cream:        #ECE7DA;
+    --ink:          #1E1D19;
+    --bronze:       #9A6A3C;
+    --text-muted:   #7A7265;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--cream);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+
+  .nav-center {
+    text-align: center;
+    flex: 1;
+  }
+
+  .nav-center .label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .nav-center .title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-top: 1px;
+  }
+
+  .btn-buy {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 10px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-buy:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--deep-cave);
+    padding: 100px 40px 90px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,152,10,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    margin-bottom: 18px;
+  }
+
+  .hero-client {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 0.95;
+    color: var(--matte-silver);
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--water-veil);
+    margin-bottom: 36px;
+    line-height: 1.3;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+  }
+
+  .hero-meta-item strong {
+    color: var(--water-veil);
+    font-weight: 500;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(59,94,63,0.25);
+    border: 1px solid rgba(168,191,176,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--water-veil);
+    letter-spacing: 1px;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    background: var(--water-veil);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 80px 40px; }
+
+  .section-inner { max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 28px;
+  }
+
+  /* ─── VISION ─── */
+  .vision { background: var(--paper); }
+
+  .vision .section-title { color: var(--ink); }
+
+  .vision-body {
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 700px;
+  }
+
+  .vision-body p + p { margin-top: 20px; }
+
+  .vision-accent {
+    display: inline;
+    color: var(--bronze);
+    font-style: italic;
+  }
+
+  /* ─── WHAT'S INCLUDED ─── */
+  .included { background: var(--deep-cave); }
+
+  .included .section-label { color: var(--water-veil); opacity: 0.7; }
+  .included .section-title { color: var(--matte-silver); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(168,191,176,0.08);
+    border: 1px solid rgba(168,191,176,0.12);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 40px;
+  }
+
+  .feature-card {
+    background: var(--deep-cave);
+    padding: 40px 32px;
+    border-right: 1px solid rgba(168,191,176,0.1);
+    transition: background 0.2s;
+  }
+
+  .feature-card:last-child { border-right: none; }
+  .feature-card:hover { background: rgba(168,191,176,0.04); }
+
+  .feature-num {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--filtered-sun);
+    margin-bottom: 20px;
+  }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    line-height: 1;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--matte-silver);
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .feature-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--water-veil);
+    opacity: 0.85;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .feature-list li {
+    font-size: 13px;
+    color: var(--water-veil);
+    opacity: 0.75;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .feature-list li::before {
+    content: '→';
+    color: var(--filtered-sun);
+    font-size: 11px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ─── DEMO ─── */
+  .demo { background: var(--paper); }
+
+  .demo-box {
+    border: 1.5px solid var(--living-green);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 40px;
+  }
+
+  .demo-screen {
+    background: var(--cream);
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .demo-browser-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    background: var(--deep-cave);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .browser-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  .browser-dot:nth-child(1) { background: #FF5F57; }
+  .browser-dot:nth-child(2) { background: #FFBD2E; }
+  .browser-dot:nth-child(3) { background: #28CA41; }
+
+  .browser-url {
+    margin-left: 12px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--water-veil);
+    font-family: 'Inter', monospace;
+    flex: 1;
+    max-width: 360px;
+  }
+
+  .demo-placeholder {
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  .demo-placeholder-text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-muted);
+  }
+
+  .demo-info {
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .demo-url-block .demo-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .demo-url-display {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--living-green);
+    letter-spacing: -0.3px;
+  }
+
+  .demo-expiry {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .btn-demo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1.5px solid var(--living-green);
+    color: var(--living-green);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-demo:hover {
+    background: var(--living-green);
+    color: var(--matte-silver);
+  }
+
+  /* ─── PRICING ─── */
+  .pricing { background: var(--deep-cave); }
+
+  .pricing .section-label { color: var(--water-veil); opacity: 0.7; }
+  .pricing .section-title { color: var(--matte-silver); }
+
+  .pricing-table {
+    margin-top: 40px;
+    border: 1px solid rgba(168,191,176,0.15);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .pricing-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 1px solid rgba(168,191,176,0.08);
+    gap: 20px;
+  }
+
+  .pricing-row:last-child { border-bottom: none; }
+
+  .pricing-row.highlight {
+    background: rgba(201,152,10,0.07);
+    border-bottom: 1px solid rgba(201,152,10,0.15);
+  }
+
+  .pricing-row.total-row {
+    background: rgba(201,152,10,0.05);
+    border-top: 1px solid rgba(201,152,10,0.2);
+    padding: 24px 32px;
+  }
+
+  .pricing-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .pricing-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--matte-silver);
+  }
+
+  .pricing-note {
+    font-size: 12px;
+    color: var(--water-veil);
+    opacity: 0.6;
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 4px;
+  }
+
+  .badge-selected {
+    background: rgba(59,94,63,0.3);
+    color: var(--water-veil);
+    border: 1px solid rgba(59,94,63,0.4);
+  }
+
+  .badge-optional {
+    background: rgba(168,191,176,0.1);
+    color: var(--text-muted);
+    border: 1px solid rgba(168,191,176,0.15);
+  }
+
+  .pricing-price {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--matte-silver);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .pricing-price.muted {
+    font-size: 16px;
+    color: var(--text-muted);
+  }
+
+  .total-row .pricing-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--water-veil);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .total-row .pricing-price {
+    font-size: 32px;
+    color: var(--filtered-sun);
+  }
+
+  /* ─── PROCESS ─── */
+  .process { background: var(--paper); }
+  .process .section-title { color: var(--ink); }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 40px;
+  }
+
+  .process-step {
+    background: var(--cream);
+    padding: 36px 32px;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--filtered-sun);
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: -16px;
+  }
+
+  .step-num-label {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--filtered-sun);
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: var(--deep-cave);
+    padding: 100px 40px;
+    text-align: center;
+  }
+
+  .cta-inner { max-width: 680px; margin: 0 auto; }
+
+  .cta-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    opacity: 0.6;
+    margin-bottom: 16px;
+  }
+
+  .cta-investment {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 80px);
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--filtered-sun);
+    margin-bottom: 8px;
+  }
+
+  .cta-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+    color: var(--water-veil);
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+
+  .btn-purchase {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--filtered-sun);
+    color: var(--deep-cave);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-purchase:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  .btn-arrow {
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+
+  .btn-purchase:hover .btn-arrow { transform: translateX(4px); }
+
+  .cta-trust {
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .cta-trust a {
+    color: var(--water-veil);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--deep-cave);
+    border-top: 1px solid rgba(168,191,176,0.1);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 16px;
+    color: var(--matte-silver);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--water-veil); }
+
+  .footer-expiry {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--filtered-sun);
+    margin-bottom: 32px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-center { display: none; }
+
+    .hero { padding: 60px 24px; }
+
+    section { padding: 60px 24px; }
+
+    .features-grid { grid-template-columns: 1fr; }
+    .feature-card { border-right: none; border-bottom: 1px solid rgba(168,191,176,0.1); }
+    .feature-card:last-child { border-bottom: none; }
+
+    .process-steps { grid-template-columns: 1fr; }
+
+    .demo-info { flex-direction: column; align-items: flex-start; }
+
+    .pricing-row { flex-direction: column; align-items: flex-start; }
+    .pricing-price { text-align: left; }
+
+    .footer { flex-direction: column; text-align: center; }
+    .footer-expiry { text-align: center; }
+  }
+
+  @media print {
+    .nav { position: static; }
+    .btn-buy, .btn-purchase { background: var(--filtered-sun) !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <div class="nav-logo">-arumaldo.</div>
+  <div class="nav-center">
+    <div class="label">{{PROPOSAL_DATE}}</div>
+    <div class="title">Proposal for {{CLIENT_NAME}}</div>
+  </div>
+  <a href="{{ZOHO_CHECKOUT_URL}}" class="btn-buy">Buy Now →</a>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Proposal for</div>
+    <h1 class="hero-client">{{CLIENT_NAME}}</h1>
+    <p class="hero-sub">A {{SITE_TYPE}} website engineered<br>for your business.</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item"><strong>Date:</strong> {{PROPOSAL_DATE}}</span>
+      <span class="hero-meta-item"><strong>Valid until:</strong> {{PROPOSAL_EXPIRY}}</span>
+      <span class="hero-meta-item"><strong>For:</strong> {{CLIENT_CONTACT}}</span>
+      <span class="status-badge"><span class="status-dot"></span>SYSTEM READY</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── THE VISION ─── -->
+<section class="vision">
+  <div class="section-inner">
+    <div class="section-label">The Vision</div>
+    <h2 class="section-title">What we'll build<br>for you.</h2>
+    <div class="divider"></div>
+    <div class="vision-body">
+      <p>
+        You run a <span class="vision-accent">{{CLIENT_BUSINESS}}</span> — and your website should be working as hard as you do.
+        Right now, your digital presence isn't capturing the customers who are already searching for what you offer.
+        That changes with this engagement.
+      </p>
+      <p>
+        We're building you a <strong>{{SITE_TYPE}} website</strong> — custom-designed from scratch, tuned for conversion,
+        and deployed on infrastructure that loads fast anywhere in the world. No templates, no page builders,
+        no shortcuts. Just clean, purposeful work that represents your business at its best.
+      </p>
+      <p>
+        Within 7 days of receiving your brief, you'll have a live preview to review. Two revision rounds are included.
+        Once approved, you own everything — the code, the domain, the content. We transfer it all.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT'S INCLUDED ─── -->
+<section class="included">
+  <div class="section-inner">
+    <div class="section-label">What's Included</div>
+    <h2 class="section-title">Every detail.<br>Covered.</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <span class="feature-icon">✦</span>
+        <div class="feature-title">Design</div>
+        <p class="feature-desc">Custom visual identity built from your brand, not from a template library.</p>
+        <ul class="feature-list">
+          <li>3 inspiration sites reviewed</li>
+          <li>Mobile-first responsive layout</li>
+          <li>Your brand colors + typography</li>
+          <li>No stock-template aesthetics</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <span class="feature-icon">◈</span>
+        <div class="feature-title">Development</div>
+        <p class="feature-desc">Production-grade code. Edge-hosted for performance. Built to last.</p>
+        <ul class="feature-list">
+          <li>Deployed on Vercel edge network</li>
+          <li>Supabase backend if needed</li>
+          <li>Core Web Vitals optimized</li>
+          <li>Contact forms + integrations</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <span class="feature-icon">◎</span>
+        <div class="feature-title">Delivery</div>
+        <p class="feature-desc">You get your website — and full ownership — within a week of approval.</p>
+        <ul class="feature-list">
+          <li>Live preview under 7 days</li>
+          <li>Two revision rounds included</li>
+          <li>Full DNS transfer to you</li>
+          <li>You own 100% of the code</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DEMO ─── -->
+<section class="demo">
+  <div class="section-inner">
+    <div class="section-label">Live Preview</div>
+    <h2 class="section-title">See it before<br>you buy it.</h2>
+    <div class="divider"></div>
+    <p style="font-size:16px; color:var(--text-muted); margin-bottom:32px; max-width:580px; line-height:1.7;">
+      This is what your website will look like. We built a live demo specifically for you. 
+      Open it on desktop and mobile — it's fully responsive.
+    </p>
+    <div class="demo-box">
+      <div class="demo-screen">
+        <div class="demo-browser-bar">
+          <div class="browser-dot"></div>
+          <div class="browser-dot"></div>
+          <div class="browser-dot"></div>
+          <div class="browser-url">{{DEMO_URL_DISPLAY}}</div>
+        </div>
+        <div class="demo-placeholder">
+          <div class="demo-placeholder-text">Live demo built for you →</div>
+        </div>
+      </div>
+      <div class="demo-info">
+        <div class="demo-url-block">
+          <div class="demo-label">Live Demo →</div>
+          <div class="demo-url-display">{{DEMO_URL_DISPLAY}}</div>
+          <div class="demo-expiry">This demo expires in <strong>{{DEMO_DAYS_LEFT}} days</strong> · Open on desktop + mobile</div>
+        </div>
+        <a href="{{DEMO_URL}}" target="_blank" class="btn-demo">View Live Demo ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing">
+  <div class="section-inner">
+    <div class="section-label">Investment</div>
+    <h2 class="section-title">Clear pricing.<br>No surprises.</h2>
+    <div class="pricing-table">
+      <div class="pricing-row highlight">
+        <div class="pricing-item">
+          <div class="pricing-name">{{SITE_TYPE}} Website Build</div>
+          <div class="pricing-note">Custom design + development · Full source code transfer</div>
+          <span class="pricing-badge badge-selected">✓ Selected</span>
+        </div>
+        <div class="pricing-price">${{SITE_PRICE}}</div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-item">
+          <div class="pricing-name">Global Hosting</div>
+          <div class="pricing-note">Vercel edge network · 99.9% uptime · Monthly</div>
+          <span class="pricing-badge badge-optional">Optional</span>
+        </div>
+        <div class="pricing-price muted">$30/mo</div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-item">
+          <div class="pricing-name">E-Commerce Add-on</div>
+          <div class="pricing-note">Online store, cart, payment processing · Monthly</div>
+          <span class="pricing-badge badge-optional">Optional</span>
+        </div>
+        <div class="pricing-price muted">$35/mo</div>
+      </div>
+      <div class="pricing-row">
+        <div class="pricing-item">
+          <div class="pricing-name">Support Plan</div>
+          <div class="pricing-note">Updates, edits, maintenance · Monthly retainer</div>
+          <span class="pricing-badge badge-optional">Optional</span>
+        </div>
+        <div class="pricing-price muted">$75/mo</div>
+      </div>
+      <div class="pricing-row total-row">
+        <div class="pricing-item">
+          <div class="pricing-name">Your Investment</div>
+          <div class="pricing-note">One-time · 100% upfront · Ownership included</div>
+        </div>
+        <div class="pricing-price">${{SITE_PRICE}}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─── -->
+<section class="process">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Four steps from<br>brief to live.</h2>
+    <div class="divider"></div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-num-label">Step 01</div>
+        <div class="step-title">You send us your brief</div>
+        <p class="step-desc">Fill out our onboarding questionnaire with your brand assets, inspirations, and content. The clearer the brief, the better the result.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-num-label">Step 02</div>
+        <div class="step-title">We build your preview</div>
+        <p class="step-desc">Within 7 days you receive a live preview link. Full desktop and mobile. You'll see exactly what your visitors will see.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-num-label">Step 03</div>
+        <div class="step-title">Two revision rounds</div>
+        <p class="step-desc">Share your feedback. We refine. Up to two rounds of revisions are included in your investment. Additional rounds at $50 each.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-num-label">Step 04</div>
+        <div class="step-title">You approve, it's yours</div>
+        <p class="step-desc">Once you sign off, we transfer the DNS, hand over all code, and your site goes live. You own everything from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-label">Your Investment</div>
+    <div class="cta-investment">${{SITE_PRICE}}</div>
+    <p class="cta-sub">One-time. 100% upfront.<br>Yours from day one.</p>
+    <a href="{{ZOHO_CHECKOUT_URL}}" class="btn-purchase">
+      Purchase Now <span class="btn-arrow">→</span>
+    </a>
+    <div class="cta-trust">
+      Payment secured via Zoho Billing. Credit card accepted.<br>
+      Questions? <a href="mailto:abdiel@arumaldo.com">abdiel@arumaldo.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-logo">-arumaldo.</div>
+  <div class="footer-links">
+    <a href="mailto:abdiel@arumaldo.com">abdiel@arumaldo.com</a>
+    <a href="https://arumaldo.com" target="_blank">arumaldo.com</a>
+  </div>
+  <div class="footer-expiry">
+    Proposal valid until {{PROPOSAL_EXPIRY}}<br>
+    <span style="font-size:11px; opacity:0.5;">Prepared for {{CLIENT_NAME}} · {{PROPOSAL_DATE}}</span>
+  </div>
+</footer>
+
+</body>
+</html>

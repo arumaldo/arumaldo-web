@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>-arumaldo. | Chief Digital Architect</title>
+<meta name="description" content="Premium AI-first web agency. We build corporate websites engineered for permanence. Fixed scope. Fast delivery. Yours from day one." />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep-cave:     #1A1F1C;
+    --filtered-sun:  #C9980A;
+    --water-veil:    #A8BFB0;
+    --living-green:  #3B5E3F;
+    --matte-silver:  #E8E8E6;
+    --ink:           #111111;
+    --border:        rgba(59,94,63,0.22);
+    --border-strong: #3B5E3F;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Satoshi', sans-serif;
+    background: var(--deep-cave);
+    color: #fff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SCROLL PROGRESS ── */
+  #scroll-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--filtered-sun);
+    z-index: 9999;
+    transition: width 0.1s linear;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .grain > * { position: relative; z-index: 2; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 48px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s, backdrop-filter 0.3s, border-bottom 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(26,31,28,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--water-veil);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0ms;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-cta {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 20px;
+    border: 1px solid var(--living-green);
+    transition: background 0ms, border-color 0ms, color 0ms;
+  }
+  .nav-cta:hover {
+    background: var(--filtered-sun);
+    border-color: var(--filtered-sun);
+    color: var(--ink);
+  }
+  .lang-toggle {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--water-veil);
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    transition: border-color 0ms, color 0ms;
+  }
+  .lang-toggle:hover { border-color: var(--living-green); color: #fff; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: #fff;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(26,31,28,0.98);
+    backdrop-filter: blur(12px);
+    padding: 32px 32px 40px;
+    border-bottom: 1px solid var(--border);
+    z-index: 999;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .mobile-menu .lang-toggle-mob {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--water-veil);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    align-self: flex-start;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    margin-top: 8px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--deep-cave);
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+  }
+  .hero-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--filtered-sun);
+    animation: glowPulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 4px 1px rgba(201,152,10,0.4); opacity: 1; }
+    50%       { box-shadow: 0 0 12px 4px rgba(201,152,10,0.7); opacity: 0.85; }
+  }
+  .status-text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--water-veil);
+  }
+  .hero-headline {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(64px, 8.5vw, 128px);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  .hero-headline .accent { color: var(--filtered-sun); }
+
+  .hero-line { display: block; overflow: hidden; }
+  .hero-line-inner {
+    display: block;
+    animation: revealUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  .hero-line:nth-child(1) .hero-line-inner { animation-delay: 0.05s; }
+  .hero-line:nth-child(2) .hero-line-inner { animation-delay: 0.18s; }
+  .hero-line:nth-child(3) .hero-line-inner { animation-delay: 0.31s; }
+  .hero-line:nth-child(4) .hero-line-inner { animation-delay: 0.44s; }
+
+  @keyframes revealUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-body {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--water-veil);
+    max-width: 440px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.7s;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--filtered-sun);
+    text-decoration: none;
+    padding: 16px 32px;
+    border: 1px solid var(--filtered-sun);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards 0.85s;
+    transition: background 0ms, color 0ms;
+  }
+  .hero-cta:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--ink);
+  }
+  .hero-cta svg { flex-shrink: 0; }
+
+  /* Hero Metrics Grid */
+  .hero-metrics {
+    border: 1px solid var(--border-strong);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 0.6s;
+  }
+  .metric-cell {
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .metric-cell:nth-child(1) { border-top: none; border-left: none; }
+  .metric-cell:nth-child(2) { border-top: none; border-right: none; }
+  .metric-cell:nth-child(3) { border-bottom: none; border-left: none; }
+  .metric-cell:nth-child(4) { border-bottom: none; border-right: none; }
+
+  .metric-value {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .metric-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--water-veil);
+  }
+
+  /* ── WHAT WE BUILD ── */
+  #services {
+    background: var(--matte-silver);
+    padding: 120px 48px;
+  }
+  .section-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--living-green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--living-green);
+  }
+  .section-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 600;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 64px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-strong);
+  }
+  .service-card {
+    padding: 48px 36px;
+    border-right: 1px solid var(--border-strong);
+    background: var(--matte-silver);
+    transition: border-color 0ms;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0ms;
+  }
+  .service-card:hover::before { background: var(--filtered-sun); }
+  .service-card.featured {
+    background: var(--ink);
+    color: #fff;
+  }
+  .service-tag {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--living-green);
+    border: 1px solid var(--living-green);
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 28px;
+  }
+  .service-card.featured .service-tag {
+    color: var(--filtered-sun);
+    border-color: var(--filtered-sun);
+  }
+  .service-name {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .service-card.featured .service-name { color: #fff; }
+  .service-price {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+  .service-card.featured .service-price { color: #fff; }
+  .service-price sup {
+    font-size: 20px;
+    vertical-align: super;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .service-price span {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--water-veil);
+    letter-spacing: 0;
+  }
+  .service-desc {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: #555;
+    margin-bottom: 32px;
+  }
+  .service-card.featured .service-desc { color: var(--water-veil); }
+  .service-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .service-features li {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #666;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .service-card.featured .service-features li { color: var(--water-veil); }
+  .service-features li::before {
+    content: '→';
+    color: var(--living-green);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .service-card.featured .service-features li::before { color: var(--filtered-sun); }
+
+  /* ── PROCESS ── */
+  #process {
+    background: var(--deep-cave);
+    padding: 120px 48px;
+  }
+  #process .section-label { color: var(--water-veil); }
+  #process .section-label::before { background: var(--water-veil); }
+  #process .section-title { color: #fff; }
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  .process-step {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .process-step.visible { opacity: 1; transform: translateY(0); }
+  .process-step:last-child { border-bottom: 1px solid var(--border); }
+  .step-number {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 96px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    padding-top: 4px;
+    user-select: none;
+  }
+  .step-content {}
+  .step-title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 12px;
+    margin-top: 16px;
+  }
+  .step-desc {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--water-veil);
+    max-width: 520px;
+  }
+  .step-sub {
+    display: inline-block;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--living-green);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    margin-top: 16px;
+  }
+
+  /* ── PRICING ── */
+  #pricing {
+    background: var(--deep-cave);
+    padding: 120px 48px;
+    border-top: 1px solid var(--border);
+  }
+  #pricing .section-title { color: #fff; }
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1px;
+    background: var(--border-strong);
+    border: 1px solid var(--border-strong);
+  }
+  .bento-cell {
+    background: var(--deep-cave);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .bento-cell.visible { opacity: 1; transform: translateY(0); }
+  .bento-cell.light {
+    background: var(--matte-silver);
+    color: var(--ink);
+  }
+  .bento-cell.span2 { grid-column: span 2; }
+  .bento-cell.span4 { grid-column: span 4; }
+  .bento-label {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    margin-bottom: 4px;
+  }
+  .bento-cell.light .bento-label { color: var(--living-green); }
+  .bento-name {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .bento-cell.light .bento-name { color: var(--ink); }
+  .bento-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .bento-price {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #fff;
+    line-height: 1;
+  }
+  .bento-cell.light .bento-price { color: var(--ink); }
+  .bento-price sup {
+    font-size: 22px;
+    vertical-align: super;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .bento-price-alt {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--water-veil);
+  }
+  .bento-cell.light .bento-price-alt { color: #888; }
+  .bento-desc {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--water-veil);
+  }
+  .bento-cell.light .bento-desc { color: #555; }
+  .bento-badge {
+    display: inline-flex;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--living-green);
+    border: 1px solid var(--living-green);
+    padding: 3px 8px;
+    align-self: flex-start;
+  }
+  .bento-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .bento-features li {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    color: var(--water-veil);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .bento-cell.light .bento-features li { color: #555; }
+  .bento-features li::before {
+    content: '→';
+    color: var(--living-green);
+    font-size: 11px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .bento-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--filtered-sun);
+    text-decoration: none;
+    padding: 14px 28px;
+    border: 1px solid var(--filtered-sun);
+    align-self: flex-start;
+    margin-top: 8px;
+    transition: background 0ms, color 0ms;
+  }
+  .bento-cta:hover {
+    background: #fff;
+    border-color: #fff;
+    color: var(--ink);
+  }
+  .bento-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  .pricing-note {
+    margin-top: 24px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    color: var(--water-veil);
+    line-height: 1.7;
+    border-left: 2px solid var(--living-green);
+    padding-left: 16px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ink);
+    padding: 140px 48px 120px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: 'BUILD';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Clash Display', sans-serif;
+    font-size: 28vw;
+    font-weight: 700;
+    color: rgba(255,255,255,0.02);
+    letter-spacing: -0.04em;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .contact-inner { position: relative; z-index: 2; }
+  .contact-eyebrow {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--living-green);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .contact-eyebrow::before, .contact-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--living-green);
+  }
+  .contact-headline {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(56px, 9vw, 136px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 0.9;
+    margin-bottom: 32px;
+  }
+  .contact-sub {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--water-veil);
+    margin-bottom: 48px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.65;
+  }
+  .contact-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 52px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--filtered-sun);
+    text-decoration: none;
+    padding: 16px 36px;
+    border: 1px solid var(--filtered-sun);
+    transition: background 0ms, color 0ms;
+  }
+  .btn-primary:hover {
+    background: #fff;
+    border-color: #fff;
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    padding: 16px 36px;
+    border: 1px solid var(--living-green);
+    transition: border-color 0ms, color 0ms, background 0ms;
+  }
+  .btn-outline:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.06);
+  }
+  .contact-info {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--water-veil);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .contact-info a { color: var(--water-veil); text-decoration: none; }
+  .contact-info a:hover { color: #fff; }
+  .contact-info .sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--living-green);
+    display: inline-block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep-cave);
+    border-top: 1px solid var(--border);
+    padding: 48px 48px 32px;
+  }
+  .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-brand {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .footer-nav a {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--water-veil);
+    text-decoration: none;
+    transition: color 0ms;
+  }
+  .footer-nav a:hover { color: #fff; }
+  .footer-tech {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px;
+    color: var(--water-veil);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px;
+    color: rgba(168,191,176,0.5);
+  }
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer-links a {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px;
+    color: rgba(168,191,176,0.5);
+    text-decoration: none;
+    transition: color 0ms;
+  }
+  .footer-links a:hover { color: var(--water-veil); }
+
+  /* ── SECTION REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    nav { padding: 0 32px; }
+    #hero { padding: 100px 32px 72px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 56px; }
+    .hero-metrics { max-width: 480px; }
+    #services, #process, #pricing, #contact, footer { padding-left: 32px; padding-right: 32px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { border-right: none; border-bottom: 1px solid var(--border-strong); }
+    .service-card:last-child { border-bottom: none; }
+    .bento-grid { grid-template-columns: 1fr 1fr; }
+    .bento-cell.span2 { grid-column: span 2; }
+    .bento-cell.span4 { grid-column: span 2; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links, .nav-cta, .lang-toggle { display: none; }
+    .hamburger { display: flex; }
+    #hero { padding: 88px 20px 64px; }
+    #services, #process, #pricing, #contact { padding: 80px 20px; }
+    footer { padding: 40px 20px 24px; }
+    .process-step { grid-template-columns: 80px 1fr; }
+    .step-number { font-size: 56px; }
+    .bento-grid { grid-template-columns: 1fr; background: transparent; border: 1px solid var(--border-strong); gap: 0; }
+    .bento-cell { border-bottom: 1px solid var(--border-strong); }
+    .bento-cell.span2, .bento-cell.span4 { grid-column: span 1; }
+    .contact-headline { font-size: clamp(48px, 13vw, 80px); }
+    .contact-buttons { flex-direction: column; align-items: center; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; }
+  }
+  @media (max-width: 480px) {
+    .hero-headline { font-size: clamp(48px, 13vw, 80px); }
+    .metric-value { font-size: 28px; }
+    .metric-cell { padding: 20px 16px; }
+    .hero-metrics { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div id="scroll-bar"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-brand">-arumaldo.</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+    <a href="arumaldo-es.html" class="lang-toggle">ES</a>
+    <a href="#contact" class="nav-cta">Start Project</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#process" class="mobile-link">Process</a>
+  <a href="#pricing" class="mobile-link">Pricing</a>
+  <a href="#contact" class="mobile-link">Start Project</a>
+  <a href="arumaldo-es.html" class="lang-toggle-mob">ES — Español</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="grain">
+  <div class="hero-inner">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-status">
+        <span class="status-dot"></span>
+        <span class="status-text">System Status: Ready for Accelerated Deployment</span>
+      </div>
+      <h1 class="hero-headline">
+        <span class="hero-line"><span class="hero-line-inner">WE BUILD</span></span>
+        <span class="hero-line"><span class="hero-line-inner">THE WEB</span></span>
+        <span class="hero-line"><span class="hero-line-inner">YOUR BUSINESS</span></span>
+        <span class="hero-line"><span class="hero-line-inner accent">DESERVES.</span></span>
+      </h1>
+      <p class="hero-body">Premium corporate websites engineered for permanence.<br>Fixed scope. Fast delivery. Yours from day one.</p>
+      <a href="#contact" class="hero-cta">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Initiate Build
+      </a>
+    </div>
+    <!-- Right: Metrics -->
+    <div class="hero-metrics" id="metrics-grid">
+      <div class="metric-cell">
+        <div class="metric-value" data-count="7" data-suffix=" DAYS">&lt; 7 DAYS</div>
+        <div class="metric-label">Delivery</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-value">$1,500</div>
+        <div class="metric-label">Starting at</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-value">100%</div>
+        <div class="metric-label">Yours — Full Ownership</div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-value">2</div>
+        <div class="metric-label">Revisions Included</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILD -->
+<section id="services">
+  <div style="max-width:1360px;margin:0 auto;">
+    <p class="section-label reveal">What We Build</p>
+    <h2 class="section-title reveal">Precision-Engineered<br>Digital Presence</h2>
+    <div class="services-grid reveal">
+      <!-- Card 1 -->
+      <div class="service-card">
+        <span class="service-tag">One-Page</span>
+        <div class="service-name">One-Page Professional</div>
+        <div class="service-price"><sup>$</sup>1,500</div>
+        <p class="service-desc">High-impact, single-scroll architecture for businesses that need presence and velocity — now.</p>
+        <ul class="service-features">
+          <li>Full single-page layout</li>
+          <li>Mobile-first responsive</li>
+          <li>Contact form + integrations</li>
+          <li>2 revision rounds</li>
+          <li>Delivery in under 7 days</li>
+          <li>Full source ownership</li>
+        </ul>
+      </div>
+      <!-- Card 2: Featured -->
+      <div class="service-card featured">
+        <span class="service-tag">Most Popular</span>
+        <div class="service-name">Multi-Page Corporate</div>
+        <div class="service-price"><sup>$</sup>2,500</div>
+        <p class="service-desc">Deep structural authority mapping. Full corporate architecture — services, about, case studies, contact, custom pages.</p>
+        <ul class="service-features">
+          <li>Up to 8 structured pages</li>
+          <li>SEO architecture built-in</li>
+          <li>CMS-ready structure</li>
+          <li>Custom animations + transitions</li>
+          <li>2 revision rounds</li>
+          <li>Full source ownership</li>
+        </ul>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card">
+        <span class="service-tag">Add-On</span>
+        <div class="service-name">E-Commerce Add-on</div>
+        <div class="service-price"><sup>+$</sup>35<span>/mo</span></div>
+        <p class="service-desc">Digital payment engine layered on top of any build. Start selling without complexity.</p>
+        <ul class="service-features">
+          <li>Stripe / payment integration</li>
+          <li>Product catalog pages</li>
+          <li>Order + fulfillment flow</li>
+          <li>$350/yr — 2 months free</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROCESS -->
+<section id="process" class="grain">
+  <div style="max-width:1360px;margin:0 auto;">
+    <p class="section-label">The Process</p>
+    <h2 class="section-title">Four Steps.<br>Zero Ambiguity.</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Submit Your Brief</div>
+          <p class="step-desc">You provide: business context, three website references you admire, your brand book, and logo files. No lengthy discovery calls — just structured input that gets us building.</p>
+          <span class="step-sub">You → Us</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">We Engineer Your Site</div>
+          <p class="step-desc">We build your complete site on Vercel + Supabase. No back-and-forth, no endless iteration loops. We build the full version — you review something real, not a wireframe.</p>
+          <span class="step-sub">Us → 7 Days</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">You Review — Twice</div>
+          <p class="step-desc">Two structured revision rounds are included. Each round, you submit a clear change list — we implement. Additional requests beyond scope: $50 each, flat rate.</p>
+          <span class="step-sub">Revisions: 2 Included · $50 Extra</span>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Go Live</div>
+          <p class="step-desc">DNS transfer instructions delivered. Your domain, your hosting, your code — full ownership from day one. We don't lock you in. Ever.</p>
+          <span class="step-sub">Full Ownership Transferred</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div style="max-width:1360px;margin:0 auto;">
+    <p class="section-label reveal">Pricing</p>
+    <h2 class="section-title reveal">No Surprises.<br>No Subscriptions Required.</h2>
+    <div class="bento-grid">
+      <!-- Cell 1: Builds (spans 2 cols, light) -->
+      <div class="bento-cell light span2">
+        <div class="bento-label">Build — One-Time</div>
+        <div class="bento-name">One-Page + Multi-Page</div>
+        <div class="bento-price-row">
+          <div>
+            <div class="bento-price"><sup>$</sup>1,500</div>
+            <div style="font-family:'Satoshi',sans-serif;font-size:12px;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;">One-Page Professional</div>
+          </div>
+          <div style="width:1px;height:60px;background:var(--border-strong);align-self:center;"></div>
+          <div>
+            <div class="bento-price"><sup>$</sup>2,500</div>
+            <div style="font-family:'Satoshi',sans-serif;font-size:12px;color:#888;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;">Multi-Page Corporate</div>
+          </div>
+        </div>
+        <div class="bento-divider"></div>
+        <ul class="bento-features">
+          <li>100% upfront via Zoho Billing (credit card)</li>
+          <li>Full source code ownership on delivery</li>
+          <li>2 revision rounds included · $50 per extra request</li>
+        </ul>
+      </div>
+      <!-- Cell 2: E-Commerce -->
+      <div class="bento-cell">
+        <div class="bento-label">Add-On</div>
+        <div class="bento-name">E-Commerce</div>
+        <div class="bento-price-row">
+          <div class="bento-price"><sup>$</sup>35<span style="font-family:'Satoshi';font-size:14px;font-weight:400;color:var(--water-veil)">/mo</span></div>
+        </div>
+        <div class="bento-price-alt">$350/yr · 2 months free</div>
+        <p class="bento-desc">Stripe-powered payments, product catalog, order flow.</p>
+        <div class="bento-badge">2 Months Free Annually</div>
+      </div>
+      <!-- Cell 3: Hosting -->
+      <div class="bento-cell">
+        <div class="bento-label">Infrastructure</div>
+        <div class="bento-name">Global Hosting</div>
+        <div class="bento-price-row">
+          <div class="bento-price"><sup>$</sup>30<span style="font-family:'Satoshi';font-size:14px;font-weight:400;color:var(--water-veil)">/mo</span></div>
+        </div>
+        <div class="bento-price-alt">$300/yr · 2 months free</div>
+        <p class="bento-desc">Vercel edge deployment. Global CDN. 99.9% uptime SLA.</p>
+        <div class="bento-badge">2 Months Free Annually</div>
+      </div>
+      <!-- Cell 4: Support (spans 2 cols) -->
+      <div class="bento-cell span2">
+        <div class="bento-label">Ongoing Support</div>
+        <div class="bento-name">Web Support Plan</div>
+        <div class="bento-price-row">
+          <div class="bento-price"><sup>$</sup>75<span style="font-family:'Satoshi';font-size:14px;font-weight:400;color:var(--water-veil)">/mo</span></div>
+        </div>
+        <div class="bento-price-alt">$750/yr · 2 months free</div>
+        <ul class="bento-features">
+          <li>Up to 5 change requests/month</li>
+          <li>Content updates, bug fixes, minor feature additions</li>
+          <li>Extra requests: $50 each</li>
+        </ul>
+      </div>
+      <!-- Cell 5: Premium Support (full width) -->
+      <div class="bento-cell span4" style="flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;">
+        <div style="flex:1;min-width:260px;">
+          <div class="bento-label">Premium Plan</div>
+          <div class="bento-name">Premium Web Support</div>
+          <div class="bento-price-row" style="margin-top:8px;">
+            <div class="bento-price"><sup>$</sup>99<span style="font-family:'Satoshi';font-size:14px;font-weight:400;color:var(--water-veil)">/mo</span></div>
+          </div>
+          <div class="bento-price-alt">$999/yr · 2 months free</div>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <ul class="bento-features">
+            <li>Up to 5 priority requests/month</li>
+            <li>24h response guarantee</li>
+            <li>Performance monitoring included</li>
+            <li>Extra requests: $50 each</li>
+          </ul>
+        </div>
+        <div>
+          <a href="#contact" class="bento-cta">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 2l4.5 4.5L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Initialize Fast Ship
+          </a>
+        </div>
+      </div>
+    </div>
+    <p class="pricing-note reveal">All payments processed via Zoho Billing · Credit card only · 100% upfront · No hidden fees · You own everything on delivery.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="grain">
+  <div class="contact-inner">
+    <div class="contact-eyebrow">Let's Work</div>
+    <h2 class="contact-headline">READY<br>TO BUILD?</h2>
+    <p class="contact-sub">Start with a brief. We'll have something real for you in under a week.</p>
+    <div class="contact-buttons">
+      <a href="mailto:abdiel@arumaldo.com?subject=Project Brief" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Start Your Project
+      </a>
+      <a href="#process" class="btn-outline">View Process</a>
+    </div>
+    <div class="contact-info">
+      <a href="mailto:abdiel@arumaldo.com">abdiel@arumaldo.com</a>
+      <span class="sep"></span>
+      <span>WhatsApp available</span>
+      <span class="sep"></span>
+      <span>Response in &lt; 24h</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1360px;margin:0 auto;">
+    <div class="footer-top">
+      <a href="#" class="footer-brand">-arumaldo.</a>
+      <ul class="footer-nav">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer-tech">
+        <span>Powered by</span>
+        <span style="color:#fff;font-weight:700;">Vercel</span>
+        <span>+</span>
+        <span style="color:#fff;font-weight:700;">Supabase</span>
+        <span>· 2025</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 -arumaldo. · Chief Digital Architect · All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="https://twitter.com/arumaldo" target="_blank">@arumaldo</a>
+        <a href="arumaldo-es.html">ES →</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── SCROLL PROGRESS BAR ──
+  const scrollBar = document.getElementById('scroll-bar');
+  window.addEventListener('scroll', () => {
+    const total = document.body.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / total) * 100;
+    scrollBar.style.width = progress + '%';
+  }, { passive: true });
+
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── HAMBURGER ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ── INTERSECTION OBSERVER: SECTION REVEALS ──
+  const revealEls = document.querySelectorAll('.reveal, .process-step, .bento-cell');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay);
+        revealObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach((el, i) => {
+    if (el.classList.contains('bento-cell')) {
+      el.dataset.delay = (i % 4) * 80;
+    }
+    revealObserver.observe(el);
+  });
+
+  // ── PROCESS STEP STAGGER ──
+  document.querySelectorAll('.process-step').forEach((step, i) => {
+    step.dataset.delay = i * 120;
+  });
+
+  // ── METRIC COUNTER ──
+  function animateCount(el, target, suffix, prefix) {
+    const duration = 1200;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(ease * target);
+      el.textContent = (prefix || '') + current + (suffix || '');
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const metricsGrid = document.getElementById('metrics-grid');
+  const metricsObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      document.querySelectorAll('[data-count]').forEach(el => {
+        const count = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        animateCount(el, count, suffix, '< ');
+      });
+      metricsObserver.disconnect();
+    }
+  }, { threshold: 0.5 });
+  metricsObserver.observe(metricsGrid);
+</script>
+</body>
+</html>

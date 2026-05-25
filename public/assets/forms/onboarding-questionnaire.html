@@ -736,13 +736,12 @@
     .btn-back, .btn-next, .btn-submit { width: 100%; justify-content: center; }
   }
 </style>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
 <!-- ─── HEADER ─── -->
 <header class="site-header">
-  <div class="header-logo" onclick="location.href='/'" style="cursor:pointer;"><img src="/assets/logos/logo-b_transparente.png" alt="Arumaldo" style="height: 20px; width: auto; display: block;"></div>
+  <div class="header-logo">-arumaldo.</div>
   <div class="header-tagline">We Build the Web Your Business Deserves.</div>
 </header>
 
@@ -1212,11 +1211,6 @@
 
     <div class="field-divider"></div>
 
-    <div class="field-group">
-      <div class="cf-turnstile" data-sitekey="0x4AAAAAADFGvwzI_wtWWITT" data-theme="light"></div>
-      <div class="error-msg" id="global-error" style="margin-top: 10px; color: #D94F4F; font-size: 12px; display: none;"></div>
-    </div>
-
     <div style="background: var(--cream); border: 1px solid rgba(26,31,28,0.07); border-radius: 6px; padding: 20px 24px; margin-bottom: 28px;">
       <p style="font-size:13px; color:var(--text-muted); line-height:1.65;">
         By submitting this brief, you confirm that you are authorized to share all uploaded files and information.
@@ -1472,17 +1466,6 @@
   async function submitForm() {
     if (!validateStep(5)) return;
 
-    const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value || '';
-    const globalError = document.getElementById('global-error');
-    globalError.textContent = '';
-    globalError.style.display = 'none';
-
-    if (!turnstileToken) {
-      globalError.textContent = 'Please complete the security check.';
-      globalError.style.display = 'block';
-      return;
-    }
-
     const billingType = document.querySelector('input[name="billing-type"]:checked')?.value || '';
 
     const formData = {
@@ -1526,38 +1509,31 @@
       fiscalAddress: document.getElementById('f-fiscal-address')?.value || '',
     };
 
-    const btn = document.querySelector('.btn-submit');
-    btn.disabled = true;
-    btn.textContent = 'Submitting…';
-
     // POST to worker endpoint (placeholder until Phase 6 deployment)
-    try {
-      if (INTAKE_ENDPOINT && !INTAKE_ENDPOINT.startsWith('{{')) {
-        const res = await fetch(INTAKE_ENDPOINT, {
+    if (INTAKE_ENDPOINT) {
+      try {
+        const btn = document.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.textContent = 'Submitting…';
+
+        await fetch(INTAKE_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'intake', turnstile_token: turnstileToken, data: { ...formData, turnstile_token: turnstileToken } }),
+          body: JSON.stringify({ type: 'intake', data: formData }),
         });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-      } else {
-        // Dev mode: log only
-        console.log('INTAKE FORM DATA:', JSON.stringify(formData, null, 2));
-        await new Promise(r => setTimeout(r, 600));
+      } catch (err) {
+        console.error('Submission error:', err);
       }
-
-      // Show success screen
-      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById('success-screen').classList.add('show');
-      document.querySelectorAll('.progress-step').forEach(p => p.classList.add('done'));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } catch (err) {
-      console.error('Submission error:', err);
-      globalError.textContent = 'Something went wrong. Please try again or email us directly.';
-      globalError.style.display = 'block';
-      btn.disabled = false;
-      btn.textContent = 'Submit My Brief ✓';
-      if (window.turnstile) window.turnstile.reset();
+    } else {
+      // Dev mode: log only
+      console.log('INTAKE FORM DATA:', JSON.stringify(formData, null, 2));
     }
+
+    // Show success screen
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('success-screen').classList.add('show');
+    document.querySelectorAll('.progress-step').forEach(p => p.classList.add('done'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
 

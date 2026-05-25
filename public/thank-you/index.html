@@ -7,20 +7,26 @@
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cave:   #1A1F1C;
-      --green:  #3B5E3F;
-      --green2: #4D7A52;
-      --sun:    #C9980A;
-      --paper:  #F0EBDF;
-      --paper2: #E2DDD0;
-      --white:  #FFFFFF;
-      --r:      10px;
-      --ease:   cubic-bezier(.16,1,.3,1);
+      --cave:        #0E110F; /* Deep obsidian forest slate */
+      --green:       #2A4D33; /* Rich organic green */
+      --green2:      #396B47; /* Lighter organic green for hover */
+      --green-light: #EBF2ED; /* Subtle pale green bg */
+      --sun:         #D4AF37; /* Metallic gold */
+      --sun2:        #E6C24C; /* Metallic gold hover */
+      --paper:       #F7F5F0; /* Soft warm paper cream */
+      --paper2:      #E8E4D9; /* Border warm paper cream */
+      --ink:         #141916; /* Clean dark gray-green ink */
+      --ink2:        #3A453F; /* Secondary ink */
+      --muted:       #728078; /* Muted slate */
+      --white:       #FFFFFF;
+      --r:           12px;
+      --rl:          20px;
+      --ease:        cubic-bezier(.16, 1, .3, 1);
     }
 
     html, body {
@@ -28,39 +34,41 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Outfit', 'Inter', sans-serif;
       background: var(--paper);
-      color: var(--cave);
+      color: var(--ink);
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 32px 24px;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── LOGO ── */
     .logo {
       font-family: 'Fraunces', serif;
-      font-size: 22px;
-      font-weight: 400;
+      font-size: 24px;
+      font-weight: 600;
       letter-spacing: -0.02em;
       color: var(--cave);
       text-decoration: none;
       margin-bottom: 48px;
       display: block;
     }
-    .logo span { color: var(--green); }
+    .logo span { color: var(--sun); }
 
     /* ── CARD ── */
     .card {
       background: var(--white);
+      border: 1.5px solid var(--paper2);
       border-radius: 20px;
       padding: 52px 48px;
       max-width: 520px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 8px 48px rgba(26,31,28,.08);
+      box-shadow: 0 8px 48px rgba(14,17,15,.04);
       animation: fadeUp .5s var(--ease) both;
     }
 
@@ -73,7 +81,7 @@
     .check-wrap {
       width: 72px;
       height: 72px;
-      background: #e8f0e9;
+      background: rgba(212, 175, 55, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -84,26 +92,36 @@
     .check-wrap svg {
       width: 36px;
       height: 36px;
-      stroke: var(--green);
+      stroke: var(--sun);
       stroke-width: 2.5;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
+    .check-wrap svg polyline {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck 0.6s var(--ease) forwards 0.2s;
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
     /* ── CONTENT ── */
     h1 {
       font-family: 'Fraunces', serif;
-      font-size: 28px;
-      font-weight: 400;
-      line-height: 1.25;
+      font-size: clamp(26px, 4vw, 32px);
+      font-weight: 600;
+      line-height: 1.2;
       color: var(--cave);
       margin-bottom: 12px;
     }
 
     .subtitle {
       font-size: 16px;
-      color: #4D5450;
+      color: var(--ink2);
       line-height: 1.6;
       margin-bottom: 32px;
     }
@@ -111,6 +129,7 @@
     /* ── STEPS ── */
     .steps {
       background: var(--paper);
+      border: 1px solid var(--paper2);
       border-radius: var(--r);
       padding: 20px 24px;
       text-align: left;
@@ -146,15 +165,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 1px;
+      margin-top: 2px;
+      box-shadow: 0 2px 5px rgba(42,77,51,.25);
     }
 
     .step-text {
       font-size: 14px;
       line-height: 1.5;
-      color: var(--cave);
+      color: var(--ink);
     }
-    .step-text strong { font-weight: 600; }
+    .step-text strong { font-weight: 600; color: var(--cave); }
 
     /* ── DIVIDER ── */
     hr {
@@ -166,25 +186,24 @@
     /* ── CONTACT ── */
     .contact-note {
       font-size: 13px;
-      color: #6B7370;
+      color: var(--muted);
       line-height: 1.55;
     }
     .contact-note a {
       color: var(--green);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
     }
     .contact-note a:hover { text-decoration: underline; }
 
     @media (max-width: 540px) {
       .card { padding: 36px 24px; }
-      h1 { font-size: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <a class="logo" href="/">arumaldo<span>.</span></a>
+  <a class="logo" href="/"><img src="/assets/logos/logo_transparente.png" alt="Arumaldo" style="height: 24px; width: auto; margin: 0 auto; display: block;"></a>
 
   <div class="card">
     <div class="check-wrap">

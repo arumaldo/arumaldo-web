@@ -383,7 +383,7 @@
 
 <!-- ── Header ────────────────────────────────────── -->
 <header class="site-header">
-  <a href="https://arumaldo.com" class="logo"><img src="/assets/logos/logo-b_transparente.png" alt="Arumaldo" style="height: 20px; width: auto; display: block;"></a>
+  <a href="https://arumaldo.com" class="logo">Arumaldo</a>
   <span class="pid" id="header-pid"></span>
 </header>
 
@@ -888,7 +888,7 @@ function renderProposal() {
     document.getElementById('lock-body').textContent = c.lock_body;
     document.getElementById('unlock-btn').textContent = c.unlock_btn;
 
-    const unlockUrl = `/pricing-unlock/?pid=${encodeURIComponent(pid)}&lang=${lang}`;
+    const unlockUrl = `pricing-unlock.html?pid=${encodeURIComponent(pid)}&lang=${lang}`;
     document.getElementById('unlock-btn').href = unlockUrl;
 
     // CTA
