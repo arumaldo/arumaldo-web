@@ -23,9 +23,9 @@ async function getAccessToken() {
 
   const params = new URLSearchParams({
     grant_type:    "refresh_token",
-    client_id:     process.env.ZOHO_CLIENT_ID,
-    client_secret: process.env.ZOHO_CLIENT_SECRET,
-    refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+    client_id:     (process.env.ZOHO_CLIENT_ID     || "").trim(),
+    client_secret: (process.env.ZOHO_CLIENT_SECRET || "").trim(),
+    refresh_token: (process.env.ZOHO_REFRESH_TOKEN || "").trim(),
   });
 
   const res  = await fetch(TOKEN_URL, {
