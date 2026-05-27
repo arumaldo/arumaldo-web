@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Website Proposal — {{CLIENT_NAME}} · Arumaldo</title>
+  <title>Website Proposal — Ruth Bardayan de Samudio · Arumaldo</title>
   <meta name="robots" content="noindex, nofollow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,17 +49,15 @@
     /* ── Nav ─────────────────────────────────────────────── */
     .nav {
       position: sticky; top: 0; z-index: 200;
-      background: rgba(26,31,28,.95);
+      background: rgba(26,31,28,.96);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.06);
-      padding: 0 48px; height: 60px;
+      padding: 0 48px; height: 64px;
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
     }
-    .nav-logo {
-      font-family: 'Fraunces', serif; font-size: 20px;
-      color: var(--paper); letter-spacing: -.2px;
-    }
-    .nav-meta { text-align: right; }
+    .nav-logo-wrap { display: flex; align-items: center; }
+    .nav-logo-img { height: 32px; width: auto; display: block; }
+    .nav-meta { text-align: right; flex: 1; }
     .nav-meta-label {
       font-size: 10px; font-weight: 600; letter-spacing: 1.3px;
       text-transform: uppercase; color: var(--muted);
@@ -75,34 +73,34 @@
       white-space: nowrap;
     }
     .nav-cta:hover { background: var(--sun2); transform: translateY(-1px); }
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       .nav { padding: 0 20px; }
       .nav-meta { display: none; }
     }
 
     /* ── Hero ────────────────────────────────────────────── */
-    .hero { background: var(--cave); padding: 80px 48px 72px; }
-    .hero-inner { max-width: 760px; margin: 0 auto; }
+    .hero { background: var(--cave); padding: 88px 48px 80px; }
+    .hero-inner { max-width: 780px; margin: 0 auto; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 6px;
       background: var(--green); color: var(--white);
       font-size: 11px; font-weight: 600; letter-spacing: 1.3px;
       text-transform: uppercase; padding: 5px 12px; border-radius: 4px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
     .hero h1 {
       font-family: 'Fraunces', serif;
-      font-size: clamp(36px, 5.5vw, 62px);
-      line-height: 1.08; color: var(--paper); margin-bottom: 20px;
+      font-size: clamp(38px, 5.8vw, 66px);
+      line-height: 1.07; color: var(--paper); margin-bottom: 22px;
     }
     .hero h1 em { font-style: italic; color: #83b588; }
     .hero-sub {
-      font-size: 17px; line-height: 1.7;
-      color: rgba(240,235,223,.65); max-width: 540px; margin-bottom: 36px;
+      font-size: 17px; line-height: 1.75;
+      color: rgba(240,235,223,.62); max-width: 560px; margin-bottom: 40px;
     }
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
     .hero-meta {
-      display: flex; flex-wrap: wrap; gap: 24px;
+      display: flex; flex-wrap: wrap; gap: 28px;
       border-top: 1px solid rgba(255,255,255,.08); padding-top: 28px;
     }
     .hero-meta-label {
@@ -110,7 +108,7 @@
       text-transform: uppercase; color: var(--muted); margin-bottom: 4px;
     }
     .hero-meta-value { font-size: 14px; font-weight: 500; color: var(--paper); }
-    @media (max-width: 768px) { .hero { padding: 60px 24px 56px; } }
+    @media (max-width: 768px) { .hero { padding: 64px 24px 56px; } }
 
     /* ── Buttons ─────────────────────────────────────────── */
     .btn {
@@ -118,23 +116,24 @@
       font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px;
       border-radius: var(--r); padding: 13px 28px;
       border: none; cursor: pointer; line-height: 1;
-      transition: background 180ms var(--ease), transform 120ms var(--ease);
+      transition: background 180ms var(--ease), transform 120ms var(--ease), box-shadow 180ms var(--ease);
     }
     .btn:active { transform: scale(.97); }
     .btn-gold { background: var(--sun); color: var(--cave); }
-    .btn-gold:hover { background: var(--sun2); }
+    .btn-gold:hover { background: var(--sun2); box-shadow: 0 4px 16px rgba(201,152,10,.3); }
     .btn-ghost { border: 1.5px solid rgba(255,255,255,.18); color: var(--paper); background: transparent; padding: 12px 26px; }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.45); background: rgba(255,255,255,.05); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.05); }
     .btn-primary { background: var(--green); color: var(--white); }
     .btn-primary:hover { background: var(--green2); }
-    .btn-lg { padding: 15px 38px; font-size: 16px; }
-    .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-lg { padding: 15px 40px; font-size: 16px; }
+    .btn svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 150ms var(--ease); }
+    .btn:hover svg { transform: translateX(3px); }
 
-    /* ── Section ─────────────────────────────────────────── */
-    .section { max-width: 1120px; margin: 0 auto; padding: 80px 48px; }
+    /* ── Section wrapper ─────────────────────────────────── */
+    .section { max-width: 1120px; margin: 0 auto; padding: 88px 48px; }
     .section-bg-paper { background: var(--paper); border-top: 1px solid var(--paper2); border-bottom: 1px solid var(--paper2); }
     .section-bg-cave  { background: var(--cave); }
-    @media (max-width: 768px) { .section { padding: 56px 24px; } }
+    @media (max-width: 768px) { .section { padding: 60px 24px; } }
 
     .section-eyebrow {
       font-size: 11px; font-weight: 600; letter-spacing: 1.3px;
@@ -143,75 +142,122 @@
     .section-eyebrow.on-dark { color: #83b588; }
     .section-h2 {
       font-family: 'Fraunces', serif;
-      font-size: clamp(26px, 3.2vw, 38px);
-      line-height: 1.14; color: var(--cave); margin-bottom: 12px;
+      font-size: clamp(26px, 3.2vw, 40px);
+      line-height: 1.12; color: var(--cave); margin-bottom: 14px;
     }
     .section-h2 em { font-style: italic; color: var(--green); }
     .section-h2.on-dark { color: var(--paper); }
     .section-h2.on-dark em { color: #83b588; }
-    .section-lead { font-size: 16px; color: var(--ink2); max-width: 600px; line-height: 1.7; margin-bottom: 40px; }
+    .section-lead { font-size: 16px; color: var(--ink2); max-width: 620px; line-height: 1.72; margin-bottom: 44px; }
     .section-lead.on-dark { color: rgba(240,235,223,.6); }
 
     /* ── Package cards ───────────────────────────────────── */
-    .pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .pkg-card {
       background: var(--white); border: 1.5px solid var(--paper2);
-      border-radius: var(--rl); padding: 28px 24px;
+      border-radius: var(--rl); padding: 32px 28px;
     }
     .pkg-card.featured {
       border-color: var(--green); background: #f0f5f0;
-      box-shadow: 0 4px 20px rgba(59,94,63,.1);
+      box-shadow: 0 6px 28px rgba(59,94,63,.12);
     }
     .pkg-badge {
       display: inline-block; font-size: 10px; font-weight: 700;
       letter-spacing: 1px; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;
+      padding: 4px 10px; border-radius: 4px; margin-bottom: 16px;
     }
     .pkg-badge.green { background: var(--green); color: var(--white); }
     .pkg-badge.muted { background: var(--paper2); color: var(--muted); }
-    .pkg-name { font-family: 'Fraunces', serif; font-size: 20px; color: var(--cave); margin-bottom: 6px; }
-    .pkg-price { font-family: 'Fraunces', serif; font-size: 34px; color: var(--sun); line-height: 1; margin-bottom: 4px; }
-    .pkg-price-note { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
-    @media (max-width: 680px) { .pkg-grid { grid-template-columns: 1fr; } }
+    .pkg-name { font-family: 'Fraunces', serif; font-size: 22px; color: var(--cave); margin-bottom: 8px; }
+    .pkg-price { font-family: 'Fraunces', serif; font-size: 38px; color: var(--sun); line-height: 1; margin-bottom: 4px; }
+    .pkg-price-note { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
 
     /* ── Check list ──────────────────────────────────────── */
-    .check-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-    .check-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--ink2); line-height: 1.5; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--ink2); line-height: 1.55; }
     .check-list li svg { color: var(--green); flex-shrink: 0; margin-top: 2px; }
     .check-list.on-dark li { color: rgba(240,235,223,.75); }
     .check-list.on-dark li svg { color: #83b588; }
 
-    /* ── Bento opportunities ─────────────────────────────── */
+    /* ── Score comparison bento ──────────────────────────── */
+    .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 48px; }
+    .score-panel {
+      border-radius: var(--rl); padding: 28px 24px;
+    }
+    .score-panel.before {
+      background: var(--paper); border: 1.5px solid var(--paper2); opacity: .9;
+    }
+    .score-panel.after {
+      background: var(--white); border: 2px solid var(--green);
+      box-shadow: 0 6px 28px rgba(59,94,63,.1);
+    }
+    .score-panel-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 4px;
+      margin-bottom: 16px; display: inline-block;
+    }
+    .score-panel-label.before { background: var(--paper2); color: var(--muted); }
+    .score-panel-label.after  { background: var(--green); color: var(--white); }
+    .score-big {
+      font-family: 'Fraunces', serif; font-size: 52px;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .score-big.before { color: var(--muted); }
+    .score-big.after  { color: var(--sun); }
+    .score-desc { font-size: 13px; color: var(--ink2); margin-bottom: 20px; line-height: 1.6; }
+    .score-bars { display: flex; flex-direction: column; gap: 8px; }
+    .score-bar-row { display: flex; align-items: center; gap: 10px; }
+    .score-bar-label { font-size: 11px; font-weight: 600; color: var(--muted); width: 80px; flex-shrink: 0; }
+    .score-bar-track { flex: 1; height: 6px; background: var(--paper2); border-radius: 3px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 3px; }
+    .score-bar-fill.bad  { background: #c0392b; }
+    .score-bar-fill.warn { background: var(--sun); }
+    .score-bar-fill.good { background: var(--green); }
+    .score-bar-val { font-size: 11px; font-weight: 600; color: var(--ink2); width: 28px; text-align: right; flex-shrink: 0; }
+    .weakness-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fef2f2; color: #c0392b; border: 1px solid #fcd5d5;
+      font-size: 11.5px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin: 3px 2px;
+    }
+    .strength-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #e8f0e9; color: var(--green); border: 1px solid #c5d9c7;
+      font-size: 11.5px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin: 3px 2px;
+    }
+    @media (max-width: 700px) { .score-grid { grid-template-columns: 1fr; } }
+
+    /* ── Opportunity bento ───────────────────────────────── */
     .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .bento-item {
       background: var(--white); border: 1.5px solid var(--paper2);
-      border-radius: var(--rl); padding: 24px 20px;
+      border-radius: var(--rl); padding: 26px 22px;
     }
     .bento-icon {
-      width: 40px; height: 40px; background: var(--paper);
+      width: 42px; height: 42px; background: var(--paper);
       border-radius: 10px; display: flex; align-items: center;
       justify-content: center; color: var(--green); margin-bottom: 14px;
     }
     .bento-icon svg { width: 20px; height: 20px; }
-    .bento-label { font-size: 11px; font-weight: 600; letter-spacing: .5px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
-    .bento-value { font-family: 'Fraunces', serif; font-size: 17px; color: var(--cave); margin-bottom: 6px; }
-    .bento-desc { font-size: 12.5px; color: var(--ink2); line-height: 1.6; }
+    .bento-label { font-size: 11px; font-weight: 600; letter-spacing: .5px; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; }
+    .bento-value { font-family: 'Fraunces', serif; font-size: 18px; color: var(--cave); margin-bottom: 7px; line-height: 1.2; }
+    .bento-desc { font-size: 12.5px; color: var(--ink2); line-height: 1.62; }
     @media (max-width: 768px) { .bento { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 480px) { .bento { grid-template-columns: 1fr; } }
 
     /* ── Structure list (dark) ───────────────────────────── */
     .structure-list { display: flex; flex-direction: column; gap: 10px; }
     .structure-item {
-      display: flex; align-items: flex-start; gap: 16px;
+      display: flex; align-items: flex-start; gap: 18px;
       background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r); padding: 16px 18px;
+      border-radius: var(--r); padding: 18px 20px;
+      transition: background 180ms, border-color 180ms;
     }
+    .structure-item:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
     .structure-num {
-      font-family: 'Fraunces', serif; font-size: 20px;
-      color: rgba(201,152,10,.55); flex-shrink: 0; width: 26px; line-height: 1;
+      font-family: 'Fraunces', serif; font-size: 22px;
+      color: rgba(201,152,10,.5); flex-shrink: 0; width: 28px; line-height: 1; margin-top: 1px;
     }
-    .structure-name { font-size: 14px; font-weight: 600; color: var(--paper); margin-bottom: 3px; }
-    .structure-desc { font-size: 12.5px; color: rgba(240,235,223,.45); line-height: 1.55; }
+    .structure-name { font-size: 14px; font-weight: 600; color: var(--paper); margin-bottom: 4px; }
+    .structure-desc { font-size: 12.5px; color: rgba(240,235,223,.45); line-height: 1.6; }
 
     /* ── Price breakdown (dark) ──────────────────────────── */
     .price-breakdown { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
@@ -222,52 +268,49 @@
     }
     .price-row:hover { background: rgba(255,255,255,.09); }
     .price-row-label { font-size: 14px; font-weight: 500; color: var(--paper); }
-    .price-row-note { font-size: 11.5px; color: rgba(240,235,223,.4); margin-top: 2px; }
-    .price-row-amount { font-family: 'Fraunces', serif; font-size: 20px; color: var(--sun); white-space: nowrap; }
+    .price-row-note { font-size: 11.5px; color: rgba(240,235,223,.38); margin-top: 2px; }
+    .price-row-amount { font-family: 'Fraunces', serif; font-size: 21px; color: var(--sun); white-space: nowrap; }
     .price-total {
       display: flex; align-items: flex-end; justify-content: space-between;
-      border-top: 1px solid rgba(255,255,255,.1); padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 18px;
     }
     .price-total-label { font-size: 13px; font-weight: 600; color: var(--paper); }
-    .price-total-amount { font-family: 'Fraunces', serif; font-size: 30px; color: var(--sun); line-height: 1; }
-    .price-total-note { font-size: 11px; color: rgba(240,235,223,.35); text-align: right; margin-top: 3px; }
+    .price-total-amount { font-family: 'Fraunces', serif; font-size: 32px; color: var(--sun); line-height: 1; }
+    .price-total-note { font-size: 11px; color: rgba(240,235,223,.32); text-align: right; margin-top: 3px; }
 
-    /* ── Hosting options (dark) ──────────────────────────── */
-    .hosting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .hosting-option {
-      border: 1px solid rgba(255,255,255,.08); border-radius: var(--rl);
-      padding: 22px 20px; background: rgba(255,255,255,.03);
+    /* ── Hosting (dark, single option) ──────────────────── */
+    .hosting-card {
+      border: 1.5px solid var(--sun);
+      background: rgba(201,152,10,.07);
+      border-radius: var(--rl); padding: 28px 24px;
+      max-width: 420px;
     }
-    .hosting-option.recommended { border-color: var(--sun); background: rgba(201,152,10,.06); }
     .hosting-badge {
       font-size: 10px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
-      margin-bottom: 10px; display: inline-block;
+      text-transform: uppercase; background: var(--sun); color: var(--cave);
+      padding: 3px 9px; border-radius: 4px; margin-bottom: 12px; display: inline-block;
     }
-    .hosting-badge.gold { background: var(--sun); color: var(--cave); }
-    .hosting-badge.muted { background: rgba(255,255,255,.09); color: var(--muted); }
-    .hosting-price { font-family: 'Fraunces', serif; font-size: 26px; color: var(--sun); line-height: 1; margin-bottom: 4px; }
-    .hosting-period { font-size: 12px; color: rgba(240,235,223,.4); margin-bottom: 12px; }
-    .hosting-note { font-size: 12.5px; color: rgba(240,235,223,.6); line-height: 1.6; }
-    @media (max-width: 560px) { .hosting-grid { grid-template-columns: 1fr; } }
+    .hosting-price { font-family: 'Fraunces', serif; font-size: 30px; color: var(--sun); line-height: 1; margin-bottom: 4px; }
+    .hosting-period { font-size: 12px; color: rgba(240,235,223,.42); margin-bottom: 16px; }
+    .hosting-note { font-size: 13px; color: rgba(240,235,223,.6); line-height: 1.65; }
 
     /* ── Change request (dark) ───────────────────────────── */
     .cr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .cr-option {
       border: 1px solid rgba(255,255,255,.08); border-radius: var(--rl);
-      padding: 22px 20px; background: rgba(255,255,255,.03);
+      padding: 24px 20px; background: rgba(255,255,255,.03);
     }
-    .cr-price { font-family: 'Fraunces', serif; font-size: 22px; color: var(--paper); line-height: 1; margin-bottom: 4px; }
-    .cr-period { font-size: 12px; color: rgba(240,235,223,.4); margin-bottom: 10px; }
-    .cr-desc { font-size: 12.5px; color: rgba(240,235,223,.55); line-height: 1.6; }
+    .cr-price { font-family: 'Fraunces', serif; font-size: 24px; color: var(--paper); line-height: 1; margin-bottom: 4px; }
+    .cr-period { font-size: 12px; color: rgba(240,235,223,.38); margin-bottom: 10px; }
+    .cr-desc { font-size: 12.5px; color: rgba(240,235,223,.55); line-height: 1.65; }
     @media (max-width: 560px) { .cr-grid { grid-template-columns: 1fr; } }
 
     /* ── Scope exclusions ────────────────────────────────── */
-    .exclusion-list { display: flex; flex-direction: column; gap: 10px; }
+    .exclusion-list { display: flex; flex-direction: column; }
     .exclusion-item {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 13.5px; color: var(--ink2); line-height: 1.5;
-      padding: 12px 0; border-bottom: 1px solid var(--paper2);
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 13.5px; color: var(--ink2); line-height: 1.55;
+      padding: 13px 0; border-bottom: 1px solid var(--paper2);
     }
     .exclusion-item:last-child { border-bottom: none; }
     .exclusion-item svg { color: var(--muted); flex-shrink: 0; margin-top: 2px; }
@@ -279,7 +322,7 @@
       border-radius: var(--rl); padding: 28px 22px;
     }
     .step-num {
-      font-family: 'Fraunces', serif; font-size: 40px;
+      font-family: 'Fraunces', serif; font-size: 42px;
       color: var(--paper2); line-height: 1; margin-bottom: 14px;
     }
     .step-label { font-size: 15px; font-weight: 600; color: var(--cave); margin-bottom: 8px; }
@@ -289,22 +332,22 @@
     /* ── CTA strip ───────────────────────────────────────── */
     .cta-strip {
       background: var(--cave); text-align: center;
-      padding: 80px 48px;
+      padding: 88px 48px;
       border-top: 1px solid rgba(255,255,255,.05);
     }
     .cta-strip h2 {
       font-family: 'Fraunces', serif;
-      font-size: clamp(28px, 4vw, 44px);
+      font-size: clamp(28px, 4vw, 46px);
       color: var(--paper); line-height: 1.1; margin-bottom: 16px;
     }
     .cta-strip h2 em { font-style: italic; color: #83b588; }
     .cta-strip p {
       font-size: 16px; color: rgba(240,235,223,.55);
       margin-bottom: 36px; max-width: 480px;
-      margin-left: auto; margin-right: auto; line-height: 1.7;
+      margin-left: auto; margin-right: auto; line-height: 1.72;
     }
-    .cta-expiry { margin-top: 20px; font-size: 11.5px; color: rgba(240,235,223,.25); letter-spacing: .3px; }
-    @media (max-width: 768px) { .cta-strip { padding: 60px 24px; } }
+    .cta-expiry { margin-top: 20px; font-size: 11.5px; color: rgba(240,235,223,.22); letter-spacing: .3px; }
+    @media (max-width: 768px) { .cta-strip { padding: 64px 24px; } }
 
     /* ── Footer ──────────────────────────────────────────── */
     footer {
@@ -313,19 +356,27 @@
       flex-wrap: wrap; gap: 16px;
       border-top: 1px solid rgba(255,255,255,.03);
     }
-    .footer-logo { font-family: 'Fraunces', serif; font-size: 18px; color: var(--paper); }
+    .footer-logo-img { height: 24px; width: auto; opacity: .7; }
     .footer-right { font-size: 12px; color: #2d3532; }
     @media (max-width: 768px) { footer { padding: 24px; } }
+
+    /* ── Two-col layout ──────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; gap: 32px; } }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="https://arumaldo.com" class="nav-logo">Arumaldo</a>
+<nav class="nav" aria-label="Arumaldo proposal navigation">
+  <div class="nav-logo-wrap">
+    <a href="https://arumaldo.com" aria-label="Arumaldo home">
+      <img src="/assets/logos/logo-b_transparente.png" alt="Arumaldo" class="nav-logo-img" />
+    </a>
+  </div>
   <div class="nav-meta">
     <div class="nav-meta-label">Proposal for</div>
-    <div class="nav-meta-client">{{CLIENT_NAME}} &middot; {{BUSINESS_NAME}}</div>
+    <div class="nav-meta-client">Ruth Bardayan de Samudio &middot; Strategy &amp; Execution</div>
   </div>
   <a href="{{PAYMENT_LINK}}" class="nav-cta">
     Get Started
@@ -340,9 +391,9 @@
       <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
       Website Proposal &middot; Inbound
     </div>
-    <h1>A website built for<br><em>{{BUSINESS_NAME}}</em></h1>
+    <h1>A website built for<br><em>Strategy &amp; Execution</em></h1>
     <p class="hero-sub">
-      Thank you for reaching out, {{FIRST_NAME}}. Here is my detailed recommendation based on what you shared. This proposal is ready for your review and includes everything needed to get started today.
+      Thank you for reaching out, Ruth. Here is my detailed recommendation based on what you shared. Pricing is visible and the proposal is ready — including a live demo you can preview right now.
     </p>
     <div class="hero-ctas">
       <a href="{{PAYMENT_LINK}}" class="btn btn-gold btn-lg">
@@ -354,19 +405,19 @@
     <div class="hero-meta">
       <div>
         <div class="hero-meta-label">Proposal ID</div>
-        <div class="hero-meta-value">{{PROPOSAL_ID}}</div>
+        <div class="hero-meta-value">AR-2025-001</div>
       </div>
       <div>
         <div class="hero-meta-label">Prepared for</div>
-        <div class="hero-meta-value">{{CLIENT_NAME}}</div>
+        <div class="hero-meta-value">Ruth Bardayan de Samudio</div>
       </div>
       <div>
         <div class="hero-meta-label">Package</div>
-        <div class="hero-meta-value">{{PACKAGE_NAME}}</div>
+        <div class="hero-meta-value">One-Page Professional</div>
       </div>
       <div>
         <div class="hero-meta-label">Valid until</div>
-        <div class="hero-meta-value">{{EXPIRY_DATE}}</div>
+        <div class="hero-meta-value">June 10, 2025</div>
       </div>
     </div>
   </div>
@@ -378,101 +429,212 @@
 <div class="section-bg-paper">
   <div class="section">
     <div class="section-eyebrow">Executive Recommendation</div>
-    <h2 class="section-h2">My recommendation for <em>{{BUSINESS_NAME}}</em></h2>
-    <p class="section-lead">{{EXECUTIVE_RECOMMENDATION}}</p>
-    <div class="pkg-grid">
-      <div class="pkg-card featured">
-        <div class="pkg-badge green">Recommended</div>
-        <div class="pkg-name">{{PACKAGE_NAME}}</div>
-        <div class="pkg-price">${{PACKAGE_PRICE}}</div>
-        <div class="pkg-price-note">one-time &middot; hosting billed separately</div>
-        <ul class="check-list">
-          <!-- Replace with actual features for the recommended package -->
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            {{PACKAGE_FEATURE_1}}
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            {{PACKAGE_FEATURE_2}}
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            {{PACKAGE_FEATURE_3}}
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            Two revision rounds before launch
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            Mobile-first, fast, SSL included
-          </li>
-        </ul>
-      </div>
-      <div class="pkg-card">
-        <div class="pkg-badge muted">Also available</div>
-        <div class="pkg-name">{{ALT_PACKAGE_NAME}}</div>
-        <div class="pkg-price" style="font-size:26px;color:var(--muted);">${{ALT_PACKAGE_PRICE}}</div>
-        <div class="pkg-price-note">{{ALT_PACKAGE_NOTE}}</div>
-        <ul class="check-list">
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            {{ALT_FEATURE_1}}
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            {{ALT_FEATURE_2}}
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            Two revision rounds before launch
-          </li>
-        </ul>
-      </div>
+    <h2 class="section-h2">My recommendation for <em>Strategy &amp; Execution</em></h2>
+    <p class="section-lead">
+      Strategy &amp; Execution is a professional consulting firm offering CRM, accounting, technology, finance, and marketing services in Argentina. The current web presence is built on WordPress.com and scores <strong>8 out of 100</strong> on the Digital Infrastructure Readiness benchmark — with Security, SEO, Compliance, and Conversion all failing at the site level. The One-Page Professional website replaces this with fast, secure, conversion-ready infrastructure that reflects the quality of the firm's actual work.
+    </p>
+    <div class="pkg-card featured">
+      <div class="pkg-badge green">Recommended</div>
+      <div class="pkg-name">One-Page Professional</div>
+      <div class="pkg-price">$1,500</div>
+      <div class="pkg-price-note">one-time &middot; hosting billed separately</div>
+      <ul class="check-list">
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          One strong, structured, conversion-ready page covering all services
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Custom design matched to your brand &mdash; not a template
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Mobile-first, fast, SSL, all security headers included
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          SEO, structured data, Open Graph, sitemap &mdash; all configured
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Two revision rounds before launch
+        </li>
+        <li>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          DNS go-live instructions included
+        </li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- OBSERVED OPPORTUNITY -->
+<!-- OBSERVED OPPORTUNITY — score comparison -->
 <div class="section">
   <div class="section-eyebrow">Observed Opportunity</div>
-  <h2 class="section-h2">Where your digital presence can <em>improve</em></h2>
-  <p class="section-lead">These are the specific gaps I identified for {{BUSINESS_NAME}} based on your current situation and what you shared.</p>
+  <h2 class="section-h2">Your current site vs. <em>what we build</em></h2>
+  <p class="section-lead">We audited your existing WordPress.com staging site against the Digital Infrastructure Readiness benchmark — the same five-category standard we use to engineer every Arumaldo site. Here is what the data shows.</p>
+
+  <!-- Before / After score panels -->
+  <div class="score-grid" style="margin-bottom:40px;">
+    <div class="score-panel before">
+      <div class="score-panel-label before">Current site</div>
+      <div class="score-big before">8<span style="font-size:24px;color:var(--muted);">/100</span></div>
+      <div class="score-desc" style="color:var(--muted);">seconsultingar.wpcomstaging.com &mdash; WordPress.com staging</div>
+      <div class="score-bars">
+        <div class="score-bar-row">
+          <div class="score-bar-label">Speed</div>
+          <div class="score-bar-track"><div class="score-bar-fill warn" style="width:40%"></div></div>
+          <div class="score-bar-val">40</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Security</div>
+          <div class="score-bar-track"><div class="score-bar-fill bad" style="width:0%"></div></div>
+          <div class="score-bar-val">0</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">SEO / AEO</div>
+          <div class="score-bar-track"><div class="score-bar-fill bad" style="width:0%"></div></div>
+          <div class="score-bar-val">0</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Compliance</div>
+          <div class="score-bar-track"><div class="score-bar-fill bad" style="width:0%"></div></div>
+          <div class="score-bar-val">0</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Conversion</div>
+          <div class="score-bar-track"><div class="score-bar-fill bad" style="width:0%"></div></div>
+          <div class="score-bar-val">0</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;flex-wrap:wrap;">
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          No security headers
+        </span>
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          24 external scripts
+        </span>
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          No privacy policy
+        </span>
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          Missing meta &amp; SEO
+        </span>
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          No clear CTA
+        </span>
+        <span class="weakness-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+          9 third-party domains
+        </span>
+      </div>
+    </div>
+    <div class="score-panel after">
+      <div class="score-panel-label after">Arumaldo build</div>
+      <div class="score-big after">95+<span style="font-size:24px;color:var(--sun);opacity:.6;">/100</span></div>
+      <div class="score-desc">Vercel edge delivery &mdash; engineered to score.</div>
+      <div class="score-bars">
+        <div class="score-bar-row">
+          <div class="score-bar-label">Speed</div>
+          <div class="score-bar-track"><div class="score-bar-fill good" style="width:95%"></div></div>
+          <div class="score-bar-val">95</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Security</div>
+          <div class="score-bar-track"><div class="score-bar-fill good" style="width:97%"></div></div>
+          <div class="score-bar-val">97</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">SEO / AEO</div>
+          <div class="score-bar-track"><div class="score-bar-fill good" style="width:93%"></div></div>
+          <div class="score-bar-val">93</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Compliance</div>
+          <div class="score-bar-track"><div class="score-bar-fill good" style="width:95%"></div></div>
+          <div class="score-bar-val">95</div>
+        </div>
+        <div class="score-bar-row">
+          <div class="score-bar-label">Conversion</div>
+          <div class="score-bar-track"><div class="score-bar-fill good" style="width:92%"></div></div>
+          <div class="score-bar-val">92</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;display:flex;flex-wrap:wrap;">
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          All security headers
+        </span>
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Zero plugin dependencies
+        </span>
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Privacy &amp; legal pages
+        </span>
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Full SEO + schema
+        </span>
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Clear CTA above fold
+        </span>
+        <span class="strength-tag">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+          Edge CDN delivery
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three opportunity bento cards -->
   <div class="bento">
     <div class="bento-item">
       <div class="bento-icon">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="10" height="16" rx="2"/><line x1="10" y1="15" x2="10" y2="15" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="3" width="18" height="14" rx="2"/><path d="M8 17h4"/><path d="M10 14v3"/>
+        </svg>
       </div>
-      <div class="bento-label">Mobile Experience</div>
-      <div class="bento-value">{{OPP_MOBILE_HEADLINE}}</div>
-      <div class="bento-desc">{{OPP_MOBILE_DESC}}</div>
+      <div class="bento-label">Security</div>
+      <div class="bento-value">Zero security headers on current site</div>
+      <div class="bento-desc">The audit found no CSP, HSTS, X-Content-Type-Options, Referrer-Policy, or Permissions-Policy headers. WordPress.com exposes the server as nginx and serves 118 external script references. Every Arumaldo site ships all required headers from day one via Vercel configuration.</div>
     </div>
     <div class="bento-item">
       <div class="bento-icon">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 7 11 11 11 7 18"/></svg>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a14 14 0 010 16M10 2a14 14 0 000 16"/>
+        </svg>
       </div>
-      <div class="bento-label">Performance &amp; Speed</div>
-      <div class="bento-value">{{OPP_SPEED_HEADLINE}}</div>
-      <div class="bento-desc">{{OPP_SPEED_DESC}}</div>
+      <div class="bento-label">SEO &amp; Discoverability</div>
+      <div class="bento-value">Missing titles, descriptions, and structured data</div>
+      <div class="bento-desc">The homepage title is 89 characters of comma-separated keywords. No meta descriptions exist on any page. No canonical URLs, no Open Graph, no schema markup. Google and AI answer engines cannot accurately describe what Strategy &amp; Execution does. We fix all of this systematically.</div>
     </div>
     <div class="bento-item">
       <div class="bento-icon">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a14 14 0 010 16M10 2a14 14 0 000 16"/></svg>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12l4-4 2 2 4-4"/><path d="M2 17h16"/>
+        </svg>
       </div>
-      <div class="bento-label">Online Presence</div>
-      <div class="bento-value">{{OPP_PRESENCE_HEADLINE}}</div>
-      <div class="bento-desc">{{OPP_PRESENCE_DESC}}</div>
+      <div class="bento-label">Compliance &amp; Conversion</div>
+      <div class="bento-value">No privacy policy, cookie notice, or clear CTA</div>
+      <div class="bento-desc">Trackers (Google Maps, WordPress analytics, external fonts) run without cookie disclosure. No privacy policy was found. No primary CTA is visible above the fold. A prospective client visiting today has no clear next step and no reason to trust that the firm takes legal compliance seriously.</div>
     </div>
   </div>
 </div>
 
-<!-- PROPOSED WEBSITE DIRECTION -->
+<!-- PROPOSED DIRECTION -->
 <div class="section-bg-paper">
   <div class="section">
     <div class="section-eyebrow">Proposed Direction</div>
-    <h2 class="section-h2">What I will build for <em>{{BUSINESS_NAME}}</em></h2>
-    <p class="section-lead">{{PROPOSED_DIRECTION_INTRO}}</p>
+    <h2 class="section-h2">What I will build for <em>Strategy &amp; Execution</em></h2>
+    <p class="section-lead">A single, authoritative professional page that communicates the firm's full range of services — CRM, consulting, accounting, technology, finance, and marketing — with the clarity and credibility that serious clients expect. Clean, fast, bilingual-ready, and built to be found.</p>
 
     <!-- Demo preview card -->
     <div style="background:var(--white);border:1.5px solid var(--paper2);border-radius:var(--rl);overflow:hidden;">
@@ -480,16 +642,16 @@
         <span style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);display:inline-block;"></span>
         <span style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);display:inline-block;"></span>
         <span style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);display:inline-block;"></span>
-        <span style="font-size:11px;color:rgba(255,255,255,.28);margin-left:8px;font-family:monospace;">{{DEMO_URL}}</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.28);margin-left:8px;font-family:monospace;">seconsulting-website-ciraplus.vercel.app</span>
       </div>
-      <div style="padding:40px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div style="padding:44px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;">
         <div style="width:52px;height:52px;background:var(--paper);border-radius:12px;display:flex;align-items:center;justify-content:center;">
-          <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="#6B7370" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a14 14 0 010 16M10 2a14 14 0 000 16"/></svg>
+          <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="#3B5E3F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a14 14 0 010 16M10 2a14 14 0 000 16"/></svg>
         </div>
         <div>
-          <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--cave);margin-bottom:8px;">Live Demo Available</div>
-          <div style="font-size:13.5px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Preview your future website before paying. No commitment required.</div>
-          <a href="{{DEMO_URL}}" target="_blank" rel="noopener" class="btn btn-primary">
+          <div style="font-family:'Fraunces',serif;font-size:21px;color:var(--cave);margin-bottom:8px;">Your Demo is Live</div>
+          <div style="font-size:14px;color:var(--muted);margin-bottom:22px;line-height:1.65;max-width:400px;">Preview the proposed website for Strategy &amp; Execution before committing. No login required.</div>
+          <a href="https://seconsulting-website-ciraplus.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">
             View Your Demo
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9 4 13 8 9 12"/></svg>
           </a>
@@ -503,43 +665,42 @@
 <div class="section-bg-cave">
   <div class="section">
     <div class="section-eyebrow on-dark">Proposed Structure</div>
-    <h2 class="section-h2 on-dark">Pages &amp; sections <em>included</em></h2>
-    <p class="section-lead on-dark">Every page is custom-designed for your business — not a template.</p>
+    <h2 class="section-h2 on-dark">Sections <em>included</em> in the One-Page build</h2>
+    <p class="section-lead on-dark">Every section is written and designed for Strategy &amp; Execution — not copied from a template.</p>
     <div class="structure-list">
-      <!-- Repeat this block for each page/section. Remove unused rows. -->
       <div class="structure-item">
         <div class="structure-num">01</div>
         <div>
-          <div class="structure-name">{{SECTION_1_NAME}}</div>
-          <div class="structure-desc">{{SECTION_1_DESC}}</div>
+          <div class="structure-name">Hero — Firm Identity &amp; Primary CTA</div>
+          <div class="structure-desc">Clear headline stating who the firm is and what it does. One primary CTA above the fold. Immediate answer to "What is this and who is it for?" — visible within two seconds of landing.</div>
         </div>
       </div>
       <div class="structure-item">
         <div class="structure-num">02</div>
         <div>
-          <div class="structure-name">{{SECTION_2_NAME}}</div>
-          <div class="structure-desc">{{SECTION_2_DESC}}</div>
+          <div class="structure-name">Services Overview — CRM, Consulting, Accounting, Technology, Finance, Marketing</div>
+          <div class="structure-desc">Each service area presented with a clear headline, one-sentence description, and specific outcomes. Structured so that Google and AI engines can identify exactly what Strategy &amp; Execution offers.</div>
         </div>
       </div>
       <div class="structure-item">
         <div class="structure-num">03</div>
         <div>
-          <div class="structure-name">{{SECTION_3_NAME}}</div>
-          <div class="structure-desc">{{SECTION_3_DESC}}</div>
+          <div class="structure-name">Why Work With Us — Differentiation &amp; Trust</div>
+          <div class="structure-desc">The firm's positioning, experience markers, and the business case for choosing Strategy &amp; Execution over a generalist provider. Objection handling built into the copy.</div>
         </div>
       </div>
       <div class="structure-item">
         <div class="structure-num">04</div>
         <div>
-          <div class="structure-name">{{SECTION_4_NAME}}</div>
-          <div class="structure-desc">{{SECTION_4_DESC}}</div>
+          <div class="structure-name">Process — How an Engagement Works</div>
+          <div class="structure-desc">A three-to-four step process that reduces buyer anxiety and answers "What happens after I reach out?" This section directly improves conversion and buyer decision readiness.</div>
         </div>
       </div>
       <div class="structure-item">
         <div class="structure-num">05</div>
         <div>
-          <div class="structure-name">{{SECTION_5_NAME}}</div>
-          <div class="structure-desc">{{SECTION_5_DESC}}</div>
+          <div class="structure-name">Contact &amp; CTA — Low-Friction Lead Capture</div>
+          <div class="structure-desc">A clean contact form with minimal required fields, consent language, and a clear confirmation state. WhatsApp or email alternative contact shown alongside the form. No broken paths.</div>
         </div>
       </div>
     </div>
@@ -551,35 +712,34 @@
   <div class="section">
     <div class="section-eyebrow on-dark">Investment</div>
     <h2 class="section-h2 on-dark">What you are <em>paying for</em></h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
-      <!-- Left: price breakdown + CTA -->
+    <div class="two-col">
       <div>
         <div class="price-breakdown">
           <div class="price-row">
             <div>
-              <div class="price-row-label">{{PACKAGE_NAME}}</div>
+              <div class="price-row-label">One-Page Professional</div>
               <div class="price-row-note">Custom design &middot; Two revision rounds &middot; Launch-ready</div>
             </div>
-            <div class="price-row-amount">${{PACKAGE_PRICE}}</div>
+            <div class="price-row-amount">$1,500</div>
           </div>
           <div class="price-row">
             <div>
               <div class="price-row-label">Arumaldo Hosting</div>
-              <div class="price-row-note">Mandatory &middot; Billed separately after launch</div>
+              <div class="price-row-note">Mandatory &middot; Billed annually after launch</div>
             </div>
-            <div class="price-row-amount" style="font-size:15px;color:rgba(201,152,10,.55);">See below</div>
+            <div class="price-row-amount" style="font-size:15px;color:rgba(201,152,10,.5);">See below</div>
           </div>
         </div>
         <div class="price-total">
           <div class="price-total-label">Due today</div>
           <div>
-            <div class="price-total-amount">${{PACKAGE_PRICE}}</div>
+            <div class="price-total-amount">$1,500</div>
             <div class="price-total-note">100% upfront &middot; Secure checkout</div>
           </div>
         </div>
         <div style="margin-top:28px;">
           <a href="{{PAYMENT_LINK}}" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;">
-            Pay ${{PACKAGE_PRICE}} &mdash; Get Started
+            Pay $1,500 &mdash; Get Started
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9 4 13 8 9 12"/></svg>
           </a>
         </div>
@@ -587,13 +747,12 @@
           Processed securely via Zoho Billing
         </div>
       </div>
-      <!-- Right: what's included -->
       <div>
-        <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,223,.35);margin-bottom:16px;">What is included</div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(240,235,223,.35);margin-bottom:18px;">What is included</div>
         <ul class="check-list on-dark" style="gap:10px;">
           <li>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            Custom design based on your brand identity
+            Custom design matched to your brand identity
           </li>
           <li>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
@@ -601,19 +760,23 @@
           </li>
           <li>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+            All security headers configured on Vercel
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+            Full SEO setup: titles, descriptions, schema, sitemap, robots.txt
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
+            Privacy policy &amp; compliance pages included
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
             Two revision rounds before launch
           </li>
           <li>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            SSL, fast load times, SEO foundation
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
             DNS go-live instructions included
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2.5 8 6.5 12 13.5 4"/></svg>
-            Onboarding form to capture brand assets and content
           </li>
         </ul>
       </div>
@@ -621,28 +784,22 @@
   </div>
 </div>
 
-<!-- MANDATORY HOSTING (dark) -->
+<!-- MANDATORY HOSTING — annual only -->
 <div class="section-bg-cave" style="border-top:1px solid rgba(255,255,255,.05);">
   <div class="section">
     <div class="section-eyebrow on-dark">Mandatory Hosting</div>
     <h2 class="section-h2 on-dark">Your website runs on <em>Arumaldo infrastructure</em></h2>
-    <p class="section-lead on-dark">Hosting is not optional. Every Arumaldo website runs on managed infrastructure. This guarantees performance, uptime, and security — without you managing anything technical.</p>
-    <div class="hosting-grid">
-      <div class="hosting-option recommended">
-        <div class="hosting-badge gold">Best value</div>
-        <div class="hosting-price">$300</div>
-        <div class="hosting-period">per year &middot; save $60</div>
-        <div class="hosting-note">Billed annually. Covers infrastructure, uptime monitoring, security patches, and deployment support for 12 months.</div>
-      </div>
-      <div class="hosting-option">
-        <div class="hosting-badge muted">Monthly</div>
-        <div class="hosting-price">$30</div>
-        <div class="hosting-period">per month &middot; billed monthly</div>
-        <div class="hosting-note">Same infrastructure, same support. No long-term commitment beyond the current billing period.</div>
+    <p class="section-lead on-dark">Hosting is not optional. Every Arumaldo website runs on managed Vercel infrastructure. This guarantees edge-delivered performance, uptime, and security — without you managing anything technical.</p>
+    <div class="hosting-card">
+      <div class="hosting-badge">Annual Plan</div>
+      <div class="hosting-price">$300</div>
+      <div class="hosting-period">per year &middot; billed annually</div>
+      <div class="hosting-note">
+        Covers infrastructure, uptime monitoring, security patches, and deployment support for 12 months. Renews annually. Hosting is billed after your site launches — not today.
       </div>
     </div>
-    <div style="margin-top:16px;font-size:12px;color:rgba(240,235,223,.28);max-width:520px;line-height:1.7;">
-      Hosting covers infrastructure operation only. Content and design modifications after launch use the Change Request service below.
+    <div style="margin-top:16px;font-size:12px;color:rgba(240,235,223,.28);max-width:480px;line-height:1.7;">
+      Hosting covers infrastructure operation only. Content and design modifications after launch are handled as Change Requests — see below.
     </div>
   </div>
 </div>
@@ -652,17 +809,17 @@
   <div class="section">
     <div class="section-eyebrow on-dark">Website Changes</div>
     <h2 class="section-h2 on-dark">Updating your site after <em>launch</em></h2>
-    <p class="section-lead on-dark">Two revision rounds are included before launch. Changes requested after launch use one of the two options below.</p>
+    <p class="section-lead on-dark">Two revision rounds are included before launch. Changes after launch use one of these options.</p>
     <div class="cr-grid">
       <div class="cr-option">
         <div class="cr-price">$99 <span style="font-size:14px;font-weight:400;color:rgba(240,235,223,.35);">/mo</span></div>
         <div class="cr-period">or $999/year &middot; Change Request Service</div>
-        <div class="cr-desc">Up to 5 eligible change requests per month. Additional requests at $50 each. Ideal for businesses that update content regularly.</div>
+        <div class="cr-desc">Up to 5 eligible change requests per month. Extra requests at $50 each. Best for businesses that update content regularly.</div>
       </div>
       <div class="cr-option">
         <div class="cr-price">$50 <span style="font-size:14px;font-weight:400;color:rgba(240,235,223,.35);">per change</span></div>
         <div class="cr-period">&agrave; la carte &middot; no subscription required</div>
-        <div class="cr-desc">Pay per change as needed. One clearly described modification per request, without altering the site's core structure or adding new features.</div>
+        <div class="cr-desc">Pay per change as needed. One clearly described modification per request — without altering the site's core structure or adding new features.</div>
       </div>
     </div>
   </div>
@@ -673,31 +830,31 @@
   <div class="section">
     <div class="section-eyebrow">Scope Clarity</div>
     <h2 class="section-h2">What is <em>not included</em></h2>
-    <p class="section-lead">Clear scope protects both of us. The following are outside this engagement. Each can be quoted separately on request.</p>
+    <p class="section-lead">Clear scope protects both of us. The following are outside this engagement and can each be quoted separately on request.</p>
     <div class="exclusion-list">
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Hosting on external platforms (Squarespace, WordPress.com, Wix, GoDaddy, or customer-managed servers)
+        Hosting on external platforms — WordPress.com, Wix, Squarespace, GoDaddy, or customer-managed servers
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Product inventory systems, customer accounts, or multi-vendor ecommerce
+        Migration or content transfer from the existing WordPress.com site
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Migrations from Shopify, WooCommerce, or existing CMS platforms
+        Custom dashboards, client portals, or CRM integrations beyond a contact form
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Custom dashboards, admin panels, or ERP/accounting integrations
+        Content writing or copywriting — you provide text and brand assets
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Content writing, photography, or logo design (you provide your brand assets)
+        Logo design or brand identity creation
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-        Code export, site migration, or offboarding from Arumaldo infrastructure (separately quoted)
+        Code export or site migration away from Arumaldo infrastructure — separately quoted
       </div>
       <div class="exclusion-item">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
@@ -716,35 +873,37 @@
     <div class="step-item">
       <div class="step-num">01</div>
       <div class="step-label">Accept &amp; Pay</div>
-      <div class="step-desc">Click the payment button. You will be taken to a secure Zoho Billing checkout. Payment is 100% upfront and processed immediately. This secures your spot in the production queue.</div>
+      <div class="step-desc">Click the payment button. You will be taken to a secure Zoho Billing checkout. Payment is 100% upfront and processed immediately — this secures your spot in the production queue.</div>
     </div>
     <div class="step-item">
       <div class="step-num">02</div>
       <div class="step-label">Complete Onboarding</div>
-      <div class="step-desc">You will receive an onboarding form to share your brand assets, business details, content, and preferences. This guides the design process and keeps things moving quickly.</div>
+      <div class="step-desc">You will receive a short onboarding form to share your brand assets, contact details, preferred copy, and any specific requirements. This guides the build and keeps things moving quickly.</div>
     </div>
     <div class="step-item">
       <div class="step-num">03</div>
       <div class="step-label">Review &amp; Launch</div>
-      <div class="step-desc">I build your site and share a preview link. You have two rounds of revisions. Once you approve, your site goes live on your domain. DNS instructions are included.</div>
+      <div class="step-desc">I build your site and share a preview link. You have two revision rounds. Once approved, your site goes live on your domain. DNS go-live instructions are included.</div>
     </div>
   </div>
 </div>
 
 <!-- CTA STRIP -->
 <section class="cta-strip">
-  <h2>Ready to build <em>{{BUSINESS_NAME}}</em>'s<br>new website?</h2>
-  <p>This proposal is valid until {{EXPIRY_DATE}}. Payment is 100% upfront and secures your production spot immediately.</p>
+  <h2>Ready to replace <em>8/100</em><br>with a site that earns trust?</h2>
+  <p>This proposal is valid until June 10, 2025. Payment is 100% upfront and secures your production spot immediately.</p>
   <a href="{{PAYMENT_LINK}}" class="btn btn-gold btn-lg">
-    Accept &amp; Pay ${{PACKAGE_PRICE}}
+    Accept &amp; Pay $1,500
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="8" x2="13" y2="8"/><polyline points="9 4 13 8 9 12"/></svg>
   </a>
-  <div class="cta-expiry">Proposal ID: {{PROPOSAL_ID}} &middot; Expires {{EXPIRY_DATE}} &middot; Secure checkout via Zoho Billing</div>
+  <div class="cta-expiry">Proposal ID: AR-2025-001 &middot; Expires June 10, 2025 &middot; Secure checkout via Zoho Billing</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">Arumaldo</span>
+  <a href="https://arumaldo.com" aria-label="Arumaldo home">
+    <img src="/assets/logos/logo-b_transparente.png" alt="Arumaldo" class="footer-logo-img" />
+  </a>
   <span class="footer-right">&copy; 2025 Arumaldo &middot; arumaldo.com</span>
 </footer>
 
